@@ -7,12 +7,15 @@ import { Eye, EyeOff } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { Register, registeruser } from '@/app/validation/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import axios, { AxiosError } from 'axios'
+import toast from 'react-hot-toast'
 
 export default function page() {
     const [username, setUsername] = useState('')
     const [password, SetPassword] = useState('')
     const [showpassword, setShowpassword] = useState('password')
     const [showconfirm, setShowconfirm] = useState('password')
+    const [referral, setReferral] = useState('minerogod') 
     const router = useRouter()
 
     const {
@@ -26,8 +29,59 @@ export default function page() {
     resolver: zodResolver(registeruser),
   });
 
-  const onSubmit = (data: Register) => {
-    console.log(data); // Handle form submission
+  const onSubmit = async (data: Register) => {
+    const { confirm, ...submitData } = data;
+    try {
+         const request = axios.post(`${process.env.NEXT_PUBLIC_URL}/auth/register`,{
+        username: submitData.username,
+        password: submitData.password,
+        referral: submitData.referral,
+        phonenumber: submitData.phonenumber
+        })
+
+        const response = await toast.promise(request, {
+            loading: 'Registering account....',
+            success: `Registered successfully`,
+            error: 'Error while registering your account out',
+        });
+
+        if (response.data.message === 'success'){
+            router.push('/')
+        }
+
+        console.log(response.data)
+        
+    } catch (error) {
+         if (axios.isAxiosError(error)) {
+                    const axiosError = error as AxiosError<{ message: string, data: string }>;
+                    if (axiosError.response && axiosError.response.status === 401) {
+                        toast.error(`${axiosError.response.data.data}`)     
+                    }
+
+                    if (axiosError.response && axiosError.response.status === 400) {
+                        toast.error(`${axiosError.response.data.data}`)     
+                            
+                    }
+
+                    if (axiosError.response && axiosError.response.status === 402) {
+                        toast.error(`${axiosError.response.data.data}`)          
+                                
+                    }
+
+                    if (axiosError.response && axiosError.response.status === 403) {
+                        toast.error(`${axiosError.response.data.data}`)              
+                        
+                    }
+
+                    if (axiosError.response && axiosError.response.status === 404) {
+                        toast.error(`${axiosError.response.data.data}`)             
+                    }
+            } 
+        
+    }
+
+    
+    
   };
 
 
@@ -55,8 +109,8 @@ export default function page() {
                     {errors.username && <p className=' text-[.6em] text-red-400'>{errors.username.message}</p>}
 
                     <label htmlFor="" className=' text-xs text-zinc-300'>Phone</label>
-                    <input  maxLength={11} type="number" placeholder='Phone' className=' text-sm w-full bg-white rounded-full p-2 text-black' {...register('phone')} />
-                    {errors.phone && <p className=' text-[.6em] text-red-400'>{errors.phone.message}</p>}
+                    <input  maxLength={11} type="number" placeholder='Phone' className=' text-sm w-full bg-white rounded-full p-2 text-black' {...register('phonenumber')} />
+                    {errors.phonenumber && <p className=' text-[.6em] text-red-400'>{errors.phonenumber.message}</p>}
 
 
                     <div className=' flex items-start gap-2 mt-1'>
@@ -94,14 +148,12 @@ export default function page() {
                     </div>
 
                     <label htmlFor="" className=' text-xs text-zinc-300'>Referral</label>
-                    <input disabled type="number" placeholder='Referral' className=' text-sm w-full bg-white rounded-full p-2 text-black' />
+                    <input value='66c350f53d584ea99e3a2c84' type="text" placeholder='minergod' className=' text-sm w-full bg-white rounded-full p-2 text-black' {...register('referral')} />
 
                     
                     
 
-                    
-                   
-                  
+            
                     <button  className=' p-2 w-full bg-green-600 text-white font-semibold text-sm rounded-full mt-6'>Register</button>
                    <p className=' text-xs text-center mt-8'>Already have an account?<a href="/" className=' text-green-500'>Sign In</a></p>
 

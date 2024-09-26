@@ -3,9 +3,6 @@ import UserLayout from "@/components/layout/Userlayout"
 import MyConnectionTable from "./Table"
 
 
-
-
-
 export default function page() {
 
   return (

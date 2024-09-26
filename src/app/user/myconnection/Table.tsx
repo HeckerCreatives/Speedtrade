@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Table,
   TableBody,
@@ -18,14 +18,41 @@ import {
 } from "@/components/ui/select"
 import { levels } from '@/app/types/data'
 import Pagination from '@/components/common/Pagination'
+import axios from 'axios'
 
+
+type Unilevel = {
+      id: number
+}
 
 
 export default function MyConnectionTable() {
+
+    const [unilevel, setUnilevel] = useState<Unilevel[]>([])
+    const [level, setLevel] = useState('0')
+    const [totalpage, setTotalpage] = useState(0)
+    const [currentpage, setCurrentpage] = useState(0)
+
+    useEffect(() => {
+    const getRequestHistory = async () => {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/unilevel/userunilevel?level=0&page=0&limit=10&search`,{
+        withCredentials: true
+      })
+
+      setUnilevel(response.data.data)
+      setTotalpage(response.data.data.totalPages)
+
+      console.log(response.data)
+    }
+    getRequestHistory()
+  },[currentpage, level])
+  
+
+
   return (
     <div className=' relative w-full flex flex-col items-center gap-8 max-w-[1440px] h-full mt-12 bg-slate-800 p-6'>
         <div className=' flex md:flex-row flex-col gap-2 items-center justify-between absolute top-0 w-[98%] bg-gradient-to-r from-green-700 to-green-500 p-2 rounded-sm -translate-y-4'>
-            <Select>
+            <Select value={level} onValueChange={setLevel}>
             <SelectTrigger className="w-[200px] bg-zinc-900">
                 <SelectValue placeholder="Select Levels" />
             </SelectTrigger>
@@ -46,7 +73,9 @@ export default function MyConnectionTable() {
 
         </div>
         <Table className=' mt-16 md:mt-8'>
-        <TableCaption className=' text-xs'>No data</TableCaption>
+          {/* {unilevel.length === 0 &&  
+          <TableCaption className=' text-xs'>No data</TableCaption>
+          } */}
         <TableHeader className=' border-slate-700'>
             <TableRow>
             <TableHead className=' text-center'>Id</TableHead>
@@ -71,7 +100,9 @@ export default function MyConnectionTable() {
             <button className=' bg-green-500 text-white p-2 rounded-sm'><ArrowRight size={15}/></button>
         </div> */}
 
-        <Pagination currentPage={0} total={0}/>
+        <Pagination currentPage={0} total={0} onPageChange={function (page: number): void {
+        throw new Error('Function not implemented.')
+      } }/>
 
     </div>
   )

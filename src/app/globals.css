@@ -125,12 +125,12 @@ body {
 
 /* HTML: <div class="loader"></div> */
 .spinner {
-  width: 50px;
+  width: 30px;
   --b: 8px;
   aspect-ratio: 1;
   border-radius: 50%;
   padding: 1px;
-  background: conic-gradient(#0000 10%, #00cf23) content-box;
+  background: conic-gradient(#0000 10%, #ffffff) content-box;
   -webkit-mask:
     repeating-conic-gradient(#0000 0deg, #000 1deg 20deg, #0000 21deg 36deg),
     radial-gradient(farthest-side, #0000 calc(100% - var(--b) - 1px), #000 calc(100% - var(--b)));
@@ -168,4 +168,8 @@ body {
 
 .shadow{
 box-shadow: 11px 13px 8px -3px rgba(48, 48, 48, 0.568);
+}
+
+.btn-gradient{
+  @apply bg-gradient px-6 py-2 text-sm font-semibold text-white rounded-sm
 }

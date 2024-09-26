@@ -60,7 +60,6 @@ export default function Righistory() {
 
         </div> */}
         
-        <Pagination currentPage={0} total={0}/>
 
     </div>
   )

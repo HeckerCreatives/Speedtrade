@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from "next/link"
 import {
   Bell,
@@ -47,6 +47,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { success } from '../common/Toast'
 import { user } from '@/app/types/routes'
+import axios from 'axios'
+import toast from 'react-hot-toast'
 
 
 
@@ -61,6 +63,39 @@ export default function UserLayout({
   const params = useSearchParams()
 
   const page = path.includes('/user/dashboard') && '' || path.includes('/user/myconnection') && 'My Connection' || path.includes('/user/requestpayout') && 'Request Payout' || path.includes('/user/purchase') && 'Purchase Rig Miner' || path.includes('/user/myrigminer') && 'My Rig Miner' || path.includes('/user/faq') && 'FAQ'
+
+  const [username, setUsername] = useState('')
+  const [id, setId] = useState('')
+
+
+  useEffect(() => {
+    const getUserData = async () => {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/user/getuserdata`,{
+        withCredentials:true
+      })
+      console.log(response.data)
+      setUsername(response.data.data.username)
+      setId(response.data.data.referralid)
+    }
+    getUserData()
+  },[])
+
+  const copyReferral = () => {
+    navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_REFERRAL}/auth/register?uid=${id}`)
+    success('Referral link copied')
+  }
+
+  const logout = async () => {
+    const request = axios.get(`${process.env.NEXT_PUBLIC_URL}/auth/logout`,{
+      withCredentials: true
+    })
+
+    const response = await toast.promise(request, {
+                loading: 'Loging out....',
+                success: `Logout successfully`,
+                error: 'Error while logging out',
+            });
+  }
 
   return (
       <div className="grid min-h-screen w-full lg:grid-cols-[220px_1fr] overflow-hidden">
@@ -135,13 +170,13 @@ export default function UserLayout({
             {/* <Menu className="h-5 w-5 text-zinc-100 lg:block hidden" /> */}
 
             <div className=' flex items-center gap-2'>
-              <button onClick={() => success('Referral link copied')} className=' hidden text-xs text-zinc-300 bg-slate-800 p-2 rounded-sm lg:flex items-center gap-1'><Copy size={15}/>Copy referral</button>
+              <button onClick={copyReferral} className=' hidden text-xs text-zinc-300 bg-slate-800 p-2 rounded-sm lg:flex items-center gap-1'><Copy size={15}/>Copy referral</button>
 
               <DropdownMenu>
               <DropdownMenuTrigger className=' active:border-none focus:border-none'>
                 <div className=' flex items-center gap-2'>
                   <div className=' flex flex-col'>
-                    <p className=' text-xs text-white'>Username</p>
+                    <p className=' text-xs text-white'>{username}</p>
                   </div>
                   <div className=' p-2 bg-slate-700 rounded-full'>
                     <img src="/assets/logo.png" alt="" width={25}/>

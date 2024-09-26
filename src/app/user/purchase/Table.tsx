@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Table,
   TableBody,
@@ -18,12 +18,47 @@ import {
 } from "@/components/ui/select"
 import { levels } from '@/app/types/data'
 import Pagination from '@/components/common/Pagination'
+import axios from 'axios'
+import { useSearchParams } from 'next/navigation'
+import Spinner from '@/components/common/Spinner'
 
-
+type Info = {
+  amount: number
+  createdAt: string
+  minertype: string
+}
 
 export default function PurchaseHistoryTable() {
+  const params = useSearchParams()
+  const state = params.get('state')
+
+  const [list, setList] = useState<Info[]>([])
+  const [totalpage, setTotalPage] = useState(0)
+  const [currentpage, setCurrentPage] = useState(0)
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    setLoading(true)
+    const getBuyHistory = async () => {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/inventory/getbuyhistory?limit=10&page=${currentpage}`,{
+      withCredentials: true
+      })
+     console.log(res.data)
+     setList(res.data.data.history)
+     setTotalPage(res.data.data.totalpages)
+     setLoading(false)
+    }
+    getBuyHistory()
+  },[state, currentpage])
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+  }
+
+
+
   return (
-    <div className=' relative w-full flex flex-col items-center gap-8 max-w-[1440px] h-[500px] mt-12 bg-slate-800 p-6'>
+    <div className=' relative w-full flex flex-col items-center gap-8 max-w-[1440px] min-h-[500px] h-auto mt-12 bg-slate-800 p-6'>
         <div className=' h-[55px] flex items-center justify-between absolute top-0 w-[98%] bg-gradient-to-r from-green-700 to-green-500 p-2 rounded-sm -translate-y-4'>
             {/* <Select>
             <SelectTrigger className="w-[200px] bg-zinc-900">
@@ -48,21 +83,35 @@ export default function PurchaseHistoryTable() {
 
         </div>
         <Table className=' mt-8'>
-        <TableCaption className=' text-xs'>No data</TableCaption>
+          {loading === true && (
+            <TableCaption className=' '>
+              <Spinner/>
+            </TableCaption>
+          )}
+          {list.length === 0 && (
+          <TableCaption className=' text-xs'>No data</TableCaption>
+          )}
         <TableHeader className=' border-slate-700'>
             <TableRow>
-            <TableHead className=' text-center'>Date</TableHead>
-            <TableHead className=' text-center'>Rig miner</TableHead>
-            <TableHead className=' text-center'>Price</TableHead>
+            <TableHead className=' text-center'>Purchased Date</TableHead>
+            <TableHead className=' text-center'>Amount</TableHead>
+            <TableHead className=' text-center'>Type</TableHead>
             </TableRow>
         </TableHeader>
         <TableBody>
-            {/* <TableRow>
-            <TableCell className="font-medium">INV001</TableCell>
-            <TableCell>Paid</TableCell>
-            <TableCell>Credit Card</TableCell>
-            <TableCell className="text-right">$250.00</TableCell>
-            </TableRow> */}
+          {loading === false && (
+            <>
+            {list.map((item, index) => (
+              <TableRow key={index}>
+                <TableCell className="text-center">{new Date(item.createdAt).toDateString()}</TableCell>
+                <TableCell className=' text-center'>₱ {item.amount.toLocaleString()}</TableCell>
+                <TableCell className=' text-center'>{item.minertype}</TableCell>
+              </TableRow>
+            ))}
+            </>
+          )}
+          
+            
         </TableBody>
         </Table>
 
@@ -73,7 +122,7 @@ export default function PurchaseHistoryTable() {
             <button className=' bg-green-500 text-white p-2 rounded-sm'><ArrowRight size={15}/></button>
         </div> */}
 
-        <Pagination currentPage={0} total={0}/>
+        <Pagination currentPage={currentpage} total={totalpage} onPageChange={handlePageChange}/>
 
     </div>
   )

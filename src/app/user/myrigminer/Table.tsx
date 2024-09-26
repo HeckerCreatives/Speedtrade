@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Table,
   TableBody,
@@ -10,11 +10,44 @@ import {
 } from "@/components/ui/table"
 import { ArrowLeft, ArrowRight, Search } from 'lucide-react'
 import Pagination from '@/components/common/Pagination'
+import axios from 'axios'
+import { list } from 'postcss'
 
+type Claim = {
+  amount: number
+createdAt: string
+minertype: string
 
+}
 
 
 export default function ClaimHistoryTable() {
+
+   const [history, setHistory] = useState<Claim[]>([])
+
+  const [totalpage, setTotalpage] = useState(0)
+  const [currentpage, setCurrentpage] = useState(0)
+
+  useEffect(() => {
+    const getRequestHistory = async () => {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/inventory/getclaimhistory?page=${currentpage}&limit=10`,{
+        withCredentials: true
+      })
+
+      setHistory(response.data.data.history)
+      setTotalpage(response.data.data.totalpages)
+
+      console.log('Claim',response.data)
+    }
+    getRequestHistory()
+  },[currentpage])
+
+  const handlePageChange = (page: number) => {
+    setCurrentpage(page)
+  }
+
+
+  
   return (
     <div className=' relative w-full flex flex-col items-center gap-8 max-w-[1440px] h-[500px] mt-12 bg-slate-800 p-6'>
         <div className=' h-[55px] flex items-center justify-between absolute top-0 w-[98%] bg-gradient-to-r from-green-700 to-green-500 p-2 rounded-sm -translate-y-4'>
@@ -25,7 +58,9 @@ export default function ClaimHistoryTable() {
 
         </div>
         <Table className=' mt-8'>
-        <TableCaption className=' text-xs'>No data</TableCaption>
+          {history.length === 0 &&
+          <TableCaption className=' text-xs'>No data</TableCaption>
+          }
         <TableHeader className=' border-slate-700'>
             <TableRow>
             <TableHead className=' text-center'>Date</TableHead>
@@ -34,12 +69,14 @@ export default function ClaimHistoryTable() {
             </TableRow>
         </TableHeader>
         <TableBody>
-            {/* <TableRow>
-            <TableCell className="font-medium">INV001</TableCell>
-            <TableCell>Paid</TableCell>
-            <TableCell>Credit Card</TableCell>
-            <TableCell className="text-right">$250.00</TableCell>
-            </TableRow> */}
+          {history.map((item, index) => (
+            <TableRow key={index}>
+              <TableCell className=' text-center'>{new Date(item.createdAt).toDateString()}</TableCell>
+              <TableCell className=' text-center'>₱ {item.amount.toLocaleString()}</TableCell>
+              <TableCell className=' text-center'>{item.minertype}</TableCell>
+            </TableRow>
+          ))}
+            
         </TableBody>
         </Table>
 
@@ -50,7 +87,7 @@ export default function ClaimHistoryTable() {
             <button className=' bg-green-500 text-white p-2 rounded-sm'><ArrowRight size={15}/></button>
         </div> */}
 
-        <Pagination currentPage={0} total={0}/>
+        <Pagination onPageChange={handlePageChange} currentPage={currentpage} total={totalpage}/>
 
     </div>
   )

@@ -57,7 +57,6 @@ export default function Riglist() {
             <button className=' bg-green-500 text-white p-2 rounded-sm'><ArrowRight size={15}/></button>
         </div> */}
 
-        <Pagination currentPage={0} total={0}/>
 
     </div>
   )

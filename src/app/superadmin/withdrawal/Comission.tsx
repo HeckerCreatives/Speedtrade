@@ -61,7 +61,6 @@ export default function Comission() {
 
         </div> */}
 
-        <Pagination currentPage={0} total={0}/>
 
     </div>
   )

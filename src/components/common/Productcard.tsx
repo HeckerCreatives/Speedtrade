@@ -1,6 +1,19 @@
 'use client'
 import React, { useState } from 'react'
 import { Slider } from "@/components/ui/slider"
+import axios from 'axios'
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
+import Spinner from './Spinner'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
 
 
 type Props = {
@@ -17,6 +30,44 @@ type Props = {
 export default function Productcard( prop: Props) {
     const [slider, setSlider] = useState(0)
     const [val, setVal] = useState([prop.min]);
+    const type = prop.name === 'Quick Miner' && 'quick_miner' || prop.name === 'Swift Miner' && 'swift_lane' || prop.name === 'Rapid Miner' && 'rapid_lane'
+    const [loading, setLoading] = useState(false)
+    const router = useRouter()
+    const [dialog, setDialog] = useState(false)
+
+    console.log(val)
+
+    const buyRigminer = async () => {
+        setDialog(false)
+        setLoading(true)
+        router.push('?state=true')
+        try {
+            const request = axios.post(`${process.env.NEXT_PUBLIC_URL}/inventory/buyminer`,{
+                type: type, // quick_miner, switf_lane, rapid_lane
+                priceminer: val[0]
+            },{
+                withCredentials: true,
+                headers:{
+                    'Content-Type':'Application/json'
+                }
+            })
+
+            const response = await toast.promise(request, {
+                loading: `Purchasing ${prop.name}...`,
+                success: `You succesfully purchased ${prop.name}`,
+                error: `Error while purchasing ${prop.name}`,
+            });
+            if(response.data.message === 'success'){
+                setLoading(false)
+                router.push('?state=false')
+
+            }
+
+        } catch (error) {
+            setLoading(false)
+            
+        }
+    }
 
   return (
 
@@ -47,7 +98,36 @@ export default function Productcard( prop: Props) {
 
                 <div className=' w-full flex md:flex-row flex-col gap-6 md:items-center justify-between mt-2'>
                     <p className=' text-sm font-semibold'>Selected price : <span className=' text-orange-300'>P{val.toLocaleString()}</span></p>
-                    <button className=' px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-green-700 to-green-500 rounded-sm'>Request</button>
+                    
+
+                    <Dialog open={dialog} onOpenChange={setDialog}>
+                    <DialogTrigger>
+                        <button  disabled={loading} className=' px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-green-700 to-green-500 rounded-sm flex items-center gap-2'>
+                        {loading === true && (
+                        <Spinner/>
+                        )}
+                        Purchase</button>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                        <DialogTitle>Are you absolutely sure you want to purchase <span className=' text-green-500'>{prop.name}</span> ?</DialogTitle>
+                        <DialogDescription>
+                            
+                        </DialogDescription>
+                        </DialogHeader>
+                        <div className=' w-full flex flex-col'>
+                            <p className=' text-sm text-green-500'>{prop.percentage}% Profit</p>
+                            <p className=' text-sm text-green-500'>{prop.duration} days duration</p>
+                            <p className=' text-sm text-white'>Selected Price: <span className=' text-green-500'>P {val[0]}</span></p>
+
+                            <div className=' w-full flex items-end justify-end gap-4'>
+                                <button onClick={buyRigminer} className=' btn-gradient'>Continue</button>
+
+                            </div>
+                        </div>
+                    </DialogContent>
+                    </Dialog>
+
 
                 </div>
             </div>

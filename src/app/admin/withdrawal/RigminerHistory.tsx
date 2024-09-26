@@ -60,7 +60,7 @@ export default function RigminerHsitory() {
 
         </div> */}
 
-        <Pagination currentPage={0} total={0}/>
+ 
 
     </div>
   )

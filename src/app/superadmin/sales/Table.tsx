@@ -56,7 +56,6 @@ export default function SalesTable() {
 
        
 
-        <Pagination currentPage={0} total={0}/>
 
     </div>
   )

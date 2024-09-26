@@ -59,7 +59,6 @@ export default function ComissionHsitory() {
 
         </div> */}
 
-        <Pagination currentPage={0} total={0}/>
 
     </div>
   )

@@ -216,7 +216,6 @@ export default function AdminTable() {
 
         </div> */}
 
-        <Pagination currentPage={0} total={0}/>
 
     </div>
   )

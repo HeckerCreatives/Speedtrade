@@ -59,7 +59,7 @@ export default function UserTable() {
 
         </div> */}
 
-        <Pagination currentPage={0} total={0}/>
+      
 
     </div>
   )

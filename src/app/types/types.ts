@@ -1,10 +1,10 @@
 
 
 export type Payout = {
-    id: string
-    amount: number
+    payoutvalue: number
     acountnumber: number
     accountname: string
     paymentmethod: string
+    type: string
 
 }

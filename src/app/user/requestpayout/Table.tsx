@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Table,
   TableBody,
@@ -18,10 +18,38 @@ import {
 } from "@/components/ui/select"
 import { levels } from '@/app/types/data'
 import Pagination from '@/components/common/Pagination'
+import axios from 'axios'
 
-
+type History = {
+  date : string
+grossamount : number
+netammount : number
+status : string
+withdrawalfee: number
+}
 
 export default function PayoutTable() {
+
+  const [history, setHistory] = useState<History[]>([])
+
+  const [totalpage, setTotalpage] = useState(0)
+  const [currentpage, setCurrentpage] = useState(0)
+
+  useEffect(() => {
+    const getRequestHistory = async () => {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/payout/getrequesthistoryuser?page=${currentpage}&limit=10`,{
+        withCredentials: true
+      })
+
+      setHistory(response.data.data.history)
+      setTotalpage(response.data.data.totalPages)
+
+      console.log(response.data)
+    }
+    getRequestHistory()
+  },[currentpage])
+
+
   return (
     <div className=' relative w-full flex flex-col items-center gap-8 max-w-[1440px] h-[500px] mt-12 bg-slate-800 p-6'>
         <div className=' h-[55px] flex items-center justify-between absolute top-0 w-[98%] bg-gradient-to-r from-green-700 to-green-500 p-2 rounded-sm -translate-y-4'>
@@ -48,21 +76,29 @@ export default function PayoutTable() {
 
         </div>
         <Table className=' mt-8'>
-        <TableCaption className=' text-xs'>No data</TableCaption>
+          {history.length === 0 &&
+            <TableCaption className=' text-xs'>No data</TableCaption>
+          }
         <TableHeader className=' border-slate-700'>
             <TableRow>
-            <TableHead className=' text-center'>Id</TableHead>
-            <TableHead className=' text-center'>Amount</TableHead>
-            <TableHead className=' text-center'>Username</TableHead>
+            <TableHead className=' text-center'>Date</TableHead>
+            <TableHead className=' text-center'>Gross Amount</TableHead>
+            <TableHead className=' text-center'>Net Amount</TableHead>
+            <TableHead className=' text-center'>Withdrawal Fee</TableHead>
+            <TableHead className=' text-center'>Status</TableHead>
             </TableRow>
         </TableHeader>
         <TableBody>
-            {/* <TableRow>
-            <TableCell className="font-medium">INV001</TableCell>
-            <TableCell>Paid</TableCell>
-            <TableCell>Credit Card</TableCell>
-            <TableCell className="text-right">$250.00</TableCell>
-            </TableRow> */}
+          {history.map((item, index) => (
+            <TableRow key={index}>
+            <TableCell className=" text-center">{new Date(item.date).toLocaleDateString()}</TableCell>
+            <TableCell className=' text-center'>{item.grossamount || 0}</TableCell>
+            <TableCell className=' text-center'>{item.netammount|| 0}</TableCell>
+            <TableCell className=" text-center">{item.withdrawalfee.toLocaleString()}</TableCell>
+            <TableCell className=" text-center">{item.status}</TableCell>
+            </TableRow>
+          ))}
+            
         </TableBody>
         </Table>
 
@@ -73,7 +109,9 @@ export default function PayoutTable() {
             <button className=' bg-green-500 text-white p-2 rounded-sm'><ArrowRight size={15}/></button>
         </div> */}
 
-        <Pagination currentPage={0} total={0}/>
+        <Pagination currentPage={currentpage + 1} total={totalpage} onPageChange={function (page: number): void {
+        throw new Error('Function not implemented.')
+      } }/>
 
     </div>
   )
