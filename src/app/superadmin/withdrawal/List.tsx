@@ -1,0 +1,30 @@
+import React from 'react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Comission from './Comission'
+import ComissionHsitory from './Comissionhistory'
+import Riglist from './Riglist'
+import Righistory from './Righistory'
+
+
+export default function List() {
+  return (
+    <div className=' max-w-[1440px] w-full bg-slate-800 p-2 md:p-6'>
+        <Tabs defaultValue="comission" className=" w-full">
+        <TabsList>
+            <TabsTrigger value="comission">Comission</TabsTrigger>
+            <TabsTrigger value="miners">Rig Miner</TabsTrigger>
+        </TabsList>
+        <TabsContent value="comission" className=' w-full'>
+            <Comission/>
+            <ComissionHsitory/>
+        </TabsContent>
+        <TabsContent value="miners">
+            <Riglist/>
+            <Righistory/>
+        </TabsContent>
+        </Tabs>
+
+
+    </div>
+  )
+}
