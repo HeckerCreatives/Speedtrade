@@ -86,8 +86,10 @@ export default function ClaimHistoryTable() {
             <p className=' p-2 bg-slate-700 aspect-square w-8 h-8 text-center rounded-sm'>0</p>
             <button className=' bg-green-500 text-white p-2 rounded-sm'><ArrowRight size={15}/></button>
         </div> */}
+        {history.length !== 0 && (
+          <Pagination onPageChange={handlePageChange} total={totalpage} currentPage={currentpage}/>
 
-        <Pagination onPageChange={handlePageChange} currentPage={currentpage} total={totalpage}/>
+        ) }
 
     </div>
   )

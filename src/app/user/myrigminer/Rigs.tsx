@@ -3,9 +3,9 @@ import Pagination from '@/components/common/Pagination'
 import Productcard from '@/components/common/Productcard'
 import Spinner from '@/components/common/Spinner'
 import { Item } from '@radix-ui/react-dropdown-menu'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -33,18 +33,32 @@ export default function Rigs() {
   const [totalpage, setTotalPage] = useState(0)
   const [currentpage, setCurrentPage] = useState(0)
   const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     setLoading(true)
     const getInventory = async () => {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/inventory/getinventory?page=${currentpage}&limit=6`,{
-      withCredentials: true
-      })
-     console.log(res.data)
-     setList(res.data.data.miners)
-     setTotalPage(res.data.data.totalPages)
+      try {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/inventory/getinventory?page=${currentpage}&limit=6`,{
+          withCredentials: true
+          })
+        console.log(res.data)
+        setList(res.data.data.miners)
+        setTotalPage(res.data.data.totalPages)
+        
+        setLoading(false)
+        
+      } catch (error) {
+        //  if (axios.isAxiosError(error)) {
+        //         const axiosError = error as AxiosError<{ message: string, data: string }>;
+        //             if (axiosError.response && axiosError.response.status === 401) {
+        //             toast.error(`${axiosError.response.data.data}`)
+        //             router.push('/')  
+        //             }    
+        //         } 
+        
+      }
      
-     setLoading(false)
     }
     getInventory()
   },[state, currentpage])
@@ -85,9 +99,11 @@ export default function Rigs() {
         </>
         
       )}
-       
 
+      {Object.values(list).length !== 0 && (
        <Pagination onPageChange={handlePageChange} total={totalpage} currentPage={currentpage}/>
+
+      )}
     </div>
    
   )

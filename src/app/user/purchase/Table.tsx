@@ -18,9 +18,10 @@ import {
 } from "@/components/ui/select"
 import { levels } from '@/app/types/data'
 import Pagination from '@/components/common/Pagination'
-import axios from 'axios'
-import { useSearchParams } from 'next/navigation'
+import axios, { AxiosError } from 'axios'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Spinner from '@/components/common/Spinner'
+import toast from 'react-hot-toast'
 
 type Info = {
   amount: number
@@ -36,17 +37,30 @@ export default function PurchaseHistoryTable() {
   const [totalpage, setTotalPage] = useState(0)
   const [currentpage, setCurrentPage] = useState(0)
   const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     setLoading(true)
     const getBuyHistory = async () => {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/inventory/getbuyhistory?limit=10&page=${currentpage}`,{
-      withCredentials: true
-      })
-     console.log(res.data)
-     setList(res.data.data.history)
-     setTotalPage(res.data.data.totalpages)
-     setLoading(false)
+      try {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/inventory/getbuyhistory?limit=10&page=${currentpage}`,{
+          withCredentials: true
+          })
+        console.log(res.data)
+        setList(res.data.data.history)
+        setTotalPage(res.data.data.totalpages)
+        setLoading(false)
+        
+      } catch (error) {
+        // if (axios.isAxiosError(error)) {
+        //         const axiosError = error as AxiosError<{ message: string, data: string }>;
+        //             if (axiosError.response && axiosError.response.status === 401) {
+        //             toast.error(`${axiosError.response.data.data}`)
+        //             router.push('/')  
+        //             }    
+        //         } 
+      }
+     
     }
     getBuyHistory()
   },[state, currentpage])
@@ -122,7 +136,10 @@ export default function PurchaseHistoryTable() {
             <button className=' bg-green-500 text-white p-2 rounded-sm'><ArrowRight size={15}/></button>
         </div> */}
 
-        <Pagination currentPage={currentpage} total={totalpage} onPageChange={handlePageChange}/>
+        {list.length !== 0 && (
+          <Pagination currentPage={currentpage} total={totalpage} onPageChange={handlePageChange}/>
+        )}
+
 
     </div>
   )

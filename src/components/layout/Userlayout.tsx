@@ -26,7 +26,7 @@ import {
   Copy
 } from "lucide-react"
 
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useSearchParams } from 'next/navigation'
 import {
   Sheet,
@@ -47,7 +47,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { success } from '../common/Toast'
 import { user } from '@/app/types/routes'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import toast from 'react-hot-toast'
 
 
@@ -66,16 +66,29 @@ export default function UserLayout({
 
   const [username, setUsername] = useState('')
   const [id, setId] = useState('')
+  const router = useRouter()
 
 
   useEffect(() => {
     const getUserData = async () => {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/user/getuserdata`,{
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/user/getuserdata`,{
         withCredentials:true
-      })
-      console.log(response.data)
-      setUsername(response.data.data.username)
-      setId(response.data.data.referralid)
+        })
+        console.log(response.data)
+        setUsername(response.data.data.username)
+        setId(response.data.data.referralid)
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+                const axiosError = error as AxiosError<{ message: string, data: string }>;
+                    if (axiosError.response && axiosError.response.status === 401) {
+                    toast.error(`${axiosError.response.data.data}`)
+                    router.push('/')  
+                    }    
+                } 
+        
+      }
+      
     }
     getUserData()
   },[])
@@ -188,7 +201,7 @@ export default function UserLayout({
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <a href="/">
-                <DropdownMenuItem className=' flex items-center gap-2'><LogOut size={15}/>Logout</DropdownMenuItem>
+                <DropdownMenuItem onClick={logout} className=' flex items-center gap-2'><LogOut size={15}/>Logout</DropdownMenuItem>
                 
                 </a>
               </DropdownMenuContent>

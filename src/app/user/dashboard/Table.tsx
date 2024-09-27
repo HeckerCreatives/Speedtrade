@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/select"
 import Pagination from '@/components/common/Pagination'
 import axios from 'axios'
+import Spinner from '@/components/common/Spinner'
 
 type Miner = {
   amount: number
@@ -88,8 +89,12 @@ export default function DashboardTable() {
           <>
            <Table className=' mt-8'>
             {list.length === 0 && (
-            <TableCaption className=' text-xs'>No data</TableCaption>
-
+              <TableCaption className=' text-xs'>No data</TableCaption>
+            )}
+             {loading === true && (
+              <TableCaption className=' '>
+                <Spinner/>
+              </TableCaption>
             )}
             <TableHeader className=' border-slate-700'>
                 <TableRow>
@@ -124,7 +129,14 @@ export default function DashboardTable() {
         { tab === 'directcommissionwallet' && (
           <>
            <Table className=' mt-8'>
-            <TableCaption className=' text-xs'>No data</TableCaption>
+            {list.length === 0 && (
+              <TableCaption className=' text-xs'>No data</TableCaption>
+            )}
+             {loading === true && (
+              <TableCaption className=' '>
+                <Spinner/>
+              </TableCaption>
+            )}
             <TableHeader className=' border-slate-700'>
                 <TableRow>
                 <TableHead className=' text-center'>Date</TableHead>
@@ -155,12 +167,21 @@ export default function DashboardTable() {
         { tab === 'minecoinwallet' && (
           <>
            <Table className=' mt-8'>
-            <TableCaption className=' text-xs'>No data</TableCaption>
+            {list.length === 0 && (
+              <TableCaption className=' text-xs'>No data</TableCaption>
+            )}
+             {loading === true && (
+              <TableCaption className=' '>
+                <Spinner/>
+              </TableCaption>
+            )}
             <TableHeader className=' border-slate-700'>
                 <TableRow>
                 <TableHead className=' text-center'>Date</TableHead>
-                <TableHead className=' text-center'>Rig miner claimed</TableHead>
+                <TableHead className=' text-center'>From</TableHead>
+                <TableHead className=' text-center'>Type</TableHead>
                 <TableHead className=' text-center'>Amount</TableHead>
+                <TableHead className=' text-center'>Wallet type</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -169,8 +190,7 @@ export default function DashboardTable() {
                   <TableCell className=' text-center'>{new Date(item.createdAt).toDateString()}</TableCell>
                   <TableCell className=' text-center'>{item.fromusername}</TableCell>
                   <TableCell className=' text-center'>{item.minername}</TableCell>
-                  <TableCell className=' text-center'>{item.username}</TableCell>
-                  <TableCell className=' text-center'>{item.amount}</TableCell>
+                  <TableCell className=' text-center'>₱ {item.amount.toLocaleString()}</TableCell>
                   <TableCell className=' text-center'>{item.type}</TableCell>
                 </TableRow>
               ))}
@@ -189,7 +209,14 @@ export default function DashboardTable() {
         { tab === 'creditwallet' && (
           <>
            <Table className=' mt-8'>
-            <TableCaption className=' text-xs'>No data</TableCaption>
+            {list.length === 0 && (
+              <TableCaption className=' text-xs'>No data</TableCaption>
+            )}
+             {loading === true && (
+              <TableCaption className=' '>
+                <Spinner/>
+              </TableCaption>
+            )}
             <TableHeader className=' border-slate-700'>
                 <TableRow>
                 <TableHead className=' text-center'>Date</TableHead>

@@ -49,6 +49,12 @@ export default function PayoutTable() {
     getRequestHistory()
   },[currentpage])
 
+  const handlePageChange = (page: number) => {
+    setCurrentpage(page)
+  }
+
+  
+
 
   return (
     <div className=' relative w-full flex flex-col items-center gap-8 max-w-[1440px] h-[500px] mt-12 bg-slate-800 p-6'>
@@ -102,16 +108,9 @@ export default function PayoutTable() {
         </TableBody>
         </Table>
 
-        {/* <div className=' flex items-center gap-1 text-xs'>
-            <button className=' bg-green-500 text-white p-2 rounded-sm'><ArrowLeft size={15}/></button>
-
-            <p className=' p-2 bg-slate-700 aspect-square w-8 h-8 text-center rounded-sm'>0</p>
-            <button className=' bg-green-500 text-white p-2 rounded-sm'><ArrowRight size={15}/></button>
-        </div> */}
-
-        <Pagination currentPage={currentpage + 1} total={totalpage} onPageChange={function (page: number): void {
-        throw new Error('Function not implemented.')
-      } }/>
+        {history.length !== 0 && (
+          <Pagination currentPage={currentpage} total={totalpage} onPageChange={handlePageChange}/>
+        )}
 
     </div>
   )

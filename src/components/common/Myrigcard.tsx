@@ -1,11 +1,18 @@
 'use client'
 import React, { useState } from 'react'
-import { Slider } from "@/components/ui/slider"
-import { convertSecondsToTime, getTimerFromUnixTime } from '@/app/utils/Countdowntimer'
 import Countdown from 'react-countdown';
 import axios, { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import Spinner from './Spinner';
 
 
 type Props = {
@@ -32,16 +39,20 @@ export default function MyRigCard( prop: Props) {
     const widthString = `${progress.toFixed(2)}%`;
     const seconds = prop.timeleft; // your time in seconds
     const unixTime = prop.timeleft /  86400;
+     const [loading, setLoading] = useState(false)
+    const [dialog, setDialog] = useState(false)
 
 
 
     const claimEarnings = async () => {
+        setLoading(true)
     try {
       const request = axios.post(`${process.env.NEXT_PUBLIC_URL}/inventory/claimminer`,{
         minerid: prop.id
       },{
         withCredentials: true
       })
+      setDialog(false)
 
        const response = await toast.promise(request, {
           loading: 'Claiming....',
@@ -52,6 +63,8 @@ export default function MyRigCard( prop: Props) {
       console.log(response.data)
 
     } catch (error) {
+        setLoading(false)
+
         if (axios.isAxiosError(error)) {
                     const axiosError = error as AxiosError<{ message: string, data: string }>;
                     if (axiosError.response && axiosError.response.status === 401) {
@@ -125,7 +138,35 @@ export default function MyRigCard( prop: Props) {
 
                 <div className=' w-full flex items-center justify-between mt-2'>
                     <p className=' text-sm text-white font-medium'>Purchase Date: <span className=' text-orange-300'>{prop.purchase}</span></p>
-                    <button onClick={claimEarnings} className=' px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-green-700 to-green-500 rounded-sm'>Claim</button>
+                    {/* <button onClick={claimEarnings} className=' px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-green-700 to-green-500 rounded-sm'>Claim</button> */}
+
+                    <Dialog open={dialog} onOpenChange={setDialog}>
+                    <DialogTrigger>
+                        <button  disabled={loading} className=' px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-green-700 to-green-500 rounded-sm flex items-center gap-2'>
+                        {loading === true && (
+                        <Spinner/>
+                        )}
+                        Claim</button>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                        <DialogTitle>Are you absolutely sure you want to claim your earnings on <span className=' text-green-500'>{prop.name}</span> ?</DialogTitle>
+                        <DialogDescription>
+                            
+                        </DialogDescription>
+                        </DialogHeader>
+                        <div className=' w-full flex flex-col'>
+                            <p className=' text-sm text-green-500'>{prop.percentage}% Profit</p>
+                            <p className=' text-sm text-green-500'>{prop.duration} days duration</p>
+                            <p className=' text-sm text-white'>Earnings: <span className=' text-green-500'>P {prop.earnings.toLocaleString()}</span></p>
+
+                            <div className=' w-full flex items-end justify-end gap-4'>
+                                <button onClick={claimEarnings} className=' btn-gradient'>Continue</button>
+
+                            </div>
+                        </div>
+                    </DialogContent>
+                    </Dialog>
 
                 </div>
             </div>

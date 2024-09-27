@@ -12,45 +12,44 @@ export default function Login() {
     const [password, SetPassword] = useState('')
     const [showpassword, setShowpassword] = useState('password')
     const router = useRouter()
+    const [loading, setLoading] = useState(false)
 
-    // const login = () => {
-    //     if (username === 'speedtradeplayer' && password === 'dev123') {
-    //         success('Successfully logged in')
-    //         router.push('/user/dashboard')
-    //         success('Welcome User')
-    //     }else if (username === 'speedtradesuperadmin' && password === 'dev123') {
-    //         success('Successfully logged in')
-    //         router.push('/superadmin/dashboard')
-    //         success('Welcome Superadmin')
-
-    //     } else if (username === 'speedtradeadmin' && password === 'dev123') {
-    //         router.push('/admin/dashboard')
-    //         success('Welcome Admin')
-
-    //     } else {
-    //         error('Invalid username or password')
-    //         localStorage.setItem('auth','false')
-
-    //     }
-    // }
 
     const login = async () => {
+        setLoading(true)
         try {
-            const request = axios.get(`${process.env.NEXT_PUBLIC_URL}/auth/login?username=${username}&password=${password}`)
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/auth/login?username=${username}&password=${password}`,
+                {
+                    withCredentials: true,
+                    headers: {
+                    'Content-Type': 'application/json'
+                    }
+                }
+            )
 
-            const response = await toast.promise(request, {
-            loading: 'Log in account....',
-            success: `Successfully loged in`,
-            error: 'Error while logging your account',
-        });
+        //     const response = await toast.promise(request, {
+        //     loading: 'Log in account....',
+        //     success: `Successfully loged in`,
+        //     error: 'Error while logging your account',
+        // });
 
             console.log(response.data)
 
-        if (response.data.message === 'success' ){
+        if (response.data.data.auth === 'user' ){
+            toast.success('Successfully logged in')
             router.push('/user/dashboard')
+            setLoading(false)
+
+
+        } else {
+            toast.error(response.data.data)
+            setLoading(false)
+
         }
             
         } catch (error) {
+            setLoading(false)
+
              if (axios.isAxiosError(error)) {
                     const axiosError = error as AxiosError<{ message: string, data: string }>;
                     if (axiosError.response && axiosError.response.status === 401) {
@@ -115,7 +114,9 @@ export default function Login() {
                     </div>
                    
                   
-                    <button onClick={login} className=' p-2 w-full bg-green-600 text-white font-semibold text-sm rounded-full mt-6'>Sign In</button>
+                    <button onClick={login} disabled={loading} className=' p-2 w-full bg-green-600 text-white font-semibold text-sm rounded-full mt-6 flex items-center justify-center gap-2'>
+                        {loading === true && ( <div className='spinner'></div>)}
+                        Sign In</button>
                    {/* <p className=' text-xs text-center mt-8'>Do you have an account? <a href="/auth/register" className=' text-green-500'>Register</a></p> */}
 
                 </div>

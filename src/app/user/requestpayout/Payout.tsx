@@ -1,15 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { ArrowLeft, ArrowRight, Search } from 'lucide-react'
-import {
   Select,
   SelectContent,
   SelectItem,
@@ -21,6 +11,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import axios, { AxiosError } from 'axios'
 import toast from 'react-hot-toast'
 import { error, success } from '@/components/common/Toast'
+import { useRouter } from 'next/navigation'
+import Spinner from '@/components/common/Spinner'
+import { RequestPayout, payout } from '@/app/validation/schema'
 // import { payout, RequestPayout } from '@/app/validation/schema'
 
 
@@ -34,16 +27,91 @@ type Wallets = {
 
 
 export default function Payout() {
-
-    const [paymentmethod, setPaymentmethod] = useState('')
-    const [amount, setAmount] = useState('')
-    const [number, setNumber] = useState('')
-    const [name, setName] = useState('')
     const [type, setType] = useState('commissionwallet')
+    const router = useRouter()
 
     const [wallet, setWallet] = useState<Wallets>()
+    const [loading, setLoading] = useState(false)
 
-    const payout = async (amount: string, number: string, name: string, paymentmethod: string, type: string) => {
+    const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    trigger,
+    formState: { errors },
+  } = useForm<RequestPayout>({
+    resolver: zodResolver(payout),
+  });
+
+  const onSubmit = async (data: RequestPayout) => {
+    setLoading(true)
+     try {
+        
+        const request = axios.post(`${process.env.NEXT_PUBLIC_URL}/payout/requestuserpayout`,{
+            "type": type, // commissionwallet, minecoinwallet
+            "payoutvalue": data.payoutvalue,
+            "paymentmethod": data.paymentmethod, // Gcash, Gotyme
+            "accountname": data.accountname,
+            "accountnumber": data.accountnumber
+            },{
+                withCredentials: true,
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            })
+         
+            const response = await toast.promise(request, {
+                loading: 'Requesting payout ....',
+                success: `Payout request success`,
+                error: 'Error while requesting payout',
+            });
+            reset()
+            console.log(response.data)
+
+            if(response.data.message === 'success'){
+                setLoading(false)
+            }
+
+
+            if(response.data.message === 'failed'){
+                setLoading(false)
+                error(response.data.data)
+            }
+            
+    } catch (error) {
+            setLoading(false)
+            reset()
+                if (axios.isAxiosError(error)) {
+                    const axiosError = error as AxiosError<{ message: string, data: string }>;
+                    if (axiosError.response && axiosError.response.status === 401) {
+                        toast.error(`${axiosError.response.data.data}`) 
+                        router.push('/')    
+                    }
+
+                    if (axiosError.response && axiosError.response.status === 400) {
+                        toast.error(`${axiosError.response.data.data}`)     
+                            
+                    }
+
+                    if (axiosError.response && axiosError.response.status === 402) {
+                        toast.error(`${axiosError.response.data.data}`)          
+                                
+                    }
+
+                    if (axiosError.response && axiosError.response.status === 403) {
+                        toast.error(`${axiosError.response.data.data}`)              
+                        
+                    }
+
+                    if (axiosError.response && axiosError.response.status === 404) {
+                        toast.error(`${axiosError.response.data.data}`)             
+                    }
+            } 
+    };
+  }
+
+    const payoutRequest = async (amount: string, number: string, name: string, paymentmethod: string, type: string) => {
         if(paymentmethod === ''){
             toast.error('Please select a payment method')
         } else if( amount === ''){
@@ -53,6 +121,7 @@ export default function Payout() {
         } else if(name === ''){
             toast.error('Please enter your account name')
         } else{
+            setLoading(true)
             try {
             const request = axios.post(`${process.env.NEXT_PUBLIC_URL}/payout/requestuserpayout`,{
             "type": type, // commissionwallet, minecoinwallet
@@ -74,12 +143,18 @@ export default function Payout() {
             });
 
             console.log(response.data)
+            setLoading(false)
+
 
             if(response.data.message === 'failed'){
+            setLoading(false)
+
                 error(response.data.data)
             }
             
             } catch (error) {
+            setLoading(false)
+
                 if (axios.isAxiosError(error)) {
                     const axiosError = error as AxiosError<{ message: string, data: string }>;
                     if (axiosError.response && axiosError.response.status === 401) {
@@ -115,16 +190,28 @@ export default function Payout() {
 
     useEffect(() => {
         const walletBalance = async () => {
-            const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/wallets/userwallets`,{
+            try {
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/wallets/userwallets`,{
                 withCredentials: true
-            })
-            console.log(res.data)
-            setWallet(res.data.data)
+                })
+                console.log(res.data)
+                setWallet(res.data.data)
+            } catch (error) {
+                // if (axios.isAxiosError(error)) {
+                // const axiosError = error as AxiosError<{ message: string, data: string }>;
+                //     if (axiosError.response && axiosError.response.status === 401) {
+                //     toast.error(`${axiosError.response.data.data}`)
+                //     router.push('/')  
+                //     }    
+                // } 
+            }
+            
         }
-
 
         walletBalance()
     },[])
+
+    console.log(loading)
 
 
 
@@ -151,13 +238,13 @@ export default function Payout() {
                 {type === 'commissionwallet' ? (
                     <>
                     <p className=' text-sm'>Comission Wallet Balance</p>
-                    <p className=' text-2xl font-semibold text-green-500'>P {wallet?.commissionwallet.toLocaleString()}</p>
+                    <p className=' text-2xl font-semibold text-green-500'>₱ {wallet?.commissionwallet.toLocaleString()}</p>
                     </>
 
                 ): (
                     <>
                     <p className=' text-sm'>Miner Wallet Balance</p>
-                    <p className=' text-2xl font-semibold text-green-500'>P {wallet?.minecoinwallet.toLocaleString()}</p>
+                    <p className=' text-2xl font-semibold text-green-500'>₱ {wallet?.minecoinwallet.toLocaleString()}</p>
 
                     </>
 
@@ -165,10 +252,10 @@ export default function Payout() {
 
             </div>
 
-            <form className=' w-full grid grid-cols-2 gap-2 md:gap-4 mt-4'>
+            {/* <form onSubmit={handleSubmit(onSubmit)} className=' w-full grid grid-cols-2 gap-2 md:gap-4 mt-4'>
 
                 <div className=' w-full flex flex-col gap-1 md:p-4'>
-                    <Select value={paymentmethod} onValueChange={setPaymentmethod}>
+                    <Select value={paymentmethod} onValueChange={setPaymentmethod} {...register('paymentmethod')}>
                     <SelectTrigger className="w-full bg-zinc-100 text-black">
                         <SelectValue placeholder="Select Payment Method" />
                     </SelectTrigger>
@@ -178,6 +265,8 @@ export default function Payout() {
                     </SelectContent>
                     </Select>
                     <p className=' text-[.6rem] md:text-xs text-orange-300'>*Select payment method</p>
+                    {errors.paymentmethod && <p className=' text-[.6em] text-red-400'>{errors.paymentmethod.message}</p>}
+
                     
                     
 
@@ -201,43 +290,85 @@ export default function Payout() {
 
                 </div>
 
+                <button>Submit</button>
+
+                
+
+            </form> */}
+
+             <form onSubmit={handleSubmit(onSubmit)} className=' w-full  mt-4'>
+                <div className='grid grid-cols-2 gap-2 md:gap-4'>
+                    <div className=' w-full flex flex-col gap-2 md:p-4'>
+
+                        <div className=' w-full flex flex-col gap-1 items-start h-[65px]'>
+                             <Select onValueChange={(value) => setValue('paymentmethod', value)} {...register('paymentmethod')}>
+                            <SelectTrigger className="w-full bg-zinc-100 text-black" >
+                                <SelectValue placeholder="Select Payment Method" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value='Gcash'>Gcash</SelectItem>
+                                <SelectItem value='GoTyme'>GoTyme</SelectItem>
+                            </SelectContent>
+                            </Select>
+                            <p className=' text-[.6rem] md:text-xs text-orange-300'>*Select payment method</p>
+                            {errors.paymentmethod && <p className=' text-[.6em] text-red-400'>{errors.paymentmethod.message}</p>}
+                        </div>
+
+                        <div className='w-full flex flex-col items-start gap-1 h-[65px] mt-2'>
+                            <input type="text" className=' p-3 text-xs rounded-sm text-black w-full' placeholder='Account number' {...register('accountnumber')}/>
+                            <p className=' text-[.6rem] md:text-xs text-orange-300'>*Make sure you enter a valid account number</p>
+                            {errors.accountnumber && <p className=' text-[.6em] text-red-400'>{errors.accountnumber.message}</p>}
+                        </div>
+                       
+
+                    </div>
+
+                    <div className=' w-full flex flex-col gap-2 md:p-4'>
+
+                        <div className='w-full flex flex-col gap-1 items-start h-[65px]'>
+                            <input type="text" className=' p-3 text-xs rounded-sm text-black w-full' placeholder='Account name' {...register('accountname')}/>
+        
+                            <p className=' text-[.6rem] md:text-xs text-orange-300'>*Make sure you enter a correct account name</p>
+                            {errors.accountname && <p className=' text-[.6em] text-red-400'>{errors.accountname.message}</p>}
+                        </div>
+
+                        <div className=' w-full flex flex-col gap-1 items-start h-[65px] mt-2'>
+                            <input type="number" className=' p-3 text-xs rounded-sm text-black w-full' placeholder='Enter amount' {...register('payoutvalue')}/>
+                            <p className=' text-[.5rem] md:text-xs text-orange-300'></p>
+                            {errors.payoutvalue && <p className=' text-[.6em] text-red-400'>{errors.payoutvalue.message}</p>}
+                        </div>
+                        
+
+                    </div>
+                </div>
+                 <div className=' w-full flex items-end justify-end px-4'>
+                    <button disabled={loading} className=' btn-gradient flex items-center justify-center gap-2'>
+                        {loading == true && (
+                            <Spinner/>
+                        )}
+                        Request</button>
+
+                 </div>
+
                 
 
             </form>
 
-            <div className=' w-full flex items-end justify-end px-4'>
-                    <button onClick={() => payout(amount,number,name, paymentmethod, type)} className=' px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-green-700 to-green-500 rounded-sm'>Request</button>
+            {/* <div className=' w-full flex items-end justify-end px-4'>
+                    <button disabled={loading} onClick={() => payoutRequest(amount,number,name, paymentmethod, type)} className=' px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-green-700 to-green-500 rounded-sm flex items-center justify-center gap-2'>
+                        {loading === true && (
+                            <Spinner/>
+                        )}
+                        Request</button>
 
-                </div>
+                </div> */}
 
 
 
             
 
         </div>
-        {/* <Table className=' mt-8'>
-        <TableCaption className=' text-xs'>No data</TableCaption>
-        <TableHeader className=' border-slate-700'>
-            <TableRow>
-            <TableHead className="">Id</TableHead>
-            <TableHead>Amount</TableHead>
-            <TableHead>Username</TableHead>
-            </TableRow>
-        </TableHeader>
-        <TableBody>
-          
-        </TableBody>
-        </Table>
-
-        <div className=' flex items-center gap-1 text-xs'>
-            <button className=' bg-green-500 text-white p-2 rounded-sm'><ArrowLeft size={15}/></button>
-
-            <p className=' p-2 bg-slate-700 aspect-square w-8 h-8 text-center rounded-sm'>0</p>
-            <button className=' bg-green-500 text-white p-2 rounded-sm'><ArrowRight size={15}/></button>
-
-
-        </div> */}
-
+    
     </div>
   )
 }

@@ -18,11 +18,19 @@ import {
 } from "@/components/ui/select"
 import { levels } from '@/app/types/data'
 import Pagination from '@/components/common/Pagination'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
+import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
+import Spinner from '@/components/common/Spinner'
 
 
 type Unilevel = {
-      id: number
+      createdAt: string
+level: number
+totalAmount: number
+username: string
+_id: string
+
 }
 
 
@@ -32,20 +40,73 @@ export default function MyConnectionTable() {
     const [level, setLevel] = useState('0')
     const [totalpage, setTotalpage] = useState(0)
     const [currentpage, setCurrentpage] = useState(0)
+    const [search, setSearch] = useState('')
+    const router = useRouter()
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+      setLoading(true)
     const getRequestHistory = async () => {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/unilevel/userunilevel?level=0&page=0&limit=10&search`,{
-        withCredentials: true
-      })
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/unilevel/userunilevel?level=${level}&page=${currentpage}&limit=10&search=${search}`,{
+          withCredentials: true
+        })
+        setLoading(false)
+        const dataAtLevel = response?.data?.data?.[level];
 
-      setUnilevel(response.data.data)
-      setTotalpage(response.data.data.totalPages)
+        if(dataAtLevel){
+          setUnilevel(dataAtLevel.data)
+          setTotalpage(dataAtLevel.totalPages)
+        }else {
+          setUnilevel([])
+        }
+       
 
-      console.log(response.data)
+        console.log(response.data)
+      } catch (error) {
+       
+      }
+     
     }
     getRequestHistory()
   },[currentpage, level])
+
+   useEffect(() => {
+    setLoading(true)
+    const getRequestHistory = async () => {
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/unilevel/userunilevel?level=${level}&page=&limit=10&search=${search}`,{
+          withCredentials: true
+        })
+        setLoading(false)
+        setCurrentpage(0)
+        const dataAtLevel = response?.data?.data?.[level];
+
+        if(dataAtLevel){
+          setUnilevel(dataAtLevel.data)
+          setTotalpage(dataAtLevel.totalPages)
+        }else {
+          setUnilevel([])
+        }
+       
+        console.log(response.data)
+      } catch (error) {
+       
+      }
+     
+    }
+    getRequestHistory()
+  },[search])
+
+  useEffect(() => {
+    setCurrentpage(0)
+  },[level])
+
+  const handlePageChange = (page: number) => {
+    setCurrentpage(page)
+  }
+
+  console.log(level)
   
 
 
@@ -66,43 +127,46 @@ export default function MyConnectionTable() {
             </Select>
 
             <div className=' flex items-center gap-2'>
-                <input type="text" placeholder='Search Username' className=' p-2 rounded-sm text-xs bg-zinc-900 border-none' />
+                <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" placeholder='Search Username' className=' p-2 rounded-sm text-xs bg-zinc-900 border-none' />
                 <button className=' p-2 bg-green-700 rounded-sm'><Search size={15}/></button>
             </div>
 
 
         </div>
         <Table className=' mt-16 md:mt-8'>
-          {/* {unilevel.length === 0 &&  
+          {unilevel.length === 0 &&  
           <TableCaption className=' text-xs'>No data</TableCaption>
-          } */}
+          }
+
+          {loading === true && (
+            <TableCaption className=' '>
+              <Spinner/>
+            </TableCaption>
+          )}
         <TableHeader className=' border-slate-700'>
             <TableRow>
-            <TableHead className=' text-center'>Id</TableHead>
-            <TableHead className=' text-center'>Amount</TableHead>
+            <TableHead className=' text-center'>Date</TableHead>
             <TableHead className=' text-center'>Username</TableHead>
+            <TableHead className=' text-center'>Amount</TableHead>
             </TableRow>
         </TableHeader>
         <TableBody>
-            {/* <TableRow>
-            <TableCell className="font-medium">INV001</TableCell>
-            <TableCell>Paid</TableCell>
-            <TableCell>Credit Card</TableCell>
-            <TableCell className="text-right">$250.00</TableCell>
-            </TableRow> */}
+          {unilevel.map((item, index) => (
+            <TableRow key={ index}>
+            <TableCell className=' text-center'>{new Date(item.createdAt).toDateString()}</TableCell>
+            <TableCell className=' text-center'>{item.username}</TableCell>
+            <TableCell className=' text-center'>₱ {item.totalAmount}</TableCell>
+            
+            </TableRow>
+          ))}
+            
         </TableBody>
         </Table>
 
-        {/* <div className=' flex items-center gap-1 text-xs'>
-            <button className=' bg-green-500 text-white p-2 rounded-sm'><ArrowLeft size={15}/></button>
+        {unilevel.length !== 0 && (
+          <Pagination currentPage={currentpage} total={totalpage} onPageChange={handlePageChange}/>
+        )}
 
-            <p className=' p-2 bg-slate-700 aspect-square w-8 h-8 text-center rounded-sm'>0</p>
-            <button className=' bg-green-500 text-white p-2 rounded-sm'><ArrowRight size={15}/></button>
-        </div> */}
-
-        <Pagination currentPage={0} total={0} onPageChange={function (page: number): void {
-        throw new Error('Function not implemented.')
-      } }/>
 
     </div>
   )

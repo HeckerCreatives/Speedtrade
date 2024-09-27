@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { Slider } from "@/components/ui/slider"
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import Spinner from './Spinner'
@@ -65,6 +65,34 @@ export default function Productcard( prop: Props) {
 
         } catch (error) {
             setLoading(false)
+             if (axios.isAxiosError(error)) {
+                    const axiosError = error as AxiosError<{ message: string, data: string }>;
+                    if (axiosError.response && axiosError.response.status === 401) {
+                        toast.error(`${axiosError.response.data.data}`)
+                        router.push('/')
+
+                    }
+
+                    if (axiosError.response && axiosError.response.status === 400) {
+                        toast.error(`${axiosError.response.data.data}`)     
+                            
+                    }
+
+                    if (axiosError.response && axiosError.response.status === 402) {
+                        toast.error(`${axiosError.response.data.data}`)          
+                                
+                    }
+
+                    if (axiosError.response && axiosError.response.status === 403) {
+                        toast.error(`${axiosError.response.data.data}`)              
+                        
+                    }
+
+                    if (axiosError.response && axiosError.response.status === 404) {
+                        toast.error(`${axiosError.response.data.data}`)             
+                    }
+            } 
+      
             
         }
     }
@@ -118,7 +146,7 @@ export default function Productcard( prop: Props) {
                         <div className=' w-full flex flex-col'>
                             <p className=' text-sm text-green-500'>{prop.percentage}% Profit</p>
                             <p className=' text-sm text-green-500'>{prop.duration} days duration</p>
-                            <p className=' text-sm text-white'>Selected Price: <span className=' text-green-500'>P {val[0]}</span></p>
+                            <p className=' text-sm text-white'>Selected Price: <span className=' text-green-500'>P {val[0].toLocaleString()}</span></p>
 
                             <div className=' w-full flex items-end justify-end gap-4'>
                                 <button onClick={buyRigminer} className=' btn-gradient'>Continue</button>

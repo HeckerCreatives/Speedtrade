@@ -2,21 +2,22 @@
 import { error, success } from '@/components/common/Toast'
 import React, { useState } from 'react'
 
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Eye, EyeOff } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { Register, registeruser } from '@/app/validation/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios, { AxiosError } from 'axios'
 import toast from 'react-hot-toast'
+import Spinner from '@/components/common/Spinner'
 
 export default function page() {
-    const [username, setUsername] = useState('')
-    const [password, SetPassword] = useState('')
     const [showpassword, setShowpassword] = useState('password')
     const [showconfirm, setShowconfirm] = useState('password')
-    const [referral, setReferral] = useState('minerogod') 
+    const [loading, setLoading] = useState(false)
     const router = useRouter()
+    const params = useSearchParams()
+    const uid = params.get('uid')
 
     const {
     register,
@@ -30,6 +31,7 @@ export default function page() {
   });
 
   const onSubmit = async (data: Register) => {
+    setLoading(true)
     const { confirm, ...submitData } = data;
     try {
          const request = axios.post(`${process.env.NEXT_PUBLIC_URL}/auth/register`,{
@@ -47,11 +49,14 @@ export default function page() {
 
         if (response.data.message === 'success'){
             router.push('/')
+            setLoading(false)
+
         }
 
         console.log(response.data)
         
     } catch (error) {
+        setLoading(false)
          if (axios.isAxiosError(error)) {
                     const axiosError = error as AxiosError<{ message: string, data: string }>;
                     if (axiosError.response && axiosError.response.status === 401) {
@@ -79,10 +84,10 @@ export default function page() {
             } 
         
     }
-
-    
     
   };
+
+  console.log(uid)
 
 
   
@@ -148,13 +153,19 @@ export default function page() {
                     </div>
 
                     <label htmlFor="" className=' text-xs text-zinc-300'>Referral</label>
-                    <input value='66c350f53d584ea99e3a2c84' type="text" placeholder='minergod' className=' text-sm w-full bg-white rounded-full p-2 text-black' {...register('referral')} />
+                    <input value={uid as string} type="text" placeholder='Referral' className=' text-sm w-full bg-white rounded-full p-2 text-black' {...register('referral')} />
+                    {errors.referral && <p className=' text-[.6em] text-red-400'>{errors.referral.message}</p>}
+
 
                     
                     
 
             
-                    <button  className=' p-2 w-full bg-green-600 text-white font-semibold text-sm rounded-full mt-6'>Register</button>
+                    <button  className=' p-2 w-full bg-green-600 text-white font-semibold text-sm rounded-full mt-6 flex items-center justify-center gap-2'>
+                        {loading === true && (
+                            <Spinner/>
+                        )}
+                        Register</button>
                    <p className=' text-xs text-center mt-8'>Already have an account?<a href="/" className=' text-green-500'>Sign In</a></p>
 
                    

@@ -1,8 +1,10 @@
 
 import Card from '@/components/common/Card'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { Wallet } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 
 
 type Wallets = {
@@ -37,16 +39,29 @@ export default function Cards() {
     const [earnings, setEarnings] = useState<TotalEarnings>()
     const [totalearnings, setTotalearnings] = useState(0)
     const [withdrawables, setWithdrawables] = useState(0)
+    const router = useRouter()
   
 
     useEffect(() => {
     const getRequestHistory = async () => {
-      const wallet = await axios.get(`${process.env.NEXT_PUBLIC_URL}/wallets/userwallets`,{
+      try {
+        const wallet = await axios.get(`${process.env.NEXT_PUBLIC_URL}/wallets/userwallets`,{
         withCredentials: true
-      })
-    
-      setWallets(wallet.data)
-      setWithdrawables(wallet.data.data.commissionwallet + wallet.data.data.minecoinwallet)
+        })
+      
+        setWallets(wallet.data)
+        setWithdrawables(wallet.data.data.commissionwallet + wallet.data.data.minecoinwallet)
+          
+      } catch (error) {
+        //  if (axios.isAxiosError(error)) {
+        //   const axiosError = error as AxiosError<{ message: string, data: string }>;
+        //     if (axiosError.response && axiosError.response.status === 401) {
+        //       toast.error(`${axiosError.response.data.data}`)
+        //       router.push('/')  
+        //     }    
+        // } 
+      }
+      
      
     }
     getRequestHistory()
