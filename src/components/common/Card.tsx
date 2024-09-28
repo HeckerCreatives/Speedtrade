@@ -8,6 +8,7 @@ type Props ={
     amount: string
     subtitle: string
     text: string
+    loading: boolean
 }
 
 export default function Card( prop: Props) {
@@ -20,7 +21,12 @@ export default function Card( prop: Props) {
                 </div>
                 <div className=' w-full flex flex-col gap-2 items-end text-zinc-100 py-2'>
                     <p className=' text-xs'>{prop.title}</p>
+                    {prop.loading === true ? (
+                        <p className=' w-[80px] h-[25px] rounded-sm bg-slate-600 animate-pulse'></p>
+                    ): (
                     <p className=' text-lg text-yellow-200'>₱ {prop.amount}</p>
+
+                    )}
                 </div>
             </div>
 

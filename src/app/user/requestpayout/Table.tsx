@@ -116,7 +116,10 @@ export default function PayoutTable() {
             <TableCell className=' text-center'>₱ {(item.grossamount || 0).toLocaleString()}</TableCell>
             <TableCell className=' text-center'>₱ {(item.netammount || 0).toLocaleString()}</TableCell>
             <TableCell className=" text-center">₱ {item.withdrawalfee.toLocaleString()}</TableCell>
-            <TableCell className=" text-center">{item.status}</TableCell>
+            <TableCell className={`text-center ${item.status.toLowerCase() === 'in review' && ' text-blue-500'}
+            ${item.status === 'reject' && ' text-red-500'}
+            ${item.status === 'done' && ' text-green-500'}
+            `}>{item.status === 'done' && 'Approved'} {item.status === 'reject' && 'Rejected'} {item.status.toLocaleLowerCase() === 'in review' && 'In Review'}</TableCell>
             </TableRow>
           ))}
             </>
