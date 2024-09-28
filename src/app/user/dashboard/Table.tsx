@@ -176,7 +176,7 @@ export default function DashboardTable() {
               {comission.map((item, index) => (
                 <TableRow key={index}>
                   <TableCell className=' text-center'>{new Date(item.createdAt).toDateString()}</TableCell>
-                  <TableCell className=' text-center'>{item.amount.toLocaleString()}</TableCell>
+                  <TableCell className=' text-center'>₱ {item.amount.toLocaleString()}</TableCell>
                   <TableCell className=' text-center'>{item.fromusername}</TableCell>
                 </TableRow>
               ))}
@@ -217,7 +217,7 @@ export default function DashboardTable() {
                 {directcommission.map((item, index) => (
                 <TableRow key={index}>
                   <TableCell className=' text-center'>{new Date(item.createdAt).toDateString()}</TableCell>
-                  <TableCell className=' text-center'>{item.amount.toLocaleString()}</TableCell>
+                  <TableCell className=' text-center'>₱ {item.amount.toLocaleString()}</TableCell>
                   <TableCell className=' text-center'>{item.fromusername}</TableCell>
                 </TableRow>
               ))}
@@ -253,7 +253,7 @@ export default function DashboardTable() {
                {mine.map((item, index) => (
                 <TableRow key={index}>
                   <TableCell className=' text-center'>{new Date(item.createdAt).toDateString()}</TableCell>
-                  <TableCell className=' text-center'>{item.amount.toLocaleString()}</TableCell>
+                  <TableCell className=' text-center'>₱ {item.amount.toLocaleString()}</TableCell>
                   <TableCell className=' text-center'>{item.fromusername}</TableCell>
                 </TableRow>
               ))}
