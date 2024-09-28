@@ -29,12 +29,22 @@ type: string
 username: string
 }
 
+type Credit = {
+  amount: number
+createdAt: string
+fromusername: string
+type: string
+username: string
+}
+
 type TabData = {
   commissionwallet: Miner[];
-  creditwallet: Miner[];
+  creditwallet: Credit[];
   minecoinwallet: Miner[];
   directcommissionwallet: Miner[];
 };
+
+
 
 type TabKeys = keyof TabData;
 
@@ -68,7 +78,7 @@ export default function DashboardTable() {
 
   
   return (
-    <div className=' relative w-full flex flex-col items-center gap-8 max-w-[1440px] h-[500px] mt-12 bg-slate-800 p-6'>
+    <div className=' relative w-full flex flex-col items-center gap-8 max-w-[1440px] min-h-[500px] h-auto mt-12 bg-slate-800 p-6'>
         <div className=' absolute top-0 w-[98%] bg-gradient-to-r from-green-700 to-green-500 p-2 rounded-sm -translate-y-4'>
             <Select value={tab} onValueChange={(value) => setTab(value as keyof TabData)}>
             <SelectTrigger className="w-[200px] bg-zinc-900">
@@ -101,16 +111,16 @@ export default function DashboardTable() {
                 <TableHead className=' text-center'>Date</TableHead>
                 <TableHead className=' text-center'>Amount</TableHead>
                 <TableHead className=' text-center'>Username</TableHead>
-                <TableHead className=' text-center'>Rig miner</TableHead>
+                <TableHead className=' text-center'>Type</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
               {list.map((item, index) => (
                 <TableRow key={index}>
-                  <TableCell className="font-medium"></TableCell>
-                  <TableCell>Paid</TableCell>
-                  <TableCell>Credit Card</TableCell>
-                  <TableCell className="text-right">$250.00</TableCell>
+                  <TableCell className=' text-center'>{new Date(item.createdAt).toDateString()}</TableCell>
+                  <TableCell className=' text-center'>{item.amount}</TableCell>
+                  <TableCell className=' text-center'>{item.username}</TableCell>
+                  <TableCell className=' text-center'>{item.type}</TableCell>
                 </TableRow>
               ))}
                 
@@ -189,7 +199,7 @@ export default function DashboardTable() {
                 <TableRow key={index}>
                   <TableCell className=' text-center'>{new Date(item.createdAt).toDateString()}</TableCell>
                   <TableCell className=' text-center'>{item.fromusername}</TableCell>
-                  <TableCell className=' text-center'>{item.minername}</TableCell>
+                  <TableCell className=' text-center'>{item.amount}</TableCell>
                   <TableCell className=' text-center'>₱ {item.amount.toLocaleString()}</TableCell>
                   <TableCell className=' text-center'>{item.type}</TableCell>
                 </TableRow>
@@ -220,19 +230,20 @@ export default function DashboardTable() {
             <TableHeader className=' border-slate-700'>
                 <TableRow>
                 <TableHead className=' text-center'>Date</TableHead>
-                <TableHead className=' text-center'>Gross Amount</TableHead>
-                <TableHead className=' text-center'>Withdrwal Fee</TableHead>
-                <TableHead className=' text-center'>Net Amount</TableHead>
-                <TableHead className=' text-center'>Status</TableHead>
+                <TableHead className=' text-center'>Amount</TableHead>
+                <TableHead className=' text-center'>Username</TableHead>
+                <TableHead className=' text-center'>Type</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {/* <TableRow>
-                <TableCell className="font-medium">INV001</TableCell>
-                <TableCell>Paid</TableCell>
-                <TableCell>Credit Card</TableCell>
-                <TableCell className="text-right">$250.00</TableCell>
-                </TableRow> */}
+                {list.map((item, index) => (
+                <TableRow key={index}>
+                  <TableCell className=' text-center'>{new Date(item.createdAt).toDateString()}</TableCell>
+                  <TableCell className=' text-center'>{item.amount}</TableCell>
+                  <TableCell className=' text-center'>{item.username}</TableCell>
+                  <TableCell className=' text-center'>{item.type}</TableCell>
+                </TableRow>
+              ))}
             </TableBody>
             </Table>
            

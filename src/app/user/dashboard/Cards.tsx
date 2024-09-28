@@ -53,13 +53,13 @@ export default function Cards() {
         setWithdrawables(wallet.data.data.commissionwallet + wallet.data.data.minecoinwallet)
           
       } catch (error) {
-        //  if (axios.isAxiosError(error)) {
-        //   const axiosError = error as AxiosError<{ message: string, data: string }>;
-        //     if (axiosError.response && axiosError.response.status === 401) {
-        //       toast.error(`${axiosError.response.data.data}`)
-        //       router.push('/')  
-        //     }    
-        // } 
+          if (axios.isAxiosError(error)) {
+           const axiosError = error as AxiosError<{ message: string, data: string }>;
+             if (axiosError.response && axiosError.response.status === 401) {
+               toast.error(`${axiosError.response.data.data}`)
+               router.push('/')  
+             }    
+         } 
       }
       
      

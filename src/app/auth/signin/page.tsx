@@ -41,6 +41,14 @@ export default function Login() {
             setLoading(false)
 
 
+        } else if(response.data.data.auth === 'superadmin'){
+            toast.success('Successfully logged in')
+            router.push('/superadmin/dashboard')
+            setLoading(false)
+        } else if(response.data.data.auth === 'admin'){
+            toast.success('Successfully logged in')
+            router.push('/admin/dashboard')
+            setLoading(false)
         } else {
             toast.error(response.data.data)
             setLoading(false)

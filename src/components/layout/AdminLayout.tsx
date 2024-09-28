@@ -25,7 +25,7 @@ import {
   LogOut
 } from "lucide-react"
 
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useSearchParams } from 'next/navigation'
 import {
   Sheet,
@@ -45,6 +45,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { admin } from '@/app/types/routes'
+import axios from 'axios'
+import toast from 'react-hot-toast'
 
 
 
@@ -57,8 +59,25 @@ export default function AdminLayout({
 
   const path = usePathname()
   const params = useSearchParams()
+  const router = useRouter()
 
   const page = path.includes('/admin/dashboard') && '' || path.includes('/admin/manageaccount') && 'Manage Account' || path.includes('/admin/withdrawal') && 'Withdrawal'
+
+   const logout = async () => {
+    const request = axios.get(`${process.env.NEXT_PUBLIC_URL}/auth/logout`,{
+      withCredentials: true
+    })
+
+    const response = await toast.promise(request, {
+      loading: 'Loging out....',
+      success: `Logout successfully`,
+      error: 'Error while logging out',
+    });
+
+    if(response.data.message === 'success'){
+      router.push('/')
+    }
+  }
 
   return (
       <div className="grid min-h-screen w-full lg:grid-cols-[220px_1fr] overflow-hidden">
@@ -147,9 +166,9 @@ export default function AdminLayout({
             <DropdownMenuContent>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <a href="/">
-              <DropdownMenuItem className=' flex items-center gap-2'><LogOut size={15}/>Logout</DropdownMenuItem>
-              </a>
+            
+              <DropdownMenuItem onClick={logout} className=' flex items-center gap-2'><LogOut size={15}/>Logout</DropdownMenuItem>
+            
             </DropdownMenuContent>
           </DropdownMenu>
 

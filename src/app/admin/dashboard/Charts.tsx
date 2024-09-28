@@ -1,16 +1,55 @@
 "use client"
 
 import { Barcharts } from "./Barchart"
-import Linechart from "./Linechart"
+import { useRouter } from "next/navigation"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { useEffect, useState } from "react"
+import SalesTable from "./Sales"
+import { LineCharts } from "./Linechart"
 
 
-export function Charts() {
+
+export const description = "A line chart with a label"
+
+export function Chart() {
+  const router = useRouter()
+  const [graph, setGraph] = useState('payin')
+
+  useEffect(() => {
+    router.push(`?state=${graph}`)
+  },[graph])
+
+  
   return (
+    <div className=" flex flex-col gap-4 w-full max-w-[1440px]  mt-16">
+      <div className=" w-full">
+        <Select value={graph} onValueChange={setGraph}>
+        <SelectTrigger className=" w-[200px] bg-slate-800">
+          <SelectValue placeholder="Select" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="payin">Payin</SelectItem>
+          <SelectItem value="comission">Comission</SelectItem>
+          <SelectItem value="minerpurchased">Rig Miner Purchased</SelectItem>
+          <SelectItem value="minerpayout">Rig Miner Payout</SelectItem>
+          <SelectItem value="unilevelpayout">Unilevel Payout</SelectItem>
+        </SelectContent>
+      </Select>
 
-    <div className=" w-full max-w-[1440px] grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
-        <Linechart/>
-        <Barcharts/>
+      </div>
+      <div className=" w-full max-w-[1440px] grid grid-cols-1 md:grid-cols-2 gap-8">
+        <LineCharts/>
+        <SalesTable/>
+      </div>
     </div>
+
+    
     
   )
 }

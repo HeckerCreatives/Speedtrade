@@ -126,10 +126,10 @@ export default function page() {
                                     {errors.password && <p className=' text-[.6em] text-red-400'>{errors.password.message}</p>}
 
                                     {showpassword === 'password' ? (
-                                    <button onClick={() => setShowpassword('text')} className=' absolute top-[7px] right-2 bg-zinc-300 p-1 rounded-full text-black'><EyeOff size={15}/></button>
+                                    <p onClick={() => setShowpassword('text')} className=' absolute top-[7px] right-2 bg-zinc-300 p-1 rounded-full text-black cursor-pointer'><EyeOff size={15}/></p>
                                     
                                     ) : (
-                                    <button onClick={() => setShowpassword('password')} className=' absolute top-[7px] right-2 bg-zinc-300 p-1 rounded-full text-black'><Eye size={15}/></button>
+                                    <p onClick={() => setShowpassword('password')} className=' absolute top-[7px] right-2 bg-zinc-300 p-1 rounded-full text-black cursor-pointer'><Eye size={15}/></p>
 
                                     )}
                                 </div>
@@ -142,10 +142,10 @@ export default function page() {
                                     {errors.confirm && <p className=' text-[.6em] text-red-400'>{errors.confirm.message}</p>}
 
                                     {showconfirm === 'password' ? (
-                                    <button onClick={() => setShowconfirm('text')} className=' absolute top-[7px] right-2 bg-zinc-300 p-1 rounded-full text-black'><EyeOff size={15}/></button>
+                                    <p onClick={() => setShowconfirm('text')} className=' absolute top-[7px] right-2 bg-zinc-300 p-1 rounded-full text-black cursor-pointer'><EyeOff size={15}/></p>
                                     
                                     ) : (
-                                    <button onClick={() => setShowconfirm('password')} className=' absolute top-[7px] right-2 bg-zinc-300 p-1 rounded-full text-black'><Eye size={15}/></button>
+                                    <p onClick={() => setShowconfirm('password')} className=' absolute top-[7px] right-2 bg-zinc-300 p-1 rounded-full text-black cursor-pointer'><Eye size={15}/></p>
 
                                     )}
                                 </div>

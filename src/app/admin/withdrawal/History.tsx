@@ -1,7 +1,8 @@
 import React from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import ComissionHsitory from './ComissionHsitory'
-import RigminerHsitory from './RigminerHistory'
+import RigMinerHistory from './RigminerHistory'
+import ComissionHistory from './ComissionHsitory'
 
 
 export default function History() {
@@ -13,10 +14,10 @@ export default function History() {
             <TabsTrigger value="rigminer">Rig Miner</TabsTrigger>
         </TabsList>
         <TabsContent value="comission">
-            <ComissionHsitory/>
+            <ComissionHistory/>
         </TabsContent>
         <TabsContent value="rigminer">
-            <RigminerHsitory/>
+            <RigMinerHistory/>
         </TabsContent>
         </Tabs>
 

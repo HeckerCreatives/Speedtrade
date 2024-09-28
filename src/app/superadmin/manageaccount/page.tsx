@@ -11,10 +11,11 @@ export default function page() {
     <SuperAdminLayout>
         <div className=" bg-slate-900 w-full h-full flex flex-col items-center p-8">
 
-          <Tabs defaultValue="user" className=" w-full bg-slate-800 p-2 md:p-6 max-w-[1440px] rounded-sm">
+          <Tabs defaultValue="admin" className=" w-full bg-slate-800 p-2 md:p-6 max-w-[1440px] rounded-sm">
             <TabsList className=' bg-slate-900'>
-              <TabsTrigger value="user">Users</TabsTrigger>
               <TabsTrigger value="admin">Admins</TabsTrigger>
+              <TabsTrigger value="user">Users</TabsTrigger>
+
             </TabsList>
             <TabsContent value="user" className=' mt-12'>
               <>

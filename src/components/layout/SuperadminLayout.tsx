@@ -1,31 +1,11 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from "next/link"
 import {
-  Bell,
-  CircleUser,
-  Home,
-  LineChart,
   Menu,
-  Package,
-  Package2,
-  Search,
-  ShoppingCart,
-  Users,FolderKanban,Component,User,ListCheck,
-  List,
-  UserRoundPlus,
-  Box,
-  Mail,
-  CalendarCheck,
-  LayoutGrid,
-  Waypoints,
-  Banknote,
-  Pickaxe,
-  MessageCircleQuestion,
   LogOut
 } from "lucide-react"
-
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useSearchParams } from 'next/navigation'
 import {
   Sheet,
@@ -45,6 +25,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { superadmin } from '@/app/types/routes'
+import axios, { AxiosError } from 'axios'
+import toast from 'react-hot-toast'
 
 
 
@@ -57,9 +39,48 @@ export default function SuperAdminLayout({
 
   const path = usePathname()
   const params = useSearchParams()
+  const router = useRouter()
 
   const page = path.includes('/superadmin/dashboard') && '' || path.includes('/superadmin/manageaccount') && 'Manage Account' || path.includes('/superadmin/maintenance') && 'Maintenance' || path.includes('/superadmin/deposit') && 'Deposit' || path.includes('/superadmin/withdrawal') && 'Withdrawal' || path.includes('/superadmin/sales') && 'Sales'
 
+
+  const logout = async () => {
+    const request = axios.get(`${process.env.NEXT_PUBLIC_URL}/auth/logout`,{
+      withCredentials: true
+    })
+
+    const response = await toast.promise(request, {
+      loading: 'Loging out....',
+      success: `Logout successfully`,
+      error: 'Error while logging out',
+    });
+
+    if(response.data.message === 'success'){
+      router.push('/')
+    }
+  }
+  // useEffect(() => {
+  //   const getUserData = async () => {
+  //     try {
+  //       const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/user/getuserdata`,{
+  //       withCredentials:true
+  //       })
+  //       console.log(response.data)
+      
+  //     } catch (error) {
+  //       if (axios.isAxiosError(error)) {
+  //         const axiosError = error as AxiosError<{ message: string, data: string }>;
+  //         if (axiosError.response && axiosError.response.status === 401) {
+  //           toast.error(`${axiosError.response.data.data}`)
+  //           router.push('/')  
+  //           }    
+  //         } 
+  //     }
+  //   }
+  //   getUserData()
+  // },[])
+
+  
   return (
       <div className="grid min-h-screen w-full lg:grid-cols-[220px_1fr] overflow-hidden">
         <div className=" hidden lg:block">
@@ -147,10 +168,9 @@ export default function SuperAdminLayout({
             <DropdownMenuContent>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <a href="/">
-              <DropdownMenuItem className=' flex items-center gap-2'><LogOut size={15}/>Logout</DropdownMenuItem>
               
-              </a>
+              <DropdownMenuItem onClick={logout} className=' flex items-center gap-2'><LogOut size={15}/>Logout</DropdownMenuItem>
+            
             </DropdownMenuContent>
           </DropdownMenu>
 

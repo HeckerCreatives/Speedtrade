@@ -112,7 +112,7 @@ export default function MyConnectionTable() {
 
   return (
     <div className=' relative w-full flex flex-col items-center gap-8 max-w-[1440px] h-full mt-12 bg-slate-800 p-6'>
-        <div className=' flex md:flex-row flex-col gap-2 items-center justify-between absolute top-0 w-[98%] bg-gradient-to-r from-green-700 to-green-500 p-2 rounded-sm -translate-y-4'>
+        <div className=' flex md:flex-row flex-col gap-2 items-center justify-between absolute z-20 top-0 w-[98%] bg-gradient-to-r from-green-700 to-green-500 p-2 rounded-sm -translate-y-4'>
             <Select value={level} onValueChange={setLevel}>
             <SelectTrigger className="w-[200px] bg-zinc-900">
                 <SelectValue placeholder="Select Levels" />

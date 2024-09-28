@@ -51,7 +51,7 @@ export function LineCharts() {
   const graph = params.get('state')
   const title = graph === 'payin' && 'Payin' || graph === 'comission' && 'Comission' || graph === 'minerpurchased' && 'Rig Miner Purchased' || graph === 'minerpayout' && 'Rig Miner Payout' || graph === 'unilevelpayout' && 'Unilevel Payout'
 
-  const apiRoute = graph === 'payin' && 'getpayingraphadmin' || graph === 'comission' && 'getcommissiongraphadmin' || graph === 'minerpurchased' && 'getminerbuygraphadmin' || graph === 'minerpayout' && 'getminerpayoutgraphadmin' || graph === 'unilevelpayout' && 'getunilevelpayoutgraphadmin'
+  const apiRoute = graph === 'payin' && 'getpayingraph' || graph === 'comission' && 'getcommissiongraph' || graph === 'minerpurchased' && 'getminerbuygraph' || graph === 'minerpayout' && 'getminerpayoutgraph' || graph === 'unilevelpayout' && 'getunilevelpayoutgraph'
 
   const todaysDate = new Date().toDateString()
 

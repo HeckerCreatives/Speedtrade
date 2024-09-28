@@ -1,20 +1,61 @@
+'use client'
 import Card from '@/components/common/Card'
+import axios, { AxiosError } from 'axios'
 import { Wallet } from 'lucide-react'
-import React from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+
+type Wallets = {
+  companycommission: number
+minerprofit: number
+payin: number
+payoutcommission: number
+payoutminer: number
+registered: number
+totalpayout: number
+totalusercommission: number
+
+}
 
 export default function Cards() {
+  const router = useRouter()
+  const [wallets, setWallets] = useState<Wallets>() 
+
+  useEffect(() => {
+    const getWallets = async () => {
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/staffusers/getsadashboard`,{
+        withCredentials:true
+        })
+        console.log(response.data)
+        setWallets(response.data.data)
+      
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          const axiosError = error as AxiosError<{ message: string, data: string }>;
+          if (axiosError.response && axiosError.response.status === 401) {
+            toast.error(`${axiosError.response.data.data}`)
+            router.push('/')  
+            }    
+          } 
+      }
+    }
+    getWallets()
+  },[])
+
   return (
     <div className=' max-w-[1440px] h-auto w-full grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 mt-6'>
 
 
-        <Card icon={<Wallet size={30} />} iconbg={' bg-orange-500'} title={'Top Up'} amount={'200,200'} subtitle={'Use to purchase miner set up'} text={''}/>
-        <Card icon={<Wallet size={30} />} iconbg={' bg-green-500'} title={'Total Withdrawables'} amount={'200,200'} subtitle={'The sum of comission wallet & miner wallet'} text={''}/>
-        <Card icon={<Wallet size={30} />} iconbg={' bg-red-500'} title={'Rig Miner Total Earning'} amount={'200,200'} subtitle={'Total income from miners'} text={''}/>
-        <Card icon={<Wallet size={30} />} iconbg={' bg-blue-500'} title={'Rig miner Wallet'} amount={'200,200'} subtitle={'Unclaim value'} text={'100,000'}/>
-        <Card icon={<Wallet size={30} />} iconbg={' bg-pink-500'} title={'Referral Total Comission'} amount={'200,200'} subtitle={'Total accumulated comission from direct refferal'} text={''}/>
-        <Card icon={<Wallet size={30} />} iconbg={' bg-purple-500'} title={'Unilevel Total Comission'} amount={'200,200'} subtitle={'Total accumulated comission from lvl 2 to lvl 10'} text={''}/>
-        <Card icon={<Wallet size={30} />} iconbg={' bg-cyan-500'} title={'Comission Wallet'} amount={'200,200'} subtitle={'Withdrawable value from direct referral & unilevel'} text={''}/>
-        <Card icon={<Wallet size={30} />} iconbg={' bg-cyan-500'} title={'Total Earnings'} amount={'200,200'} subtitle={'The sum of referral commission, unilevel & rig miner total earning'} text={''}/>
+        <Card icon={<Wallet size={30} />} iconbg={' bg-orange-500'} title={'Payin'} amount={`${wallets?.payin.toLocaleString()}`} subtitle={'Use to purchase miner set up'} text={''}/>
+        <Card icon={<Wallet size={30} />} iconbg={' bg-green-500'} title={'Total Payout'} amount={`${wallets?.totalpayout.toLocaleString()}`} subtitle={'The sum of comission wallet & miner wallet'} text={''}/>
+        <Card icon={<Wallet size={30} />} iconbg={' bg-red-500'} title={'Rig Miner Total Payout'} amount={`${wallets?.payoutminer.toLocaleString()}`} subtitle={'Total income from miners'} text={''}/>
+        <Card icon={<Wallet size={30} />} iconbg={' bg-blue-500'} title={'Company Comission'} amount={`${wallets?.companycommission.toLocaleString()}`} subtitle={'Unclaim value'} text={'100,000'}/>
+        <Card icon={<Wallet size={30} />} iconbg={' bg-pink-500'} title={'Total User Comission'} amount={`${wallets?.totalusercommission.toLocaleString()}`} subtitle={'Total accumulated comission from direct refferal'} text={''}/>
+        <Card icon={<Wallet size={30} />} iconbg={' bg-purple-500'} title={'Unilevel Total Comission'} amount={`${wallets?.registered.toLocaleString()}`} subtitle={'Total accumulated comission from lvl 2 to lvl 10'} text={''}/>
+        <Card icon={<Wallet size={30} />} iconbg={' bg-cyan-500'} title={'Total Payout Comission'} amount={`${wallets?.payoutcommission.toLocaleString()}`} subtitle={'Withdrawable value from direct referral & unilevel'} text={''}/>
+        <Card icon={<Wallet size={30} />} iconbg={' bg-cyan-500'} title={'Rig Miner Profit'} amount={`${wallets?.minerprofit.toLocaleString()}`} subtitle={'The sum of referral commission, unilevel & rig miner total earning'} text={''}/>
 
     </div>
   )

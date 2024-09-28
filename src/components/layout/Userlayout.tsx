@@ -104,10 +104,10 @@ export default function UserLayout({
     })
 
     const response = await toast.promise(request, {
-                loading: 'Loging out....',
-                success: `Logout successfully`,
-                error: 'Error while logging out',
-            });
+      loading: 'Loging out....',
+      success: `Logout successfully`,
+      error: 'Error while logging out',
+    });
   }
 
   return (

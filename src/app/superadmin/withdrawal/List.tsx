@@ -1,9 +1,11 @@
 import React from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Comission from './Comission'
-import ComissionHsitory from './Comissionhistory'
 import Riglist from './Riglist'
 import Righistory from './Righistory'
+import ComissionHsitory from './Comissionhistory'
+import Comissionhistory from './Comissionhistory'
+import ComissionList from './Comission'
 
 
 export default function List() {
@@ -15,8 +17,8 @@ export default function List() {
             <TabsTrigger value="miners">Rig Miner</TabsTrigger>
         </TabsList>
         <TabsContent value="comission" className=' w-full'>
-            <Comission/>
-            <ComissionHsitory/>
+            <ComissionList/>
+            <Comissionhistory/>
         </TabsContent>
         <TabsContent value="miners">
             <Riglist/>

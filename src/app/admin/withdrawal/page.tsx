@@ -6,7 +6,7 @@ export default function page () {
   return (
     <AdminLayout>
         <div className=" bg-slate-900 w-full h-full flex flex-col items-center p-4 md:p-8">
-            <div className=' w-full bg-slate-800 p-4 rounded-sm'>
+            <div className=' w-full flex items-center justify-center bg-slate-800 p-4 rounded-sm'>
                 <History/>
             </div>
         </div>
