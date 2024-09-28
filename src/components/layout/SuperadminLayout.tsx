@@ -97,7 +97,7 @@ export default function SuperAdminLayout({
                   <Link
                   key={index}
                   href={item.route}
-                  className={` ${path === item.route ? ' bg-gradient' : 'text-zinc-100'}  text-sm flex items-center gap-3 rounded-sm px-3  py-2 hover:bg-gradient-to-r from-green-800 to-green-500`}
+                  className={` ${path.includes(item.route) ? ' bg-gradient' : 'text-zinc-100'}  text-sm flex items-center gap-3 rounded-sm px-3  py-2 hover:bg-gradient-to-r from-green-800 to-green-500`}
                 >
                   {item.icon}
                   {item.name}
