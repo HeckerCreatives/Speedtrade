@@ -11,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import axios, { AxiosError } from 'axios'
 import toast from 'react-hot-toast'
 import { error, success } from '@/components/common/Toast'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Spinner from '@/components/common/Spinner'
 import { RequestPayout, payout } from '@/app/validation/schema'
 // import { payout, RequestPayout } from '@/app/validation/schema'
@@ -32,6 +32,8 @@ export default function Payout() {
 
     const [wallet, setWallet] = useState<Wallets>()
     const [loading, setLoading] = useState(false)
+    const params = useSearchParams()
+    const state = params.get('state')
 
     const {
     register,
@@ -46,6 +48,7 @@ export default function Payout() {
 
   const onSubmit = async (data: RequestPayout) => {
     setLoading(true)
+    router.push('?state=true')
      try {
         
         const request = axios.post(`${process.env.NEXT_PUBLIC_URL}/payout/requestuserpayout`,{
@@ -71,6 +74,7 @@ export default function Payout() {
 
             if(response.data.message === 'success'){
                 setLoading(false)
+                router.push('?state=false')
             }
 
 
@@ -209,7 +213,7 @@ export default function Payout() {
         }
 
         walletBalance()
-    },[])
+    },[state])
 
     console.log(loading)
 

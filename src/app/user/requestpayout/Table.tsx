@@ -19,6 +19,8 @@ import {
 import { levels } from '@/app/types/data'
 import Pagination from '@/components/common/Pagination'
 import axios from 'axios'
+import { useSearchParams } from 'next/navigation'
+import Spinner from '@/components/common/Spinner'
 
 type History = {
   date : string
@@ -34,8 +36,12 @@ export default function PayoutTable() {
 
   const [totalpage, setTotalpage] = useState(0)
   const [currentpage, setCurrentpage] = useState(0)
+  const params = useSearchParams()
+  const state = params.get('state')
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
     const getRequestHistory = async () => {
       const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/payout/getrequesthistoryuser?page=${currentpage}&limit=10`,{
         withCredentials: true
@@ -45,9 +51,11 @@ export default function PayoutTable() {
       setTotalpage(response.data.data.totalPages)
 
       console.log(response.data)
+    setLoading(false)
+
     }
     getRequestHistory()
-  },[currentpage])
+  },[currentpage, state])
 
   const handlePageChange = (page: number) => {
     setCurrentpage(page)
@@ -57,7 +65,7 @@ export default function PayoutTable() {
 
 
   return (
-    <div className=' relative w-full flex flex-col items-center gap-8 max-w-[1440px] h-[500px] mt-12 bg-slate-800 p-6'>
+    <div className=' relative w-full flex flex-col items-center gap-8 max-w-[1440px] min-h-[500px] h-auto mt-12 bg-slate-800 p-6'>
         <div className=' h-[55px] flex items-center justify-between absolute top-0 w-[98%] bg-gradient-to-r from-green-700 to-green-500 p-2 rounded-sm -translate-y-4'>
             {/* <Select>
             <SelectTrigger className="w-[200px] bg-zinc-900">
@@ -82,9 +90,14 @@ export default function PayoutTable() {
 
         </div>
         <Table className=' mt-8'>
-          {history.length === 0 &&
-            <TableCaption className=' text-xs'>No data</TableCaption>
-          }
+           {history.length === 0 && (
+              <TableCaption className=' text-xs'>No data</TableCaption>
+            )}
+             {loading === true && (
+              <TableCaption className=' '>
+                <Spinner/>
+              </TableCaption>
+            )}
         <TableHeader className=' border-slate-700'>
             <TableRow>
             <TableHead className=' text-center'>Date</TableHead>
@@ -95,15 +108,20 @@ export default function PayoutTable() {
             </TableRow>
         </TableHeader>
         <TableBody>
-          {history.map((item, index) => (
+          {loading === false && (
+            <>
+            {history.map((item, index) => (
             <TableRow key={index}>
-            <TableCell className=" text-center">{new Date(item.date).toLocaleDateString()}</TableCell>
-            <TableCell className=' text-center'>{item.grossamount || 0}</TableCell>
-            <TableCell className=' text-center'>{item.netammount|| 0}</TableCell>
-            <TableCell className=" text-center">{item.withdrawalfee.toLocaleString()}</TableCell>
+            <TableCell className=" text-center">{new Date(item.date).toDateString()}</TableCell>
+            <TableCell className=' text-center'>₱ {(item.grossamount || 0).toLocaleString()}</TableCell>
+            <TableCell className=' text-center'>₱ {(item.netammount || 0).toLocaleString()}</TableCell>
+            <TableCell className=" text-center">₱ {item.withdrawalfee.toLocaleString()}</TableCell>
             <TableCell className=" text-center">{item.status}</TableCell>
             </TableRow>
           ))}
+            </>
+          )}
+          
             
         </TableBody>
         </Table>
