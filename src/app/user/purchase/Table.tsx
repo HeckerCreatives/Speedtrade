@@ -119,7 +119,7 @@ export default function PurchaseHistoryTable() {
               <TableRow key={index}>
                 <TableCell className="text-center">{new Date(item.createdAt).toDateString()}</TableCell>
                 <TableCell className=' text-center'>₱ {item.amount.toLocaleString()}</TableCell>
-                <TableCell className=' text-center'>{item.minertype}</TableCell>
+                <TableCell className=' text-center'>{item.minertype === 'quick_miner' && 'Quick Miner' || item.minertype === 'rapid_lane' && 'Rapid Miner' || item.minertype === 'swift_lane' && 'Swift Miner'}</TableCell>
               </TableRow>
             ))}
             </>
