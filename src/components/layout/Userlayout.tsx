@@ -166,7 +166,7 @@ export default function UserLayout({
                     </Link>
                   ))}
 
-                    <button onClick={() => success('Referral link copied')} className=' text-xs w-fit text-white bg-slate-800 p-2 rounded-sm flex items-center gap-1'><Copy size={15}/>Copy referral</button>
+                    <button onClick={() => copyReferral()} className=' text-xs w-fit text-white bg-slate-800 p-2 rounded-sm flex items-center gap-1'><Copy size={15}/>Copy referral</button>
 
 
                   
