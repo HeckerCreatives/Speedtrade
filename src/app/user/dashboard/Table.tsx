@@ -175,7 +175,7 @@ export default function DashboardTable() {
             <TableBody>
               {comission.map((item, index) => (
                 <TableRow key={index}>
-                  <TableCell className=' text-center'>{new Date(item.createdAt).toDateString()}</TableCell>
+                  <TableCell className=' text-center'>{new Date(item.createdAt).toLocaleString()}</TableCell>
                   <TableCell className=' text-center'>₱ {item.amount.toLocaleString()}</TableCell>
                   <TableCell className=' text-center'>{item.fromusername}</TableCell>
                 </TableRow>
@@ -216,7 +216,7 @@ export default function DashboardTable() {
             <TableBody>
                 {directcommission.map((item, index) => (
                 <TableRow key={index}>
-                  <TableCell className=' text-center'>{new Date(item.createdAt).toDateString()}</TableCell>
+                  <TableCell className=' text-center'>{new Date(item.createdAt).toLocaleString()}</TableCell>
                   <TableCell className=' text-center'>₱ {item.amount.toLocaleString()}</TableCell>
                   <TableCell className=' text-center'>{item.fromusername}</TableCell>
                 </TableRow>
@@ -252,7 +252,7 @@ export default function DashboardTable() {
             <TableBody>
                {mine.map((item, index) => (
                 <TableRow key={index}>
-                  <TableCell className=' text-center'>{new Date(item.createdAt).toDateString()}</TableCell>
+                  <TableCell className=' text-center'>{new Date(item.createdAt).toLocaleString()}</TableCell>
                   <TableCell className=' text-center'>₱ {item.amount.toLocaleString()}</TableCell>
                   <TableCell className=' text-center'>{item.fromusername}</TableCell>
                 </TableRow>
@@ -290,9 +290,9 @@ export default function DashboardTable() {
             <TableBody>
                 {list.map((item, index) => (
                 <TableRow key={index}>
-                  <TableCell className=' text-center'>{new Date(item.createdAt).toDateString()}</TableCell>
+                  <TableCell className=' text-center'>{new Date(item.createdAt).toLocaleString()}</TableCell>
                   <TableCell className=' text-center'>₱ {item.amount.toLocaleString()}</TableCell>
-                  <TableCell className=' text-center'>{item.username}</TableCell>
+                  <TableCell className=' text-center'>{item.fromusername}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

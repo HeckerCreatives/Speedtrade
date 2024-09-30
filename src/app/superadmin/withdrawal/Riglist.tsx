@@ -287,7 +287,7 @@ export default function Riglist() {
             <>
             {list.map((item, index) => (
               <TableRow key={index}>
-                <TableCell className="font-medium text-center">{new Date(item.createdAt).toDateString()}</TableCell>
+                <TableCell className="font-medium text-center">{new Date(item.createdAt).toLocaleString()}</TableCell>
                 <TableCell className="font-medium text-center">{item.username}</TableCell>
                 <TableCell className="font-medium text-center">{item.accountname}</TableCell>
                 <TableCell className="font-medium text-center">{item.accountnumber}</TableCell>

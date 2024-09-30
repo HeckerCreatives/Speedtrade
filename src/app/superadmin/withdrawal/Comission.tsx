@@ -168,7 +168,7 @@ export default function Comissionlist() {
 
   const proccessPayout = async (id: string, username: string) => {
     setLoading2(true)
-    router.push('?state=rue')
+    router.push('?state=true')
       try {
        const request = axios.post(`${process.env.NEXT_PUBLIC_URL}/payout/processpayout`,{
         payoutid: id,
@@ -288,7 +288,7 @@ export default function Comissionlist() {
             <>
             {list.map((item, index) => (
               <TableRow key={index}>
-                <TableCell className="font-medium text-center">{new Date(item.createdAt).toDateString()}</TableCell>
+                <TableCell className="font-medium text-center">{new Date(item.createdAt).toLocaleString()}</TableCell>
                 <TableCell className="font-medium text-center">{item.username}</TableCell>
                 <TableCell className="font-medium text-center">{item.accountname}</TableCell>
                 <TableCell className="font-medium text-center">{item.accountnumber}</TableCell>

@@ -60,6 +60,10 @@ export default function MyRigCard( prop: Props) {
           error: 'Error while claiming the earnings',
       });
 
+      if(response.data.message === 'success'){
+        window.location.reload()
+      }
+
       console.log(response.data)
 
     } catch (error) {
@@ -74,7 +78,9 @@ export default function MyRigCard( prop: Props) {
                     }
 
                     if (axiosError.response && axiosError.response.status === 400) {
-                        toast.error(`${axiosError.response.data.data}`)     
+                        toast.error(`${axiosError.response.data.data}`)
+                        
+
                             
                     }
 
@@ -91,7 +97,7 @@ export default function MyRigCard( prop: Props) {
                     if (axiosError.response && axiosError.response.status === 404) {
                         toast.error(`${axiosError.response.data.data}`)             
                     }
-            } 
+        } 
       
     }
   }

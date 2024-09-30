@@ -21,6 +21,7 @@ export default function Deposit() {
   const [list, setList] = useState<User[]>([])
   const router = useRouter()
   const [open, setOpen] = useState(false)
+  const [username, setUsername] = useState('')
 
    const {
     register,
@@ -40,7 +41,7 @@ export default function Deposit() {
     console.log(data)
     try {
        const request = axios.post(`${process.env.NEXT_PUBLIC_URL}/payin/sendfiattoplayer`,{
-        playerusername: data.username,
+        playerusername: search,
         amount: data.amount
       },{
         withCredentials:true,

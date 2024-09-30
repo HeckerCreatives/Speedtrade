@@ -82,7 +82,7 @@ export default function Comissionhistory() {
     return () => {
       clearTimeout(handler)
     }
-  },[currentpage, search])
+  },[currentpage, search, state])
 
   const handlePageChange = (page: number) => {
     setCurrentpage(page)
@@ -130,7 +130,7 @@ export default function Comissionhistory() {
             <>
             {list.map((item, index) => (
               <TableRow key={index}>
-                <TableCell className="font-medium text-center">{new Date(item.createdAt).toDateString()}</TableCell>
+                <TableCell className="font-medium text-center">{new Date(item.createdAt).toLocaleString()}</TableCell>
                 <TableCell className="font-medium text-center">{item.username}</TableCell>
                 <TableCell className="font-medium text-center">{item.accountname}</TableCell>
                 <TableCell className="font-medium text-center">{item.accountnumber}</TableCell>

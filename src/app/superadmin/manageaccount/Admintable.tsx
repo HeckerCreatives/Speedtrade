@@ -299,7 +299,7 @@ export default function AdminTable() {
 
 
   return (
-    <div className=' relative w-full flex flex-col items-center max-w-[1440px] h-auto mt-12 bg-slate-900 p-6'>
+    <div className=' relative w-full flex flex-col items-center max-w-[1440px] min-h-[500px] h-auto mt-12 bg-slate-900 p-6'>
         <div className=' flex md:flex-row flex-col gap-4 items-center justify-between sticky top-0 w-[98%] bg-gradient-to-r from-green-700 to-green-500 p-2 rounded-sm -translate-y-12'>
             <Select value={status} onValueChange={setStatus}>
             <SelectTrigger className="w-[200px] bg-zinc-900 text-white">
@@ -479,10 +479,13 @@ export default function AdminTable() {
         </TableBody>
         </Table>
 
+        {list.length !== 0 && (
         <div className=' mt-12'>
-        <Pagination onPageChange={handlePageChange} total={totalpage} currentPage={currentpage}/>
-
+          <Pagination onPageChange={handlePageChange} total={totalpage} currentPage={currentpage}/>
         </div>
+        )}
+
+        
 
 
        

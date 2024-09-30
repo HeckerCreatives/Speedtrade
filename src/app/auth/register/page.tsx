@@ -1,6 +1,6 @@
 'use client'
 import { error, success } from '@/components/common/Toast'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Eye, EyeOff } from 'lucide-react'
@@ -10,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import axios, { AxiosError } from 'axios'
 import toast from 'react-hot-toast'
 import Spinner from '@/components/common/Spinner'
+import { set } from 'zod'
 
 export default function page() {
     const [showpassword, setShowpassword] = useState('password')
@@ -18,6 +19,7 @@ export default function page() {
     const router = useRouter()
     const params = useSearchParams()
     const uid = params.get('uid')
+    const [getusername, setGetusername] = useState('')
 
     const {
     register,
@@ -37,7 +39,7 @@ export default function page() {
          const request = axios.post(`${process.env.NEXT_PUBLIC_URL}/auth/register`,{
         username: submitData.username,
         password: submitData.password,
-        referral: submitData.referral,
+        referral: uid,
         phonenumber: submitData.phonenumber
         })
 
@@ -88,6 +90,14 @@ export default function page() {
   };
 
   console.log(uid)
+
+  useEffect(() => {
+    const getUsername = async () => {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/auth/getreferralusername?id=${uid}`)
+        setGetusername(res.data.data)
+    }
+    getUsername()
+  },[])
 
 
   
@@ -153,7 +163,7 @@ export default function page() {
                     </div>
 
                     <label htmlFor="" className=' text-xs text-zinc-300'>Referral</label>
-                    <input value={uid as string} type="text" placeholder='Referral' className=' text-sm w-full bg-white rounded-full p-2 text-black' {...register('referral')} />
+                    <input value={getusername} type="text" placeholder='Referral' className=' text-sm w-full bg-white rounded-full p-2 text-black' {...register('referral')} />
                     {errors.referral && <p className=' text-[.6em] text-red-400'>{errors.referral.message}</p>}
 
 

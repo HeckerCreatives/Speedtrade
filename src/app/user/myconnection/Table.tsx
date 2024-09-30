@@ -120,7 +120,6 @@ export default function MyConnectionTable() {
             <SelectContent>
                 {levels.map((item, index) => (
                 <SelectItem key={index} value={item.value}>{item.name}</SelectItem>
-
                 ))}
                 
             </SelectContent>
