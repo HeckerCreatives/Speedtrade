@@ -98,50 +98,50 @@ export default function Deposit() {
   }
 
 
-  useEffect(() => {
+  // useEffect(() => {
   
-    const handler = setTimeout( async () => {
-        try {
-          const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/user/searchuserlist?playerusername=${search}`,{
-          withCredentials:true
-          })
-          console.log(response.data)
-          setList(response.data.data.userlist)
+  //   const handler = setTimeout( async () => {
+  //       try {
+  //         const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/user/searchuserlist?playerusername=${search}`,{
+  //         withCredentials:true
+  //         })
+  //         console.log(response.data)
+  //         setList(response.data.data.userlist)
         
-        } catch (error) {
-          if (axios.isAxiosError(error)) {
-            const axiosError = error as AxiosError<{ message: string, data: string }>;
-            if (axiosError.response && axiosError.response.status === 401) {
-              toast.error(`${axiosError.response.data.data}`)
-              router.push('/')  
-              }    
-            } 
-        }
-    }, 1000)
+  //       } catch (error) {
+  //         if (axios.isAxiosError(error)) {
+  //           const axiosError = error as AxiosError<{ message: string, data: string }>;
+  //           if (axiosError.response && axiosError.response.status === 401) {
+  //             toast.error(`${axiosError.response.data.data}`)
+  //             router.push('/')  
+  //             }    
+  //           } 
+  //       }
+  //   }, 1000)
 
-    return () => {
-      clearTimeout(handler)
-    }
-  },[search])
+  //   return () => {
+  //     clearTimeout(handler)
+  //   }
+  // },[search])
 
   
   return (
     <div className=' max-w-[400px] h-auto p-6 w-full bg-slate-800 rounded-sm flex flex-col'>
         <p className=' text-sm font-semibold mb-4'>Payin</p>
         <form onSubmit={handleSubmit(payinUser)} action="" className=' relative z-30 w-full flex flex-col gap-1 text-sm'>
-          <div onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)} className=' group'>
+          <div className=' group'>
             <label htmlFor="" className=' text-xs text-zinc-300'>Username</label>
             <input value={search}  type="text" placeholder=' Username' className=' w-full p-2 rounded-sm text-black'  {...register('username', { onChange: (e) => setSearch(e.target.value) })}/>
             {errors.username && <p className=' text-[.6em] text-red-400'>{errors.username.message}</p>}
 
-            {open === true && (
+            {/* {open === true && (
               <div className=' absolute w-full flex flex-col p-6 gap-1 h-[300px] bg-slate-900 overflow-y-auto'>
                 <X className=' text-white mb-2 cursor-pointer' onClick={() => setOpen(false)} size={15}/>
                 {list.map((item, index) => (
                   <p key={index} onClick={() => {setSearch(item.username), setOpen(false)}} className=' p-2 w-full bg-slate-800 cursor-pointer'>{item.username}</p>
                 ))}
               </div>
-            )}
+            )} */}
 
           </div>
             
