@@ -5,7 +5,7 @@ export const registeruser = z.object({
     phonenumber: z.string().max(11).nonempty('Phone is empty'),
     password: z.string().max(20).nonempty('Password is empty'),
     confirm: z.string().max(20).nonempty('Confirm your password').optional(),
-    referral: z.string().nonempty('Please do not tamper the url')
+    // referral: z.string()
 })
  .refine((data) => data.password === data.confirm , {
       message:"Passwords don't match",

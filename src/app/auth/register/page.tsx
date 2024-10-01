@@ -163,8 +163,8 @@ export default function page() {
                     </div>
 
                     <label htmlFor="" className=' text-xs text-zinc-300'>Referral</label>
-                    <input value={getusername} type="text" placeholder='Referral' className=' text-sm w-full bg-white rounded-full p-2 text-black' {...register('referral')} />
-                    {errors.referral && <p className=' text-[.6em] text-red-400'>{errors.referral.message}</p>}
+                    <input disabled={true} value={getusername} type="text" placeholder='Referral' className=' text-sm w-full bg-white rounded-full p-2 text-black' />
+                    {/* {errors.referral && <p className=' text-[.6em] text-red-400'>{errors.referral.message}</p>} */}
 
 
                     
