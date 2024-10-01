@@ -35,6 +35,7 @@ createdAt: string
 fromusername: string
 type: string
 username: string
+ minername: string
 }
 
 type TabData = {
@@ -246,7 +247,7 @@ export default function DashboardTable() {
                 <TableRow>
                 <TableHead className=' text-center'>Date</TableHead>
                 <TableHead className=' text-center'>Amount</TableHead>
-                <TableHead className=' text-center'>From</TableHead>
+                <TableHead className=' text-center'>Miner Name</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -254,7 +255,7 @@ export default function DashboardTable() {
                 <TableRow key={index}>
                   <TableCell className=' text-center'>{new Date(item.createdAt).toLocaleString()}</TableCell>
                   <TableCell className=' text-center'>₱ {item.amount.toLocaleString()}</TableCell>
-                  <TableCell className=' text-center'>{item.fromusername}</TableCell>
+                  <TableCell className=' text-center'>{item.minername}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
