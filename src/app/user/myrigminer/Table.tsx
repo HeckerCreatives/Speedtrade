@@ -64,8 +64,8 @@ export default function ClaimHistoryTable() {
         <TableHeader className=' border-slate-700'>
             <TableRow>
             <TableHead className=' text-center'>Date</TableHead>
-            <TableHead className=' text-center'>Rig miner</TableHead>
             <TableHead className=' text-center'>Price</TableHead>
+            <TableHead className=' text-center'>Miner Name</TableHead>
             </TableRow>
         </TableHeader>
         <TableBody>
@@ -73,7 +73,7 @@ export default function ClaimHistoryTable() {
             <TableRow key={index}>
               <TableCell className=' text-center'>{new Date(item.createdAt).toDateString()}</TableCell>
               <TableCell className=' text-center'>₱ {item.amount.toLocaleString()}</TableCell>
-              <TableCell className=' text-center'>{item.minertype}</TableCell>
+              <TableCell className=' text-center'>{item.minertype === 'quick_miner' && 'Quick Miner' || item.minertype === 'rapid_lane' && 'Rapid Miner' || item.minertype === 'swift_lane' && 'Swift Miner'}</TableCell>
             </TableRow>
           ))}
             
