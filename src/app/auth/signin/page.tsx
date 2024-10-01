@@ -99,11 +99,11 @@ export default function Login() {
         <img src="/assets/Wave Shape.png" alt="" className=' absolute left-0 h-[150vh] -translate-x-20' />
 
         <div className=' relative z-20 max-w-[1240px] w-full grid-cols-1 grid lg:grid-cols-[400px,1fr] gap-12 place p-4'>
-            <div className=' w-full max-h-[500px] h-full p-6 flex flex-col items-center justify-start bg-zinc-800 shadow-lg rounded-md'>
+            <div className=' w-full min-h-[420px] p-6 flex flex-col items-center justify-start bg-zinc-800 shadow-lg rounded-md'>
                 <img loading='lazy' src="/assets/Full logo.png" alt="" width={250} />
                 <p className=' text-sm font-semibold border-b-2 border-green-500 uppercase mt-6'>Sign In</p>
 
-                <div className=' w-full lg:w-[90%] flex flex-col gap-1 mt-6'>
+                <form onSubmit={(e) => {e.preventDefault();login();}} className=' w-full lg:w-[90%] flex flex-col gap-1 mt-6'>
                     <label htmlFor="" className=' text-xs text-zinc-300'>Username</label>
                     <input value={username} onChange={(e) => setUsername(e.target.value)} maxLength={25} type="text" placeholder='Username' className=' text-sm w-full bg-white rounded-full p-2 text-black' />
 
@@ -121,12 +121,12 @@ export default function Login() {
                     </div>
                    
                   
-                    <button onClick={login} disabled={loading} className=' p-2 w-full bg-green-600 text-white font-semibold text-sm rounded-full mt-6 flex items-center justify-center gap-2'>
+                    <button type='submit' disabled={loading} className=' p-2 w-full bg-green-600 text-white font-semibold text-sm rounded-full mt-6 flex items-center justify-center gap-2'>
                         {loading === true && ( <div className='spinner'></div>)}
                         Sign In</button>
                    {/* <p className=' text-xs text-center mt-8'>Do you have an account? <a href="/auth/register" className=' text-green-500'>Register</a></p> */}
 
-                </div>
+                </form>
 
                 
             </div>
