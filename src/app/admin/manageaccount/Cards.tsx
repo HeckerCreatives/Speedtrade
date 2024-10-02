@@ -25,7 +25,6 @@ export default function Cards() {
           const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/user/getusercountadmin`,{
           withCredentials:true
           })
-          console.log(response.data)
           setCount(response.data.data)
    
 

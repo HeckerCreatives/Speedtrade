@@ -50,7 +50,6 @@ export default function ChangePasswordAdminForm( prop: Prop) {
         error: 'Error while changing the password',
       });
       
-      console.log(response.data)
 
       if( response.data.message === 'success'){
         setLoading(false)

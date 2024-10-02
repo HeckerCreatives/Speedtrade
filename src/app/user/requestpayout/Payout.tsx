@@ -70,7 +70,6 @@ export default function Payout() {
                 error: 'Error while requesting payout',
             });
             reset()
-            console.log(response.data)
 
             if(response.data.message === 'success'){
                 setLoading(false)
@@ -146,7 +145,6 @@ export default function Payout() {
                 error: 'Error while requesting payout',
             });
 
-            console.log(response.data)
             setLoading(false)
 
 
@@ -198,7 +196,6 @@ export default function Payout() {
                 const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/wallets/userwallets`,{
                 withCredentials: true
                 })
-                console.log(res.data)
                 setWallet(res.data.data)
             } catch (error) {
                 // if (axios.isAxiosError(error)) {
@@ -215,7 +212,6 @@ export default function Payout() {
         walletBalance()
     },[state])
 
-    console.log(loading)
 
 
 

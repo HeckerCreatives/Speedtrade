@@ -48,7 +48,6 @@ export default function UserTable() {
           const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/payin/getpayinhistorysuperadmin?searchUsername=${search}&page=${currentpage}&limit=10`,{
           withCredentials:true
           })
-          console.log(response.data)
           setList(response.data.data.payinhistory)
           setTotalpage(response.data.data.totalPages)
           setLoading(false)
@@ -82,7 +81,6 @@ export default function UserTable() {
           const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/payin/getpayinhistorysuperadmin?searchUsername=${search}&page=0&limit=10`,{
           withCredentials:true
           })
-          console.log(response.data)
           setList(response.data.data.payinhistory)
           setTotalpage(response.data.data.totalPages)
           setCurrentpage(0)

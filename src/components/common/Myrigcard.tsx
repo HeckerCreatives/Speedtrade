@@ -64,7 +64,6 @@ export default function MyRigCard( prop: Props) {
         window.location.reload()
       }
 
-      console.log(response.data)
 
     } catch (error) {
         setLoading(false)

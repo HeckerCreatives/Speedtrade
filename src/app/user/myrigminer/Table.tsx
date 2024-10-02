@@ -37,7 +37,6 @@ export default function ClaimHistoryTable() {
       setHistory(response.data.data.history)
       setTotalpage(response.data.data.totalpages)
 
-      console.log('Claim',response.data)
     }
     getRequestHistory()
   },[currentpage])

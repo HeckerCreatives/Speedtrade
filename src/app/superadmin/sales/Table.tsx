@@ -34,7 +34,6 @@ export default function SalesTable() {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/analytics/getsales?startDate=${start}&endDate=${end}`,{
         withCredentials:true
         })
-        console.log(response.data)
         setSales(response.data.data.analytics)
         setLoading(false)
      

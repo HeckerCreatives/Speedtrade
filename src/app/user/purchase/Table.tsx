@@ -46,7 +46,6 @@ export default function PurchaseHistoryTable() {
         const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/inventory/getbuyhistory?limit=10&page=${currentpage}`,{
           withCredentials: true
           })
-        console.log(res.data)
         setList(res.data.data.history)
         setTotalPage(res.data.data.totalpages)
         setLoading(false)

@@ -72,7 +72,6 @@ export default function UserTable() {
           const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/user/getuserlistadmin?usersearch&status=${status === 'all' ? '' : status}&page=${currentpage}&limit=10`,{
           withCredentials:true
           })
-          console.log(response.data)
           setList(response.data.data.userlist)
           setTotalpage(response.data.data.totalPages)
           setLoading(false)
@@ -99,7 +98,6 @@ export default function UserTable() {
           const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/user/getuserlistadmin?usersearch=${search}&status&page=${currentpage}&limit=10`,{
           withCredentials:true
           })
-          console.log(response.data)
           setList(response.data.data.userlist)
           setTotalpage(response.data.data.totalPages)
           setLoading(false)

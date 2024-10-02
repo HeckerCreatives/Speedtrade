@@ -86,7 +86,6 @@ export default function AdminTable() {
   });
 };
 
-  console.log(selectedRows)
 
   
    const {
@@ -102,7 +101,6 @@ export default function AdminTable() {
 
   const onSubmit = async (data: CreateAdmin) => {
     setLoading(true)
-    console.log(data)
     try {
       const request = axios.post(`${process.env.NEXT_PUBLIC_URL}/auth/registerstaffs`,{
         username: data.username,
@@ -120,7 +118,6 @@ export default function AdminTable() {
         error: 'Error while registering admin account',
       });
       reset()
-      console.log(response.data)
 
       if( response.data.message === 'success'){
         setLoading(false)
@@ -170,7 +167,6 @@ export default function AdminTable() {
           const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/staffusers/adminlist?adminusername=${search}&status=${status === 'all' ? '' : status}&page=${currentpage}&limit=10`,{
           withCredentials:true
           })
-          console.log(response.data)
           setList(response.data.data.users)
           setTotalpage(response.data.data.totalPages)
           setLoading(false)
@@ -201,7 +197,6 @@ export default function AdminTable() {
           const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/staffusers/adminlist?adminusername=${search}&status=${status === 'all' ? '' : status}&page=${currentpage}&limit=10`,{
           withCredentials:true
           })
-          console.log(response.data)
           setList(response.data.data.users)
           setTotalpage(response.data.data.totalPages)
           setLoading(false)
@@ -258,7 +253,6 @@ export default function AdminTable() {
 
       }
 
-      console.log(response.data)
     } catch (error) {
       setLoading2(false)
 

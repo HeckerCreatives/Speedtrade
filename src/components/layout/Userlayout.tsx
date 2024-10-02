@@ -75,7 +75,6 @@ export default function UserLayout({
         const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/user/getuserdata`,{
         withCredentials:true
         })
-        console.log(response.data)
         setUsername(response.data.data.username)
         setId(response.data.data.referralid)
       } catch (error) {

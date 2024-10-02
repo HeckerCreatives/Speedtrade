@@ -62,7 +62,6 @@ export default function MyConnectionTable() {
         }
        
 
-        console.log(response.data)
       } catch (error) {
        
       }
@@ -89,7 +88,6 @@ export default function MyConnectionTable() {
           setUnilevel([])
         }
        
-        console.log(response.data)
       } catch (error) {
        
       }
@@ -106,7 +104,6 @@ export default function MyConnectionTable() {
     setCurrentpage(page)
   }
 
-  console.log(level)
   
 
 

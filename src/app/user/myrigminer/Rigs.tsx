@@ -42,7 +42,6 @@ export default function Rigs() {
         const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/inventory/getinventory?page=${currentpage}&limit=6`,{
           withCredentials: true
           })
-        console.log(res.data)
         setList(res.data.data.miners)
         setTotalPage(res.data.data.totalPages)
         

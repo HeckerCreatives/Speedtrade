@@ -32,7 +32,6 @@ export default function Login() {
         //     success: `Successfully loged in`,
         //     error: 'Error while logging your account',
         // });
-        console.log(response.data)
 
         if (response.data.data.auth === 'user' ){
             toast.success('Successfully logged in')

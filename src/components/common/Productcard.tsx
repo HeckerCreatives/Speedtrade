@@ -35,7 +35,6 @@ export default function Productcard( prop: Props) {
     const router = useRouter()
     const [dialog, setDialog] = useState(false)
 
-    console.log(val)
 
     const buyRigminer = async () => {
         setDialog(false)

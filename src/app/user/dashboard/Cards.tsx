@@ -41,6 +41,7 @@ export default function Cards() {
     const [withdrawables, setWithdrawables] = useState(0)
     const router = useRouter()
     const [loading, setLoading] = useState(false)
+    const [unclaimed, setUnclaimed] = useState(0)
   
 
   useEffect(() => {
@@ -88,6 +89,23 @@ export default function Cards() {
     getRequestHistory()
   },[])
 
+  useEffect(() => {
+    setLoading(true)
+
+    const getRequestHistory = async () => {
+     
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/inventory/getremainingunclaimedminer`,{
+        withCredentials: true
+      })
+
+      setUnclaimed(response.data.data.unclaimedearnings)
+  
+      setLoading(false)
+
+    }
+    getRequestHistory()
+  },[])
+
 
 
   return (
@@ -96,7 +114,7 @@ export default function Cards() {
         <Card icon={<Wallet size={30} />} iconbg={' bg-orange-500'} title={'Top Up Balance'} amount={`${wallets?.data.creditwallet.toLocaleString()}`} subtitle={'Use to purchase miner set up'} text={''} loading={loading}/>
         <Card icon={<Wallet size={30} />} iconbg={' bg-green-500'} title={'Total Withdrawables'} amount={`${withdrawables.toLocaleString()}`} subtitle={'The sum of comission wallet & miner wallet'} text={''} loading={loading}/>
         <Card icon={<Wallet size={30} />} iconbg={' bg-red-500'} title={'Rig Miner Total Earning'} amount={`${earnings?.data.mining.toLocaleString()}`} subtitle={'Total income from miners'} text={''} loading={loading}/>
-        <Card icon={<Wallet size={30} />} iconbg={' bg-blue-500'} title={'Rig miner Wallet'} amount={`${wallets?.data.minecoinwallet.toLocaleString()}`} subtitle={'Unclaim value'} text={'100,000'} loading={loading}/>
+        <Card icon={<Wallet size={30} />} iconbg={' bg-blue-500'} title={'Rig miner Wallet'} amount={`${wallets?.data.minecoinwallet.toLocaleString()}`} subtitle={'Unclaimed value'} text={`${unclaimed}`} loading={loading}/>
         <Card icon={<Wallet size={30} />} iconbg={' bg-pink-500'} title={'Referral Total Comission'} amount={`${earnings?.data.referral.toLocaleString()}`} subtitle={'Total accumulated comission from direct refferal'} text={''} loading={loading}/>
         <Card icon={<Wallet size={30} />} iconbg={' bg-purple-500'} title={'Unilevel Total Comission'} amount={`${earnings?.data.unilevel.toLocaleString()}`} subtitle={'Total accumulated comission from lvl 2 to lvl 10'} text={''} loading={loading}/>
         <Card icon={<Wallet size={30} />} iconbg={' bg-cyan-500'} title={'Comission Wallet'} amount={`${wallets?.data.commissionwallet.toLocaleString()}`} subtitle={'Withdrawable value from direct referral & unilevel'} text={''} loading={loading}/>

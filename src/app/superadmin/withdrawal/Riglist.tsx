@@ -74,7 +74,6 @@ export default function Riglist() {
           const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/payout/getpayoutlist?methodtype=${payemnt}&date=${date}&type=minecoinwallet&searchUsername=${search}&page=${currentpage}&limit=10`,{
           withCredentials:true
           })
-          console.log(response.data)
           setList(response.data.data.payoutlist)
           setTotalpage(response.data.data.totalPages)
           setLoading(false)
@@ -125,7 +124,6 @@ export default function Riglist() {
         error: 'Error while deleting payout',
       });
       
-      console.log(response.data)
 
       if( response.data.message === 'success'){
         setLoading2(false)
@@ -185,7 +183,6 @@ export default function Riglist() {
         error: 'Error while processing the payout request',
       });
       
-      console.log(response.data)
 
       if( response.data.message === 'success'){
         setLoading2(false)

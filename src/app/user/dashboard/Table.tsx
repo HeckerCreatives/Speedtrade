@@ -69,7 +69,6 @@ export default function DashboardTable() {
         const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/wallethistory/userwallethistory?type=creditwallet&page=${currentpage}&limit=10`,{
         withCredentials: true
         })
-      console.log('Credit',res.data)
       setList(res.data.data.history)
       setTotalPage(res.data.data.pages)
       setLoading(false)
@@ -86,7 +85,6 @@ export default function DashboardTable() {
         const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/wallethistory/userwallethistory?type=minecoinwallet&page=${currentpage}&limit=10`,{
         withCredentials: true
         })
-      console.log('mine',res.data)
       setMine(res.data.data.history)
       setTotalPage(res.data.data.pages)
       setLoading(false)
@@ -103,7 +101,6 @@ export default function DashboardTable() {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/wallethistory/userwallethistory?type=commissionwallet&page=${currentpage}&limit=10`,{
       withCredentials: true
       })
-     console.log('Comission',res.data)
      setComission(res.data.data.history)
      setTotalPage(res.data.data.pages)
      setLoading(false)
@@ -120,7 +117,6 @@ export default function DashboardTable() {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/wallethistory/userwallethistory?type=directcommissionwallet&page=${currentpage}&limit=10`,{
       withCredentials: true
       })
-     console.log('Direct',res.data)
      setDirectcomission(res.data.data.history)
      setTotalPage(res.data.data.pages)
      setLoading(false)

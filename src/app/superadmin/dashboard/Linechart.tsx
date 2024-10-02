@@ -60,7 +60,6 @@ export function LineCharts() {
         data: data[time], // corresponding value (e.g., 0)
       }));
 
-      console.log(chartDataLine)
 
    useEffect(() => {
     const getWallets = async () => {
@@ -68,7 +67,6 @@ export function LineCharts() {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/analytics/${apiRoute}?charttype=${type}`,{
         withCredentials:true
         })
-        console.log(response.data)
         setData(response.data.data)
       
       } catch (error) {

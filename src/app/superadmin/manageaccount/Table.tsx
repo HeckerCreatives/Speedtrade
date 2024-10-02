@@ -109,7 +109,6 @@ export default function UserTable() {
           const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/user/getuserlist?usersearch=${search}&status=${status === 'all' ? '' : status}&page=${currentpage}&limit=10`,{
           withCredentials:true
           })
-          console.log(response.data)
           setList(response.data.data.userlist)
           setTotalpage(response.data.data.totalPages)
           setLoading(false)
@@ -139,7 +138,6 @@ export default function UserTable() {
           const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/user/getuserlist?usersearch=${search}&status=&page=0&limit=10`,{
           withCredentials:true
           })
-          console.log(response.data)
           setList(response.data.data.userlist)
           setTotalpage(response.data.data.totalPages)
           setLoading(false)
@@ -197,7 +195,6 @@ export default function UserTable() {
 
       }
 
-      console.log(response.data)
     } catch (error) {
       setLoading2(false)
       setDialog2(false)
@@ -279,7 +276,6 @@ export default function UserTable() {
         error: 'Error while changing the password',
       });
       
-      console.log(response.data)
 
       if( response.data.message === 'success'){
         setLoading2(false)

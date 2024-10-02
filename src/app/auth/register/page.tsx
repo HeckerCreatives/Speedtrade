@@ -55,7 +55,6 @@ export default function page() {
 
         }
 
-        console.log(response.data)
         
     } catch (error) {
         setLoading(false)
@@ -89,7 +88,6 @@ export default function page() {
     
   };
 
-  console.log(uid)
 
   useEffect(() => {
     const getUsername = async () => {

@@ -57,7 +57,6 @@ export default function ComissionHistory() {
           const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/payout/getpayouthistorysuperadmin?type=commissionwallet&searchUsername=${search}&page=${currentpage}&limit=10`,{
           withCredentials:true
           })
-          console.log(response.data)
           setList(response.data.data.payoutlist)
           setTotalpage(response.data.data.totalPages)
           setLoading(false)

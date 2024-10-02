@@ -50,7 +50,6 @@ export default function PayoutTable() {
       setHistory(response.data.data.history)
       setTotalpage(response.data.data.totalPages)
 
-      console.log(response.data)
     setLoading(false)
 
     }

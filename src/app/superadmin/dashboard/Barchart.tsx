@@ -57,7 +57,6 @@ export function Barcharts() {
         data: data[time], // corresponding value (e.g., 0)
       }));
 
-      console.log(chartDataBar)
 
    useEffect(() => {
     const getWallets = async () => {
@@ -65,7 +64,6 @@ export function Barcharts() {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/analytics/${apiRoute}?charttype=${type}`,{
         withCredentials:true
         })
-        console.log(response.data)
         setData(response.data.data)
       
       } catch (error) {

@@ -44,7 +44,6 @@ export default function Changepassword() {
             error: 'Error while updating password',
         });
         reset()
-        console.log(response.data)
 
         if( response.data.message === 'success'){
             setLoading(false)

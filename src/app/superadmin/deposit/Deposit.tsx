@@ -38,7 +38,6 @@ export default function Deposit() {
     router.push('?state=false')
 
     setLoading(true)
-    console.log(data)
     try {
        const request = axios.post(`${process.env.NEXT_PUBLIC_URL}/payin/sendfiattoplayer`,{
         playerusername: search,
@@ -56,7 +55,6 @@ export default function Deposit() {
         error: 'Error while sending the amount',
       });
       
-      console.log(response.data)
 
       if( response.data.message === 'success'){
         setLoading(false)

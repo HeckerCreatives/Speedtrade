@@ -31,7 +31,6 @@ export default function Cards() {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/staffusers/getadmindashboard`,{
         withCredentials:true
         })
-        console.log(response.data)
         setWallets(response.data.data)
         setLoading(false)
 
