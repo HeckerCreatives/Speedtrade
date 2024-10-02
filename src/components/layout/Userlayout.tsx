@@ -69,8 +69,6 @@ export default function UserLayout({
   const router = useRouter()
   const [referralstatus, setReferralStatus] = useState('')
 
-  console.log(referralstatus)
-
 
   useEffect(() => {
     const getUserData = async () => {

@@ -39,10 +39,8 @@ export default function MyRigCard( prop: Props) {
     const widthString = `${progress.toFixed(2)}%`;
     const seconds = prop.timeleft; // your time in seconds
     const unixTime = prop.timeleft /  86400;
-     const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [dialog, setDialog] = useState(false)
-
-
 
     const claimEarnings = async () => {
         setLoading(true)
@@ -99,7 +97,18 @@ export default function MyRigCard( prop: Props) {
         } 
       
     }
-  }
+    }
+
+  const todaysDate = new Date()
+
+  const addDays = (date: string, days: number) => {
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+    };
+
+    const maturedDate = addDays(prop.purchase, 5);
+
 
   return (
 
@@ -142,7 +151,11 @@ export default function MyRigCard( prop: Props) {
                 
 
                 <div className=' w-full flex items-center justify-between mt-2'>
-                    <p className=' text-sm text-white font-medium'>Purchase Date: <span className=' text-orange-300'>{prop.purchase}</span></p>
+                    <div className=' flex flex-col gap-1'>
+                        <p className=' text-sm text-white font-medium'>Purchased Date: <span className=' text-orange-300'>{prop.purchase}</span></p>
+                        <p className=' text-sm text-white font-medium'>Matured Date: <span className=' text-orange-300'>{`${maturedDate.toLocaleString()}`}</span></p>
+                    </div>
+                    
                     {/* <button onClick={claimEarnings} className=' px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-green-700 to-green-500 rounded-sm'>Claim</button> */}
 
                     <Dialog open={dialog} onOpenChange={setDialog}>

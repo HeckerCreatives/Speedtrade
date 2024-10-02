@@ -67,9 +67,6 @@ export default function Rigs() {
   }
 
 
-  
-
-
   return (
 
     <div className=' w-full flex flex-col gap-8 items-center justify-center'>
@@ -88,7 +85,7 @@ export default function Rigs() {
           <div className=' w-full max-w-[1440px] grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
 
             {Object.values(list).map((item, index) => (
-              <MyRigCard id={item.minerid} key={index} name={`${item.type === 'quick_miner' && 'Quick Miner' || item.type === 'swift_lane' && 'Swift Miner' || item.type === 'rapid_lane' && 'Rapid Miner'}`} percentage={`${item.profit * 100}`} duration={`${item.duration}`} img={`${item.type === 'quick_miner' && quick || item.type === 'swift_lane' && swift || item.type === 'rapid_lane' && rapid}`} size={`${item.type === 'quick_miner' && '180' || item.type === 'swift_lane' && '150' || item.type === 'rapid_lane' && '140' }`} earnings={item.earnings} timeleft={item.remainingtime} purchase={new Date(item.purchasedate).toDateString()} max={item.buyprice}/>
+              <MyRigCard id={item.minerid} key={index} name={`${item.type === 'quick_miner' && 'Quick Miner' || item.type === 'swift_lane' && 'Swift Miner' || item.type === 'rapid_lane' && 'Rapid Miner'}`} percentage={`${item.profit * 100}`} duration={`${item.duration}`} img={`${item.type === 'quick_miner' && quick || item.type === 'swift_lane' && swift || item.type === 'rapid_lane' && rapid}`} size={`${item.type === 'quick_miner' && '180' || item.type === 'swift_lane' && '150' || item.type === 'rapid_lane' && '140' }`} earnings={item.earnings} timeleft={item.remainingtime} purchase={new Date(item.purchasedate).toLocaleString()} max={item.buyprice}/>
 
             ))}
 
