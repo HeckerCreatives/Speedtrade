@@ -67,6 +67,9 @@ export default function UserLayout({
   const [username, setUsername] = useState('')
   const [id, setId] = useState('')
   const router = useRouter()
+  const [referralstatus, setReferralStatus] = useState('')
+
+  console.log(referralstatus)
 
 
   useEffect(() => {
@@ -90,6 +93,28 @@ export default function UserLayout({
       
     }
     getUserData()
+  },[])
+
+  useEffect(() => {
+    const getReferralStatus = async () => {
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/analytics/getreferrallinkstatus`,{
+        withCredentials:true
+        })
+        setReferralStatus(response.data.data.status)
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+                const axiosError = error as AxiosError<{ message: string, data: string }>;
+                    if (axiosError.response && axiosError.response.status === 401) {
+                    toast.error(`${axiosError.response.data.data}`)
+                    router.push('/')  
+                    }    
+                } 
+        
+      }
+      
+    }
+    getReferralStatus()
   },[])
 
   const copyReferral = () => {
@@ -165,7 +190,10 @@ export default function UserLayout({
                     </Link>
                   ))}
 
+                  {referralstatus === 'true' && (
                     <button onClick={() => copyReferral()} className=' text-xs w-fit text-white bg-slate-800 p-2 rounded-sm flex items-center gap-1'><Copy size={15}/>Copy referral</button>
+                  )}
+
 
 
                   
@@ -182,7 +210,9 @@ export default function UserLayout({
             {/* <Menu className="h-5 w-5 text-zinc-100 lg:block hidden" /> */}
 
             <div className=' flex items-center gap-2'>
-              <button onClick={copyReferral} className=' hidden text-xs text-zinc-300 bg-slate-800 p-2 rounded-sm lg:flex items-center gap-1'><Copy size={15}/>Copy referral</button>
+              {referralstatus === 'true' && (
+                   <button onClick={() => copyReferral()} className=' text-xs w-fit text-white bg-slate-800 p-2 rounded-sm flex items-center gap-1'><Copy size={15}/>Copy referral</button>
+              )}
 
               <DropdownMenu>
               <DropdownMenuTrigger className=' active:border-none focus:border-none'>
