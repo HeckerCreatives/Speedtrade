@@ -113,7 +113,7 @@ export default function page() {
 
         <div className=' relative z-20 max-w-[1240px] w-full grid-cols-1 grid lg:grid-cols-[450px,1fr] gap-12 place p-4'>
             <div className=' w-full h-auto p-6 flex flex-col items-center justify-start bg-zinc-800 shadow-lg rounded-md'>
-                <img loading='lazy' src="/assets/Full logo.png" alt="" width={250} />
+                <img loading='lazy' src="/full.png" alt="" width={230} />
                 <p className=' text-sm font-semibold border-b-2 border-green-500 uppercase mt-6'>Register</p>
 
                 <form onSubmit={handleSubmit(onSubmit)} className=' w-full lg:w-[90%] flex flex-col gap-1 mt-6'>

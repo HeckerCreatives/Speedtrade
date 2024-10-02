@@ -13,7 +13,7 @@ export default function Faq() {
 
         <div className=' w-full max-w-[1040px] flex flex-col gap-2 items-center justify-center p-6'>
 
-            <img src="/assets/Full logo.png" alt="" className=' w-[250px] md:w-[350px]' />
+            <img src="/full.png" alt="" className=' w-[250px] md:w-[350px]' />
             <p className=' text-lg text-slate-300 text-center mb-10'>Speedtrade is a trading system that allows players to purchase a rig miner, which helps them trade assets quickly. It uses smart algorithms to maximize profits in a competitive market.</p>
             <Accordion type="single" collapsible className=' w-full'>
             <AccordionItem value="item-1">

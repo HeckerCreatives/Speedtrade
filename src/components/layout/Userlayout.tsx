@@ -139,7 +139,7 @@ export default function UserLayout({
           style={{backgroundImage: "url(/assets/BG.png)"}}
           > <div className=' absolute w-full h-screen bg-slate-800/70 z-0'></div>
              <div className=' relative z-10 w-full flex items-center justify-center h-[74px] gap-2 text-white p-4 border-b-[1px] px-2 border-slate-800'>
-                  <img src="/assets/Full logo.png" alt="" width={180} />
+                  <img src="/full.png" alt="" width={160} />
               </div>
             <div className=" relative z-10flex-1 mt-4 overflow-y-auto">
               <nav className=" flex flex-col gap-4 px-2 text-sm font-medium lg:px-4">
@@ -219,7 +219,7 @@ export default function UserLayout({
                     <p className=' text-xs text-white'>{username}</p>
                   </div>
                   <div className=' p-2 bg-slate-700 rounded-full'>
-                    <img src="/assets/logo.png" alt="" width={25}/>
+                    <img src="/C.png" alt="" width={25}/>
                   </div>
 
                 </div>
