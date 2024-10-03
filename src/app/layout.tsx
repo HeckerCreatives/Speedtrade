@@ -39,7 +39,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <title>Speedtrade</title>
+      <title>SpeedMine</title>
       
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
