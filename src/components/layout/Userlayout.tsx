@@ -211,7 +211,7 @@ export default function UserLayout({
 
             <div className=' flex items-center gap-2'>
               {referralstatus === true && (
-                <button onClick={() => copyReferral()} className=' text-xs w-fit text-white bg-slate-800 p-2 rounded-sm flex items-center gap-1'><Copy size={15}/>Copy referral</button>
+                <button onClick={() => copyReferral()} className=' hidden text-xs w-fit text-white bg-slate-800 p-2 rounded-sm lg:flex items-center gap-1'><Copy size={15}/>Copy referral</button>
 
               )}
 
