@@ -67,7 +67,7 @@ export default function UserLayout({
   const [username, setUsername] = useState('')
   const [id, setId] = useState('')
   const router = useRouter()
-  const [referralstatus, setReferralStatus] = useState('')
+  const [referralstatus, setReferralStatus] = useState(false)
 
 
   useEffect(() => {
@@ -132,6 +132,8 @@ export default function UserLayout({
     });
   }
 
+  console.log(referralstatus)
+
   return (
       <div className="grid min-h-screen w-full lg:grid-cols-[220px_1fr] overflow-hidden">
         <div className=" hidden lg:block">
@@ -188,7 +190,7 @@ export default function UserLayout({
                     </Link>
                   ))}
 
-                  {referralstatus === 'true' && (
+                  {referralstatus === true && (
                     <button onClick={() => copyReferral()} className=' text-xs w-fit text-white bg-slate-800 p-2 rounded-sm flex items-center gap-1'><Copy size={15}/>Copy referral</button>
                   )}
 
@@ -208,9 +210,11 @@ export default function UserLayout({
             {/* <Menu className="h-5 w-5 text-zinc-100 lg:block hidden" /> */}
 
             <div className=' flex items-center gap-2'>
-              {referralstatus === 'true' && (
-                   <button onClick={() => copyReferral()} className=' text-xs w-fit text-white bg-slate-800 p-2 rounded-sm flex items-center gap-1'><Copy size={15}/>Copy referral</button>
+              {referralstatus === true && (
+                <button onClick={() => copyReferral()} className=' text-xs w-fit text-white bg-slate-800 p-2 rounded-sm flex items-center gap-1'><Copy size={15}/>Copy referral</button>
+
               )}
+
 
               <DropdownMenu>
               <DropdownMenuTrigger className=' active:border-none focus:border-none'>
