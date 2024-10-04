@@ -66,23 +66,7 @@ export default function PayoutTable() {
   return (
     <div className=' relative w-full flex flex-col items-center gap-8 max-w-[1440px] min-h-[500px] h-auto mt-12 bg-slate-800 p-6'>
         <div className=' h-[55px] flex items-center justify-between absolute top-0 w-[98%] bg-gradient-to-r from-green-700 to-green-500 p-2 rounded-sm -translate-y-4'>
-            {/* <Select>
-            <SelectTrigger className="w-[200px] bg-zinc-900">
-                <SelectValue placeholder="Select Levels" />
-            </SelectTrigger>
-            <SelectContent>
-                {levels.map((item, index) => (
-                <SelectItem key={index} value={item.value}>{item.name}</SelectItem>
-
-                ))}
-                
-            </SelectContent>
-            </Select>
-
-            <div className=' flex items-center gap-2'>
-                <input type="text" placeholder='Search Username' className=' p-2 rounded-sm text-xs bg-zinc-900 border-none' />
-                <button className=' p-2 bg-green-700 rounded-sm'><Search size={15}/></button>
-            </div> */}
+         
 
             <p className=' text-sm text-white font-semibold'>Comission Payout History</p>
 
@@ -111,14 +95,15 @@ export default function PayoutTable() {
             <>
             {history.map((item, index) => (
             <TableRow key={index}>
-            <TableCell className=" text-center">{new Date(item.date).toDateString()}</TableCell>
+            <TableCell className=" text-center">{new Date(item.date).toLocaleString()}</TableCell>
             <TableCell className=' text-center'>₱ {(item.grossamount || 0).toLocaleString()}</TableCell>
             <TableCell className=' text-center'>₱ {(item.netammount || 0).toLocaleString()}</TableCell>
             <TableCell className=" text-center">₱ {item.withdrawalfee.toLocaleString()}</TableCell>
-            <TableCell className={`text-center ${item.status.toLowerCase() === 'in review' && ' text-blue-500'}
+            <TableCell className=" text-center">{item.status}</TableCell>
+            {/* <TableCell className={`text-center ${item.status.toLowerCase() === 'in review' && ' text-blue-500'}
             ${item.status === 'reject' && ' text-red-500'}
             ${item.status === 'done' && ' text-green-500'}
-            `}>{item.status === 'done' && 'Approved'} {item.status === 'reject' && 'Rejected'} {item.status.toLocaleLowerCase() === 'in review' && 'In Review'}</TableCell>
+            `}>{item.status === 'done' && 'Approved'} {item.status === 'reject' && 'Rejected'} {item.status.toLocaleLowerCase() === 'in review' && 'In Review'}</TableCell> */}
             </TableRow>
           ))}
             </>

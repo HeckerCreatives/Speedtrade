@@ -52,14 +52,15 @@ export default function MyConnectionTable() {
           withCredentials: true
         })
         setLoading(false)
-        const dataAtLevel = response?.data?.data?.[level];
+        const dataAtLevel = response?.data?.data?.[0];
+       
 
-        if(dataAtLevel){
-          setUnilevel(dataAtLevel.data)
-          setTotalpage(dataAtLevel.totalPages)
-        }else {
-          setUnilevel([])
-        }
+         if(dataAtLevel){
+           setUnilevel(dataAtLevel.data)
+           setTotalpage(dataAtLevel.totalPages)
+         }else {
+           setUnilevel([])
+         }
        
 
       } catch (error) {
