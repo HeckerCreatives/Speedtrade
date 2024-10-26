@@ -111,7 +111,7 @@ export default function Cards() {
 
 
   return (
-    <div className=' max-w-[1440px] h-auto w-full grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 mt-6'>
+    <div className=' max-w-[1440px] h-auto w-full flex flex-wrap gap-8 mt-6'>
 
         <Card icon={<Wallet size={30} />} iconbg={' bg-orange-500'} title={'Top Up Balance'} amount={`${wallets?.data.creditwallet.toLocaleString()}`} subtitle={'Use to purchase miner set up'} text={''} loading={loading}/>
         <Card icon={<Wallet size={30} />} iconbg={' bg-green-500'} title={'Total Withdrawables'} amount={`${withdrawables.toLocaleString()}`} subtitle={'The sum of comission wallet & miner wallet'} text={''} loading={loading}/>
