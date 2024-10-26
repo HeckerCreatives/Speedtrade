@@ -316,6 +316,10 @@ export default function UserTable() {
     }
   }
 
+  const viewUseraccount = (id: string) => {
+    window.open(`/superadmin/manageaccount/useraccount?uid=${id}`, '_blank');
+  }
+
   return (
     <div className=' relative w-full flex flex-col items-center max-w-[1440px] min-h-[500px] h-auto mt-12 bg-slate-900 p-6'>
         <div className=' flex md:flex-row flex-col gap-4 items-center justify-between sticky top-0 w-[98%] bg-gradient-to-r from-green-700 to-green-500 p-2 rounded-sm -translate-y-12'>
@@ -408,31 +412,7 @@ export default function UserTable() {
               <TableCell className={`font-medium text-center ${item.status === 'active' ? 'text-green-500' : 'text-red-500'}`}>{item.status}</TableCell>
               <TableCell className="font-medium text-center flex items-center justify-center gap-2">
 
-                {/* <Dialog>
-                    <DialogTrigger>
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger>
-                                <button className=' bg-slate-800 p-1 rounded-sm text-red-500'><OctagonAlert size={15}/></button>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>Ban User</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
-                      </DialogTrigger>
-                      <DialogContent>
-                        <DialogHeader>
-                          <DialogTitle className=' text-red-500'>Are you absolutely sure, you want to ban this user?</DialogTitle>
-                          <DialogDescription>
-                            This action cannot be undone. This will permanently ban the user account.
-                          </DialogDescription>
-                        </DialogHeader>
-
-                        <button className=' px-8 py-2 text-sm font-semibold rounded-sm bg-red-600 mt-4 w-fit'>Ban</button>
-                    </DialogContent>
-                </Dialog> */}
-
+              
                 <Dialog open={dialog} onOpenChange={setDialog}>
                     <DialogTrigger>
                         <TooltipProvider>
@@ -490,6 +470,8 @@ export default function UserTable() {
 
                     </DialogContent>
                 </Dialog>
+
+                <button onClick={() => viewUseraccount(item.id)} className=' text-[.6rem] bg-blue-600 px-2 py-1 rounded-sm flex items-center gap-1'><Eye size={15}/>View user</button>
 
               </TableCell>
               
