@@ -111,10 +111,10 @@ export default function Login() {
                     <div className=' w-full relative'>
                         <input value={password} onChange={(e) => SetPassword(e.target.value)} maxLength={20} type={showpassword} placeholder='Password' className=' text-sm w-full bg-white rounded-full p-2 text-black' />
                         {showpassword === 'password' ? (
-                        <button onClick={() => setShowpassword('text')} className=' absolute top-[7px] right-2 bg-zinc-300 p-1 rounded-full text-black'><EyeOff size={15}/></button>
+                        <p onClick={() => setShowpassword('text')} className=' cursor-pointer absolute top-[7px] right-2 bg-zinc-300 p-1 rounded-full text-black'><EyeOff size={15}/></p>
                         
                         ) : (
-                        <button onClick={() => setShowpassword('password')} className=' absolute top-[7px] right-2 bg-zinc-300 p-1 rounded-full text-black'><Eye size={15}/></button>
+                        <p onClick={() => setShowpassword('password')} className=' cursor-pointer absolute top-[7px] right-2 bg-zinc-300 p-1 rounded-full text-black'><Eye size={15}/></p>
 
                         )}
                     </div>
