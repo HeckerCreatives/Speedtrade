@@ -100,7 +100,7 @@ export default function Inventory() {
                   <TableCell className=' text-center'>
                   <Countdown
                     className=' mt-2'
-                        date={Date.now() + (item.remainingtime )}
+                        date={Date.now() - (item.remainingtime )}
                         renderer={({ days, hours, minutes, seconds }) => (
                             <span className=' text-xs'>
                             Time left: {days} days : {hours} hours : {minutes} minutes : {seconds} seconds
