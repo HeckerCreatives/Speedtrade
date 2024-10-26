@@ -315,7 +315,7 @@ export default function Payout() {
                         </div>
 
                         <div className='w-full flex flex-col items-start gap-1 h-[65px] mt-2'>
-                            <input type="text" className=' p-3 text-xs rounded-sm text-black w-full' placeholder='Account number' {...register('accountnumber')}/>
+                            <input type="number" className=' p-3 text-xs rounded-sm text-black w-full' placeholder='Account number' {...register('accountnumber')}/>
                             <p className=' text-[.6rem] md:text-xs text-orange-300'>*Make sure you enter a valid account number</p>
                             {errors.accountnumber && <p className=' text-[.6em] text-red-400'>{errors.accountnumber.message}</p>}
                         </div>

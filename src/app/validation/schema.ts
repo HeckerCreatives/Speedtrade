@@ -14,7 +14,7 @@ export const registeruser = z.object({
 
 export const payout = z.object({
   paymentmethod: z.string().nonempty('Please select a payment method'),
-  accountname: z.string().nonempty('Please enter your account name'),
+  accountname: z.string().nonempty('Please enter your account name') .regex(/^[A-Za-z]+$/, 'Account name should not have numbers & special characters'),
   accountnumber: z.string().nonempty('Please enter your account number'),
   payoutvalue: z.string().nonempty('Please enter an amount')
 
