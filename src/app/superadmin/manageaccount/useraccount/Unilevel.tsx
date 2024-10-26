@@ -109,7 +109,7 @@ export default function Unilevel() {
 
   return (
     <div className=' flex flex-col items-center gap-6 w-full bg-slate-950 min-h-[500px] p-4'>
-       <div className=' w-full flex  justify-between'>
+       <div className=' w-full flex md:flex-row flex-col gap-6  justify-between'>
             <Select value={level} onValueChange={setLevel}>
             <SelectTrigger className="w-[200px] bg-slate-800">
                 <SelectValue placeholder="Select Levels" />
@@ -123,7 +123,7 @@ export default function Unilevel() {
             </Select>
 
             <div className=' flex items-center gap-2'>
-                <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" placeholder='Search Username' className=' p-2 rounded-sm text-xs bg-zinc-900 border-none' />
+                <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" placeholder='Search Username' className=' p-2 rounded-sm text-xs bg-slate-800 border-none' />
                 <button className=' p-2 bg-green-700 rounded-sm'><Search size={15}/></button>
             </div>
 
