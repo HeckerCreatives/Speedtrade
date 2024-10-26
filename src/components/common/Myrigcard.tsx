@@ -112,7 +112,7 @@ export default function MyRigCard( prop: Props) {
 
   return (
 
-    <div className=' w-full flex items-end justify-end h-[330px] lg:h-[350px] max-w-[470px]'>
+    <div className=' relative w-full flex items-end justify-end h-[330px] lg:h-[350px] max-w-[470px] lg:mt-14 '>
         <div className=' relative w-full flex flex-col bg-slate-800 rounded-sm p-6 h-auto'>
             <div className=' relative w-full grid grid-cols-2 gap-4 h-auto'>
                 <div className=' w-full relative'>

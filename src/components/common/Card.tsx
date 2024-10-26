@@ -13,8 +13,8 @@ type Props ={
 
 export default function Card( prop: Props) {
   return (
-    <div className=' w-full flex-grow-1 h-[120px] bg-slate-800 p-3'>
-            <div className=' w-full grid grid-cols-2 border-b-[1px] border-slate-700 rounded-sm'>
+    <div className=' w-[336px] flex flex-col justify-between flex-grow-1 h-[150px] bg-slate-800 p-3'>
+            <div className=' w-full grid grid-cols-[100px_1fr]  rounded-sm'>
                 <div className={`p-2 w-fit h-fit ${prop.iconbg} rounded-sm -translate-y-8`}>
                     {prop.icon}
 
@@ -24,13 +24,17 @@ export default function Card( prop: Props) {
                     {prop.loading === true ? (
                         <p className=' w-[80px] h-[25px] rounded-sm bg-slate-600 animate-pulse'></p>
                     ): (
-                    <p className=' text-lg text-yellow-200'>₱ {prop.amount}</p>
+                        <>
+                        <p className=' text-lg text-yellow-200'>₱ {prop.amount.slice(0,15)}</p>
+                        <p className=' text-lg text-yellow-200'>{prop.amount.slice(15,30)}</p>
+                            
+                        </>
 
                     )}
                 </div>
             </div>
 
-            <div className=' w-full flex items-center justify-between text-[.6rem]'>
+            <div className=' w-full flex items-center justify-between text-[.6rem] border-t-[1px] border-slate-700'>
             <p className=' mt-2 text-orange-300'>{prop.subtitle}</p>
             <p className=' mt-2 text-orange-300'>{prop.text}</p>
 

@@ -85,86 +85,161 @@ export function LineCharts() {
   
   return (
 
-        <Card className=" bg-slate-800">
-        <CardHeader>
-            <div className=" w-full flex items-center justify-between">
-                <div className=" flex flex-col gap-2">
-                    <CardTitle>{title}</CardTitle>
-                    <CardDescription>As of <span className=" text-green-500">{todaysDate}</span></CardDescription>
-                    <p className=" text-xs text-slate-400">Line Chart</p>
-                </div>
+         <Card className=" bg-slate-800">
+         <CardHeader>
+             <div className=" w-full flex items-center justify-between">
+                 <div className=" flex flex-col gap-2">
+                     <CardTitle>{title}</CardTitle>
+                     <CardDescription>As of <span className=" text-green-500">{todaysDate}</span></CardDescription>
+                     <p className=" text-xs text-slate-400">Line Chart</p>
+                 </div>
 
-                <Select value={type} onValueChange={setType}>
-                    <SelectTrigger className=" w-[120px] bg-slate-900">
-                    <SelectValue placeholder="Select" />
-                    </SelectTrigger>
-                    <SelectContent>
-                    <SelectItem value="daily">Daily</SelectItem>
-                    <SelectItem value="weekly">Weekly</SelectItem>
-                    <SelectItem value="monthly">Monthly</SelectItem>
-                    <SelectItem value="yearly">Yearly</SelectItem>
+                 <Select value={type} onValueChange={setType}>
+                     <SelectTrigger className=" w-[120px] bg-slate-900">
+                     <SelectValue placeholder="Select" />
+                     </SelectTrigger>
+                     <SelectContent>
+                     <SelectItem value="daily">Daily</SelectItem>
+                     <SelectItem value="weekly">Weekly</SelectItem>
+                     <SelectItem value="monthly">Monthly</SelectItem>
+                     <SelectItem value="yearly">Yearly</SelectItem>
                 
-                    </SelectContent>
-                </Select>
+                     </SelectContent>
+                 </Select>
                 
-            </div>
+             </div>
             
-        </CardHeader>
-        <CardContent className="">
-            <ChartContainer config={chartConfig}>
-            <LineChart
-                accessibilityLayer
-                data={chartDataLine}
-                margin={{
+         </CardHeader>
+         <CardContent className=" h-auto">
+             <ChartContainer config={chartConfig} className=" h-auto">
+             <LineChart
+                 accessibilityLayer
+                 data={chartDataLine}
+                 margin={{
                 
-                left: 12,
-                right: 12,
-                }}
-            >
-                <CartesianGrid vertical={false} />
-                <XAxis
-                dataKey="time"
-                tickLine={false}
-                axisLine={false}
-                tickMargin={8}
-                tickFormatter={(value) => value.slice(0, 3)}
-                />
-                <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent indicator="line" />}
-                />
-                <Line
-                dataKey="data"
-                type="natural"
-                className=" stroke-white text-xs"
-                stroke="var(--color-desktop)"
-                strokeWidth={2}
-                dot={{
-                    fill: "var(--color-desktop)",
-                }}
-                activeDot={{
-                    r: 6,
-                }}
-                >
-                <LabelList
-                    position="top"
-                    offset={12}
-                    className="fill-foreground"
-                    fontSize={12}
-                />
-                </Line>
-            </LineChart>
-            </ChartContainer>
-        </CardContent>
-        <CardFooter className="flex-col items-start gap-2 text-sm">
-            <div className="flex gap-2 font-medium leading-none">
-            {/* Trending up by 5.2% this month <TrendingUp className="h-4 w-4" /> */}
-            </div>
-            <div className="leading-none text-muted-foreground">
-            Showing data {type}
-            </div>
-        </CardFooter>
-        </Card>
+                 left: 12,
+                 right: 12,
+                 }}
+             >
+                 <CartesianGrid vertical={false} />
+                 <XAxis
+                 dataKey="time"
+                 tickLine={false}
+                 axisLine={false}
+                 tickMargin={8}
+                 tickFormatter={(value) => value.slice(0, 3)}
+                 className=""
+                 />
+                 <ChartTooltip
+                 cursor={false}
+                 content={<ChartTooltipContent indicator="line" />}
+                 />
+                 <Line
+                 dataKey="data"
+                 type="linear"
+                 className=" stroke-white text-xs"
+                 stroke="var(--color-desktop)"
+                 strokeWidth={2}
+                 dot={{
+                     fill: "var(--color-desktop)",
+                 }}
+                 activeDot={{
+                     r: 6,
+                 }}
+                 >
+                 {/* <LabelList
+                     position="bottom"
+                     offset={12}
+                     className="fill-foreground"
+                     fontSize={12}
+                 /> */}
+                 </Line>
+             </LineChart>
+             </ChartContainer>
+         </CardContent>
+         <CardFooter className="flex-col items-start gap-2 text-sm">
+             <div className="flex gap-2 font-medium leading-none">
+             {/* Trending up by 5.2% this month <TrendingUp className="h-4 w-4" /> */}
+             </div>
+             <div className="leading-none text-muted-foreground">
+             Showing data {type}
+             </div>
+         </CardFooter>
+         </Card>
+
+    //     <Card>
+    //   <CardHeader>
+    //   <div className=" w-full flex items-center justify-between">
+    //              <div className=" flex flex-col gap-2">
+    //                  <CardTitle>{title}</CardTitle>
+    //                  <CardDescription>As of <span className=" text-green-500">{todaysDate}</span></CardDescription>
+    //                  <p className=" text-xs text-slate-400">Line Chart</p>
+    //              </div>
+
+    //              <Select value={type} onValueChange={setType}>
+    //                  <SelectTrigger className=" w-[120px] bg-slate-900">
+    //                  <SelectValue placeholder="Select" />
+    //                  </SelectTrigger>
+    //                <SelectContent>
+    //                  <SelectItem value="daily">Daily</SelectItem>
+    //                  <SelectItem value="weekly">Weekly</SelectItem>
+    //                  <SelectItem value="monthly">Monthly</SelectItem>
+    //                  <SelectItem value="yearly">Yearly</SelectItem>
+                
+    //                  </SelectContent>
+    //              </Select>
+                
+    //        </div>
+    //   </CardHeader>
+    //   <CardContent>
+    //     <ChartContainer config={chartConfig} className=" py-8 bg-red-500">
+    //       <LineChart
+    //         accessibilityLayer
+    //         data={chartDataLine}
+    //         className=""
+    //         margin={{
+    //           left: 12,
+    //           right: 12,
+    //         }}
+    //       >
+    //         <CartesianGrid vertical={false} />
+    //         <XAxis
+    //           dataKey="time"
+    //           tickLine={false}
+    //           axisLine={false}
+    //           tickMargin={8}
+    //           tickFormatter={(value) => value.slice(0, 3)}
+    //         />
+    //         <ChartTooltip
+    //           cursor={false}
+    //           content={<ChartTooltipContent hideLabel />}
+    //         />
+    //         <Line
+    //           dataKey="data"
+    //           type="linear"
+    //           stroke="var(--color-desktop)"
+    //           strokeWidth={2}
+    //           dot={false}
+              
+    //         />
+    //         <LabelList
+    //           position="top"
+    //           offset={12}
+    //           className="fill-foreground"
+    //           fontSize={12}
+    //         />
+    //       </LineChart>
+    //     </ChartContainer>
+    //   </CardContent>
+    //   <CardFooter className="flex-col items-start gap-2 text-sm">
+    //     <div className="flex gap-2 font-medium leading-none">
+    //       Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+    //     </div>
+    //     <div className="leading-none text-muted-foreground">
+    //       Showing total visitors for the last 6 months
+    //     </div>
+    //   </CardFooter>
+    // </Card>
     
   )
 }

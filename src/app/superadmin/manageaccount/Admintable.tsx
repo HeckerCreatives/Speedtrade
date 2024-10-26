@@ -328,7 +328,7 @@ export default function AdminTable() {
 
 
                   <label htmlFor="" className=' text-xs mt-2'>Password</label>
-                  <input type="text" placeholder='Passowrd' className=' text-sm text-black p-2 rounded-md' {...register('password')} />
+                  <input type="text" placeholder='Password' className=' text-sm text-black p-2 rounded-md' {...register('password')} />
                   {errors.password && <p className=' text-[.6em] text-red-400'>{errors.password.message}</p>}
 
 
