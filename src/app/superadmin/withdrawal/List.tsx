@@ -13,7 +13,7 @@ export default function List() {
     <div className=' max-w-[1440px] w-full bg-slate-800 p-2 md:p-6'>
         <Tabs defaultValue="comission" className=" w-full">
         <TabsList>
-            <TabsTrigger value="comission">Comission</TabsTrigger>
+            <TabsTrigger value="comission">Commission</TabsTrigger>
             <TabsTrigger value="miners">Rig Miner</TabsTrigger>
         </TabsList>
         <TabsContent value="comission" className=' w-full'>
