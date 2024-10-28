@@ -10,7 +10,7 @@ export default function History() {
     <div className='relative w-full flex flex-col max-w-[1440px]'>
         <Tabs defaultValue="comission" className="w-full h-full">
         <TabsList>
-            <TabsTrigger value="comission">Comission</TabsTrigger>
+            <TabsTrigger value="comission">Commission</TabsTrigger>
             <TabsTrigger value="rigminer">Rig Miner</TabsTrigger>
         </TabsList>
         <TabsContent value="comission">

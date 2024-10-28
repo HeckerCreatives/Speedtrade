@@ -235,7 +235,7 @@ export default function Comissionlist() {
   return (
     <div className=' relative w-full flex flex-col items-center gap-8 max-w-[1440px] min-h-[500px] h-auto mt-12 bg-slate-900 p-6'>
         <div className=' flex md:flex-row flex-col items-center justify-between absolute top-0 w-[98%] gap-2 h-auto md:h-[55px] bg-gradient-to-r from-green-700 to-green-500 p-2 rounded-sm -translate-y-4'>
-            <p className=' text-sm font-semibold'>Comission List</p>
+            <p className=' text-sm font-semibold'>Commission List</p>
 
             <div className=' flex items-center gap-2'>
               <Select value={payemnt} onValueChange={setPayment}>

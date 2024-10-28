@@ -114,11 +114,11 @@ export default function Cards() {
     <div className=' max-w-[1440px] h-auto w-full flex flex-wrap gap-8 mt-6'>
 
         <Card icon={<Wallet size={30} />} iconbg={' bg-orange-500'} title={'Top Up Balance'} amount={`${wallets?.data.creditwallet.toLocaleString()}`} subtitle={'Use to purchase miner set up'} text={''} loading={loading}/>
-        <Card icon={<Wallet size={30} />} iconbg={' bg-green-500'} title={'Total Withdrawables'} amount={`${withdrawables.toLocaleString()}`} subtitle={'The sum of comission wallet & miner wallet'} text={''} loading={loading}/>
+        <Card icon={<Wallet size={30} />} iconbg={' bg-green-500'} title={'Total Withdrawables'} amount={`${withdrawables.toLocaleString()}`} subtitle={'The sum of commission wallet & miner wallet'} text={''} loading={loading}/>
         <Card icon={<Wallet size={30} />} iconbg={' bg-red-500'} title={'Rig Miner Total Earning'} amount={`${earnings?.data.mining.toLocaleString()}`} subtitle={'Total income from miners'} text={''} loading={loading}/>
         <Card icon={<Wallet size={30} />} iconbg={' bg-blue-500'} title={'Rig miner Wallet'} amount={`${wallets?.data.minecoinwallet.toLocaleString()}`} subtitle={'Unclaimed Miner Value'} text={`₱ ${unclaimed.toLocaleString()}`} loading={loading}/>
-        <Card icon={<Wallet size={30} />} iconbg={' bg-pink-500'} title={'Referral Total Comission'} amount={`${earnings?.data.referral.toLocaleString()}`} subtitle={'Total accumulated comission from direct refferal'} text={''} loading={loading}/>
-        <Card icon={<Wallet size={30} />} iconbg={' bg-purple-500'} title={'Unilevel Total Comission'} amount={`${earnings?.data.unilevel.toLocaleString()}`} subtitle={'Total accumulated comission from lvl 2 to lvl 10'} text={''} loading={loading}/>
+        <Card icon={<Wallet size={30} />} iconbg={' bg-pink-500'} title={'Referral Total Commission'} amount={`${earnings?.data.referral.toLocaleString()}`} subtitle={'Total accumulated commission from direct refferal'} text={''} loading={loading}/>
+        <Card icon={<Wallet size={30} />} iconbg={' bg-purple-500'} title={'Unilevel Total Commission'} amount={`${earnings?.data.unilevel.toLocaleString()}`} subtitle={'Total accumulated commission from lvl 2 to lvl 10'} text={''} loading={loading}/>
         <Card icon={<Wallet size={30} />} iconbg={' bg-cyan-500'} title={'Comission Wallet'} amount={`${wallets?.data.commissionwallet.toLocaleString()}`} subtitle={'Withdrawable value from direct referral & unilevel'} text={''} loading={loading}/>
         <Card icon={<Wallet size={30} />} iconbg={' bg-cyan-500'} title={'Total Earnings'} amount={`${totalearnings.toLocaleString()}`} subtitle={'The sum of referral commission, unilevel & rig miner total earning'} text={''} loading={loading}/>
 

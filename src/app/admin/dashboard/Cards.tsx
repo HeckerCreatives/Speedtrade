@@ -55,12 +55,12 @@ export default function Cards() {
 
 
         <Card icon={<Wallet size={30} />} iconbg={' bg-orange-500'} title={'Payin'} amount={`${wallets?.payin.toLocaleString()}`} subtitle={'Use to purchase miner set up'} text={''} loading={loading}/>
-        <Card icon={<Wallet size={30} />} iconbg={' bg-green-500'} title={'Total Payout'} amount={`${wallets?.totalpayout.toLocaleString()}`} subtitle={'The sum of comission wallet & miner wallet'} text={''} loading={loading}/>
+        <Card icon={<Wallet size={30} />} iconbg={' bg-green-500'} title={'Total Payout'} amount={`${wallets?.totalpayout.toLocaleString()}`} subtitle={'The sum of commission wallet & miner wallet'} text={''} loading={loading}/>
         <Card icon={<Wallet size={30} />} iconbg={' bg-red-500'} title={'Rig Miner Total Payout'} amount={`${wallets?.payoutminer.toLocaleString()}`} subtitle={'Total income from miners'} text={''} loading={loading}/>
-        <Card icon={<Wallet size={30} />} iconbg={' bg-blue-500'} title={'Company Comission'} amount={`${wallets?.companycommission.toLocaleString()}`} subtitle={''} text={''} loading={loading}/>
-        <Card icon={<Wallet size={30} />} iconbg={' bg-pink-500'} title={'Total User Comission'} amount={`${wallets?.totalusercommission.toLocaleString()}`} subtitle={'Total accumulated comission from direct refferal'} text={''} loading={loading}/>
-        <Card icon={<Wallet size={30} />} iconbg={' bg-purple-500'} title={'Unilevel Total Comission'} amount={`${wallets?.registered.toLocaleString()}`} subtitle={'Total accumulated comission from lvl 2 to lvl 10'} text={''} loading={loading}/>
-        <Card icon={<Wallet size={30} />} iconbg={' bg-cyan-500'} title={'Total Payout Comission'} amount={`${wallets?.payoutcommission.toLocaleString()}`} subtitle={'Withdrawable value from direct referral & unilevel'} text={''} loading={loading}/>
+        <Card icon={<Wallet size={30} />} iconbg={' bg-blue-500'} title={'Company Commission'} amount={`${wallets?.companycommission.toLocaleString()}`} subtitle={''} text={''} loading={loading}/>
+        <Card icon={<Wallet size={30} />} iconbg={' bg-pink-500'} title={'Total User Commission'} amount={`${wallets?.totalusercommission.toLocaleString()}`} subtitle={'Total accumulated commission from direct refferal'} text={''} loading={loading}/>
+        <Card icon={<Wallet size={30} />} iconbg={' bg-purple-500'} title={'Unilevel Total Commission'} amount={`${wallets?.registered.toLocaleString()}`} subtitle={'Total accumulated commission from lvl 2 to lvl 10'} text={''} loading={loading}/>
+        <Card icon={<Wallet size={30} />} iconbg={' bg-cyan-500'} title={'Total Payout Commission'} amount={`${wallets?.payoutcommission.toLocaleString()}`} subtitle={'Withdrawable value from direct referral & unilevel'} text={''} loading={loading}/>
         <Card icon={<Wallet size={30} />} iconbg={' bg-cyan-500'} title={'Rig Miner Profit'} amount={`${wallets?.minerprofit.toLocaleString()}`} subtitle={'The sum of referral commission, unilevel & rig miner total earning'} text={''} loading={loading}/>
 
     </div>
