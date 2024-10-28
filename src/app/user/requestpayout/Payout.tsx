@@ -14,7 +14,6 @@ import { error, success } from '@/components/common/Toast'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Spinner from '@/components/common/Spinner'
 import { RequestPayout, payout } from '@/app/validation/schema'
-// import { payout, RequestPayout } from '@/app/validation/schema'
 
 
 type Wallets = {
@@ -74,12 +73,14 @@ export default function Payout() {
             if(response.data.message === 'success'){
                 setLoading(false)
                 router.push('?state=false')
+                reset()
             }
 
 
             if(response.data.message === 'failed'){
                 setLoading(false)
                 error(response.data.data)
+                reset()
             }
             
     } catch (error) {
@@ -198,13 +199,7 @@ export default function Payout() {
                 })
                 setWallet(res.data.data)
             } catch (error) {
-                // if (axios.isAxiosError(error)) {
-                // const axiosError = error as AxiosError<{ message: string, data: string }>;
-                //     if (axiosError.response && axiosError.response.status === 401) {
-                //     toast.error(`${axiosError.response.data.data}`)
-                //     router.push('/')  
-                //     }    
-                // } 
+               
             }
             
         }
@@ -252,49 +247,7 @@ export default function Payout() {
 
             </div>
 
-            {/* <form onSubmit={handleSubmit(onSubmit)} className=' w-full grid grid-cols-2 gap-2 md:gap-4 mt-4'>
-
-                <div className=' w-full flex flex-col gap-1 md:p-4'>
-                    <Select value={paymentmethod} onValueChange={setPaymentmethod} {...register('paymentmethod')}>
-                    <SelectTrigger className="w-full bg-zinc-100 text-black">
-                        <SelectValue placeholder="Select Payment Method" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value='Gcash'>Gcash</SelectItem>
-                        <SelectItem value='Paymaya'>GoTyme</SelectItem>
-                    </SelectContent>
-                    </Select>
-                    <p className=' text-[.6rem] md:text-xs text-orange-300'>*Select payment method</p>
-                    {errors.paymentmethod && <p className=' text-[.6em] text-red-400'>{errors.paymentmethod.message}</p>}
-
-                    
-                    
-
-                    <input type="text" className=' p-3 text-xs rounded-sm text-black mt-6' placeholder='Account number' value={number} onChange={(e) => setNumber(e.target.value)} />
-                    <p className=' text-[.6rem] md:text-xs text-orange-300'>*Make sure you enter a valid account number</p>
-
-
-
-                </div>
-
-                <div className=' w-full flex flex-col gap-1 md:p-4'>
-                    <input type="text" className=' p-3 text-xs rounded-sm text-black' placeholder='Account name' value={name} onChange={(e) => setName(e.target.value)}  />
-                   
-                    <p className=' text-[.6rem] md:text-xs text-orange-300'>*Make sure you enter a correct account name</p>
-
-
-                    <input type="number" className=' p-3 text-xs rounded-sm text-black mt-2 md:mt-6' placeholder='Enter amount' value={amount} onChange={(e) => setAmount(e.target.value)}/>
-                    <p className=' text-[.5rem] md:text-xs text-orange-300'></p>
-
-
-
-                </div>
-
-                <button>Submit</button>
-
-                
-
-            </form> */}
+          
 
              <form onSubmit={handleSubmit(onSubmit)} className=' w-full  mt-4'>
                 <div className='grid grid-cols-2 gap-2 md:gap-4'>
