@@ -1,4 +1,4 @@
-import { Banknote, Cable, ChartColumn, Cog, HandCoins, LayoutGrid, MessageCircleQuestion, Pickaxe, ShoppingCart, Users, WalletMinimal, Waypoints } from "lucide-react";
+import { Banknote, Cable, ChartColumn, Cog, HandCoins, LayoutGrid, MessageCircleQuestion, Pickaxe, ShoppingCart, TicketCheck, Users, WalletMinimal, Waypoints } from "lucide-react";
 
 export const user = [
     {name:'Dashboard', icon: <LayoutGrid width={15} height={15}/>, route:'/user/dashboard'},
@@ -16,6 +16,7 @@ export const superadmin = [
     // {name:'Maintenance', icon: <Cable width={15} height={15}/>, route:'/superadmin/maintenance'},
     {name:'Deposit', icon: <HandCoins width={15} height={15}/>, route:'/superadmin/deposit'},
     {name:'Withdrawal', icon: <WalletMinimal width={15} height={15}/>, route:'/superadmin/withdrawal'},
+    {name:'Master Key', icon: <TicketCheck width={15} height={15}/>, route:'/superadmin/masterkey'},
     {name:'Settings', icon: <Cog width={15} height={15}/>, route:'/superadmin/settings'},
 ]
 

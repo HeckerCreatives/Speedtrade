@@ -41,7 +41,7 @@ export default function SuperAdminLayout({
   const params = useSearchParams()
   const router = useRouter()
 
-  const page = path.includes('/superadmin/dashboard') && '' || path.includes('/superadmin/manageaccount') && 'Manage Account' || path.includes('/superadmin/maintenance') && 'Maintenance' || path.includes('/superadmin/deposit') && 'Deposit' || path.includes('/superadmin/withdrawal') && 'Withdrawal' || path.includes('/superadmin/sales') && 'Sales'
+  const page = path.includes('/superadmin/dashboard') && '' || path.includes('/superadmin/manageaccount') && 'Manage Account' || path.includes('/superadmin/maintenance') && 'Maintenance' || path.includes('/superadmin/deposit') && 'Deposit' || path.includes('/superadmin/withdrawal') && 'Withdrawal' || path.includes('/superadmin/sales') && 'Sales' || path.includes('/superadmin/masterkey') && 'Master Key'
 
 
   const logout = async () => {

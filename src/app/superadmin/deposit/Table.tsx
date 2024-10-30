@@ -10,12 +10,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { ArrowLeft, ArrowRight, EllipsisVertical, Search } from 'lucide-react'
+import { ArrowLeft, ArrowRight, EllipsisVertical, Search, Trash } from 'lucide-react'
 import Pagination from '@/components/common/Pagination'
 import axios, { AxiosError } from 'axios'
 import { useRouter, useSearchParams } from 'next/navigation'
 import toast from 'react-hot-toast'
 import Spinner from '@/components/common/Spinner'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 type Payin ={
   canbedeleted: string
@@ -39,6 +47,8 @@ export default function UserTable() {
   const router = useRouter()
   const params = useSearchParams()
   const state = params.get('state')
+  const [loading2, setLoading2] = useState(false)
+
 
 
    useEffect(() => {
@@ -140,6 +150,7 @@ export default function UserTable() {
             <TableHead className=' text-center'>Username</TableHead>
             <TableHead className=' text-center'>Amount</TableHead>
             <TableHead className=' text-center'>Status</TableHead>
+            <TableHead className=' text-center'>Action</TableHead>
 
             </TableRow>
         </TableHeader>
@@ -152,6 +163,28 @@ export default function UserTable() {
                 <TableCell className="font-medium text-center">{item.username}</TableCell>
                 <TableCell className="font-medium text-center">₱ {item.value.toLocaleString()}</TableCell>
                 <TableCell className="font-medium text-center">{item.status}</TableCell>
+                <TableCell className="font-medium text-center">
+                <Dialog>
+                    <DialogTrigger>
+                        <button className=' p-1 rounded-sm bg-red-500 text-white'><Trash size={15}/></button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Are you absolutely sure, you want to delete this payin from <span className=' text-red-500'>{item.username}</span> requested at <span className=' text-red-500'>{new Date(item.createdAt).toDateString()}</span>?</DialogTitle>
+                        <DialogDescription>
+                          This action cannot be undone. This will permanently delete payin details on the server
+                        </DialogDescription>
+                      </DialogHeader>
+
+                      <button  className=' bg-red-600 px-6 py-2 rounded-sm w-fit text-sm text-white font-semibold flex items-center justify-center gap-2'>
+                        {loading2 === true && (
+                          <Spinner/>
+                        )}
+                        Continue</button>
+                    </DialogContent>
+                  </Dialog>
+
+                </TableCell>
               </TableRow>
             ))}
             </>
