@@ -82,7 +82,7 @@ export default function Faq() {
             <AccordionItem value="item-1">
                 <AccordionTrigger className=' w-full'>How can I report a bug or technical problem?</AccordionTrigger>
                 <AccordionContent>
-                   If you encounter a bug or technical issue, please email us at blahblaa@gmail.com. In your message, include a detailed explanation of the problem. Whenever possible, attach screenshots or any relevant information that could help us identify and resolve the issue more effectively. Providing comprehensive details will enable our support team to address your concern faster and with greater accuracy. Your feedback is vital to improving the system and enhancing the experience for all players.
+                   If you encounter a bug or technical issue, please email us at speedmineph@gmail.com. In your message, include a detailed explanation of the problem. Whenever possible, attach screenshots or any relevant information that could help us identify and resolve the issue more effectively. Providing comprehensive details will enable our support team to address your concern faster and with greater accuracy. Your feedback is vital to improving the system and enhancing the experience for all players.
                 </AccordionContent>
             </AccordionItem>
             </Accordion>

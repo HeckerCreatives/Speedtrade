@@ -123,6 +123,66 @@ export default function UserTable() {
   }
 
 
+  const deletePayin = async (id: string, username: string, userid: string) => {
+    setLoading2(true)
+    router.push('?state=rue')
+      try {
+       const request = axios.post(`${process.env.NEXT_PUBLIC_URL}/payin/deletepayinplayersuperadmin`,{
+        transactionid: id,
+        userid: id
+      },{
+        withCredentials:true,
+        headers:{
+          'Content-Type': 'application/json',
+        }
+      })
+
+      const response = await toast.promise(request, {
+        loading: `Deleting payin from ${username}....`,
+        success: `Payin deleted successfully`,
+        error: 'Error while deleting payin details',
+      });
+      
+
+      if( response.data.message === 'success'){
+        setLoading2(false)
+        router.push('?state=false')
+        setSearch('')
+ 
+      }
+    } catch (error) {
+       setLoading2(false)
+        if (axios.isAxiosError(error)) {
+                    const axiosError = error as AxiosError<{ message: string, data: string }>;
+                    if (axiosError.response && axiosError.response.status === 401) {
+                        toast.error(`${axiosError.response.data.data}`) 
+                        router.push('/')    
+                    }
+
+                    if (axiosError.response && axiosError.response.status === 400) {
+                        toast.error(`${axiosError.response.data.data}`)     
+                            
+                    }
+
+                    if (axiosError.response && axiosError.response.status === 402) {
+                        toast.error(`${axiosError.response.data.data}`)          
+                                
+                    }
+
+                    if (axiosError.response && axiosError.response.status === 403) {
+                        toast.error(`${axiosError.response.data.data}`)              
+                        
+                    }
+
+                    if (axiosError.response && axiosError.response.status === 404) {
+                        toast.error(`${axiosError.response.data.data}`)             
+                    }
+            } 
+      
+    }
+  }
+
+
   return (
     <div className=' relative w-full flex flex-col items-center gap-8 max-w-[1440px] h-auto mt-12 bg-slate-800 p-6'>
         <div className=' flex md:flex-row flex-col gap-4 items-center justify-between absolute top-0 w-[98%] h-auto md:h-[55px] bg-gradient-to-r from-green-700 to-green-500 p-2 rounded-sm -translate-y-4'>
@@ -176,7 +236,7 @@ export default function UserTable() {
                         </DialogDescription>
                       </DialogHeader>
 
-                      <button  className=' bg-red-600 px-6 py-2 rounded-sm w-fit text-sm text-white font-semibold flex items-center justify-center gap-2'>
+                      <button onClick={() => deletePayin(item.id, item.username, item.userid)} className=' bg-red-600 px-6 py-2 rounded-sm w-fit text-sm text-white font-semibold flex items-center justify-center gap-2'>
                         {loading2 === true && (
                           <Spinner/>
                         )}

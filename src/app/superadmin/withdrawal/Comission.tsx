@@ -237,7 +237,7 @@ export default function Comissionlist() {
         <div className=' flex md:flex-row flex-col items-center justify-between absolute top-0 w-[98%] gap-2 h-auto md:h-[55px] bg-gradient-to-r from-green-700 to-green-500 p-2 rounded-sm -translate-y-4'>
             <p className=' text-sm font-semibold'>Commission List</p>
 
-            <div className=' flex items-center gap-2'>
+            <div className=' flex flex-wrap items-center gap-2'>
               <Select value={payemnt} onValueChange={setPayment}>
                 <SelectTrigger className="w-[150px] bg-slate-900 text-white">
                   <SelectValue placeholder="Payment Method" />
@@ -255,7 +255,7 @@ export default function Comissionlist() {
             </div>
 
         </div>
-        <Table className=' mt-10 md:mt-8'>
+        <Table className=' mt-24 md:mt-8'>
         {list.length === 0 &&  
           <TableCaption className=' text-xs'>No data</TableCaption>
           }
