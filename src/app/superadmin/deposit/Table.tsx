@@ -129,7 +129,7 @@ export default function UserTable() {
       try {
        const request = axios.post(`${process.env.NEXT_PUBLIC_URL}/payin/deletepayinplayersuperadmin`,{
         transactionid: id,
-        userid: id
+        userid: userid
       },{
         withCredentials:true,
         headers:{
