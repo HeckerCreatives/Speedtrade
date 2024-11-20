@@ -1,11 +1,11 @@
 'use client'
-import React, { useState } from 'react'
-
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Eye, EyeOff } from 'lucide-react'
-
 import axios, { AxiosError } from 'axios'
 import toast from 'react-hot-toast'
+
+
 
 export default function Login() {
     const [username, setUsername] = useState('')
@@ -13,12 +13,12 @@ export default function Login() {
     const [showpassword, setShowpassword] = useState('password')
     const router = useRouter()
     const [loading, setLoading] = useState(false)
-
+    const [ip, setIp] = useState<string>('');
 
     const login = async () => {
         setLoading(true)
         try {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/auth/login?username=${username}&password=${password}`,
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/auth/login?username=${username}&password=${password}&ipAddress=${ip}`,
                 {
                     withCredentials: true,
                     headers: {
@@ -85,6 +85,13 @@ export default function Login() {
         }
     }
 
+
+    useEffect(() => {
+      fetch('/api/get-ip')
+        .then((res) => res.json())
+        .then((data) => setIp(data.ip))
+        .catch((err) => console.error(err));
+    }, []);
 
 
   return (
