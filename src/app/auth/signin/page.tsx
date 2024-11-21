@@ -13,7 +13,7 @@ export default function Login() {
     const [showpassword, setShowpassword] = useState('password')
     const router = useRouter()
     const [loading, setLoading] = useState(false)
-    const [ip, setIp] = useState<string>('');
+    // const [ip, setIp] = useState<string>('');
 
     const login = async () => {
         setLoading(true)
@@ -86,12 +86,29 @@ export default function Login() {
     }
 
 
+    // useEffect(() => {
+    //   fetch('/api/get-ip')
+    //     .then((res) => res.json())
+    //     .then((data) => setIp(data.ip))
+    //     .catch((err) => console.error(err));
+    // }, []);
+
+      const [ip, setIp] = useState('');
+
     useEffect(() => {
-      fetch('/api/get-ip')
-        .then((res) => res.json())
-        .then((data) => setIp(data.ip))
-        .catch((err) => console.error(err));
+      const fetchIP = async () => {
+        try {
+          const response = await fetch('https://api.ipify.org?format=json');
+          const data = await response.json();
+          setIp(data.ip);
+        } catch (error) {
+        //   console.error('Error fetching IP address:', error);
+        }
+      };
+
+      fetchIP();
     }, []);
+
 
 
   return (

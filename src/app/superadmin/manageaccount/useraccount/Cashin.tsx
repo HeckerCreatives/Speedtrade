@@ -38,7 +38,6 @@ export default function Cashin() {
                         withCredentials: true
                     }
                 )
-                console.log(response.data)
                 setList(response.data.data.payinhistory)
                 setTotalpage(response.data.data.totalPages)
                 setLoading(false)

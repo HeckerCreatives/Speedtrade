@@ -43,7 +43,6 @@ export default function Inventory() {
                         withCredentials: true
                     }
                 )
-                console.log(response.data)
                 setList(response.data.data.inventory)
                 setTotalpage(response.data.data.totalPages)
               setLoading(false)

@@ -65,7 +65,6 @@ export default function page() {
                 withCredentials: true
             }
         )
-        console.log(response.data)
         setData(response.data.data)
         
        }
@@ -145,7 +144,6 @@ export default function page() {
                         withCredentials: true
                     }
                 )
-                console.log(response.data)
                 setWallet(response.data.data)
                 
                 

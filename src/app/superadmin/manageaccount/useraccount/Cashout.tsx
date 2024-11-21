@@ -39,7 +39,6 @@ export default function Cashout() {
                         withCredentials: true
                     }
                 )
-                console.log(response.data)
                 setList(response.data.data.history)
                 setTotalpage(response.data.data.totalPages)
                 setLoading(false)

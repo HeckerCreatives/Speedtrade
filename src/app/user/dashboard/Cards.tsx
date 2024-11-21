@@ -100,7 +100,6 @@ export default function Cards() {
       })
 
       setUnclaimed(response.data.data.unclaimed)
-      console.log(response.data)
   
       setLoading(false)
 

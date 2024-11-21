@@ -132,7 +132,6 @@ export default function UserLayout({
     });
   }
 
-  console.log(referralstatus)
 
   return (
       <div className="grid min-h-screen w-full lg:grid-cols-[220px_1fr] overflow-hidden">

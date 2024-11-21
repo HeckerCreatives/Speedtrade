@@ -96,7 +96,6 @@ export default function Productcard( prop: Props) {
         }
     }
 
-    console.log(val)
 
   return (
 
