@@ -34,7 +34,7 @@ export default function MasterkeyHistory() {
     setLoading(true)
     const handler = setTimeout( async () => {
         try {
-          const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/globalpass/getusagehistory`,{
+          const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/globalpass/getusagehistory?limit=10&page=${currentpage}`,{
           withCredentials:true
           })
 
@@ -57,7 +57,7 @@ export default function MasterkeyHistory() {
     return () => {
       clearTimeout(handler)
     }
-  },[])
+  },[currentpage])
 
   const handlePageChange = (page: number) => {
     setCurrentpage(page)
