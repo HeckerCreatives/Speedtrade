@@ -13,7 +13,6 @@ export default function Login() {
     const [showpassword, setShowpassword] = useState('password')
     const router = useRouter()
     const [loading, setLoading] = useState(false)
-    // const [ip, setIp] = useState<string>('');
 
     const login = async () => {
         setLoading(true)
@@ -86,12 +85,6 @@ export default function Login() {
     }
 
 
-    // useEffect(() => {
-    //   fetch('/api/get-ip')
-    //     .then((res) => res.json())
-    //     .then((data) => setIp(data.ip))
-    //     .catch((err) => console.error(err));
-    // }, []);
 
       const [ip, setIp] = useState('');
 
