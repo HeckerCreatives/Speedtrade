@@ -19,7 +19,7 @@ type Props = {
     id: string
     name: string
     percentage: string
-    duration: string
+    duration: number
    
     img: string
     size: string
@@ -107,7 +107,12 @@ export default function MyRigCard( prop: Props) {
     return result;
     };
 
-    const maturedDate = addDays(prop.purchase, 5);
+
+
+
+    const maturedDate = addDays(prop.purchase, prop.duration);
+
+    console.log(prop)
 
 
   return (
@@ -187,6 +192,8 @@ export default function MyRigCard( prop: Props) {
                     </Dialog>
 
                 </div>
+
+                {/* <p className=' text-[.6rem] bg-red-600 px-3 py-1 w-fit rounded-full'>Dual Miner</p> */}
             </div>
 
         </div>

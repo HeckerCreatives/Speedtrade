@@ -84,9 +84,7 @@ export default function Login() {
         }
     }
 
-
-
-      const [ip, setIp] = useState('');
+    const [ip, setIp] = useState('');
 
     useEffect(() => {
       const fetchIP = async () => {

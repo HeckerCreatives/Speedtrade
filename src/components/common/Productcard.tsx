@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Slider } from "@/components/ui/slider"
 import axios, { AxiosError } from 'axios'
 import toast from 'react-hot-toast'
@@ -34,6 +34,7 @@ export default function Productcard( prop: Props) {
     const [loading, setLoading] = useState(false)
     const router = useRouter()
     const [dialog, setDialog] = useState(false)
+    const [isOpen, setIsopen] = useState('')
 
 
     const buyRigminer = async () => {
@@ -95,6 +96,18 @@ export default function Productcard( prop: Props) {
             
         }
     }
+
+    useEffect(() => {
+
+        const getState = async () => {
+         const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/maintenance/geteventmaintenance?type=b1t1`,{
+             withCredentials: true
+         })
+ 
+         setIsopen(response.data.data.value)
+        }
+        getState()
+     },[])
 
 
   return (
@@ -160,6 +173,11 @@ export default function Productcard( prop: Props) {
 
 
                 </div>
+
+                {isOpen === '1' && (
+                <p className=' text-[.6rem] bg-red-600 px-3 py-1 w-fit rounded-full'>Dual Miner</p>
+                )}
+
             </div>
 
 
