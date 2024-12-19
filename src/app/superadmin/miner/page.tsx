@@ -139,8 +139,8 @@ export default function page() {
            </div>
 
            <div className=' w-full flex items-center flex-wrap gap-4'>
-            <MinerCard id={list[0]?.id} name={'Quick Miner'} percentage={'20'} duration={list[0]?.duration} img={'/assets/quick-miner.png'} size={'150'} max={0}/>
-            <MinerCard id={list[1]?.id} name={'Swift Miner'} percentage={'60'} duration={list[1]?.duration} img={'/assets/Swift-miner.png'} size={'120'} max={0}/>
+            <MinerCard id={list[1]?.id} name={'Quick Miner'} percentage={'20'} duration={list[1]?.duration} img={'/assets/quick-miner.png'} size={'150'} max={0}/>
+            <MinerCard id={list[0]?.id} name={'Swift Miner'} percentage={'60'} duration={list[0]?.duration} img={'/assets/Swift-miner.png'} size={'120'} max={0}/>
             <MinerCard id={list[2]?.id} name={'Rapid Miner'} percentage={'150'} duration={list[2]?.duration} img={'/assets/Rapid-miner.png'} size={'110'} max={0}/>
            </div>
         </div>

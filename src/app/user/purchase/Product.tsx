@@ -30,8 +30,8 @@ export default function Product() {
 
   return (
     <div className=' w-full max-w-[1440px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-        <Productcard name={'Quick Miner'} percentage={'20'} duration={`${list[0]?.duration}`} min={500} max={2000} img={'/assets/quick-miner.png'} size={'160'}/>
-        <Productcard name={'Swift Miner'} percentage={'60'} duration={`${list[1]?.duration}`} min={2000} max={20000} img={'/assets/Swift-miner.png'} size={'150'}/>
+        <Productcard name={'Quick Miner'} percentage={'20'} duration={`${list[1]?.duration}`} min={500} max={2000} img={'/assets/quick-miner.png'} size={'160'}/>
+        <Productcard name={'Swift Miner'} percentage={'60'} duration={`${list[0]?.duration}`} min={2000} max={20000} img={'/assets/Swift-miner.png'} size={'150'}/>
         <Productcard name={'Rapid Miner'} percentage={'150'} duration={`${list[2]?.duration}`} min={20000} max={2000000} img={'/assets/Rapid-miner.png'} size={'130'}/>
     </div>
   )

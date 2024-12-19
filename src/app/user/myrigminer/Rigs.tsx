@@ -8,6 +8,9 @@ import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:5001');
 
 
 type Inventory ={
@@ -35,6 +38,9 @@ export default function Rigs() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
 
+  
+
+  
   useEffect(() => {
     setLoading(true)
     const getInventory = async () => {
@@ -48,14 +54,6 @@ export default function Rigs() {
         setLoading(false)
         
       } catch (error) {
-        //  if (axios.isAxiosError(error)) {
-        //         const axiosError = error as AxiosError<{ message: string, data: string }>;
-        //             if (axiosError.response && axiosError.response.status === 401) {
-        //             toast.error(`${axiosError.response.data.data}`)
-        //             router.push('/')  
-        //             }    
-        //         } 
-        
       }
      
     }
@@ -85,7 +83,7 @@ export default function Rigs() {
           <div className=' w-full max-w-[1440px] grid lg:grid-cols-2 xl:grid-cols-3 gap-4'>
 
             {Object.values(list).map((item, index) => (
-              <MyRigCard id={item.minerid} key={index} name={`${item.type === 'quick_miner' && 'Quick Miner' || item.type === 'swift_lane' && 'Swift Miner' || item.type === 'rapid_lane' && 'Rapid Miner'}`} percentage={`${item.profit * 100}`} duration={item.duration} img={`${item.type === 'quick_miner' && quick || item.type === 'swift_lane' && swift || item.type === 'rapid_lane' && rapid}`} size={`${item.type === 'quick_miner' && '180' || item.type === 'swift_lane' && '150' || item.type === 'rapid_lane' && '140' }`} earnings={item.earnings} timeleft={item.remainingtime} purchase={new Date(item.purchasedate).toLocaleString()} max={item.buyprice}/>
+              <MyRigCard id={item.minerid} key={index} name={`${item.type === 'quick_miner' && 'Quick Miner' || item.type === 'swift_lane' && 'Swift Miner' || item.type === 'rapid_lane' && 'Rapid Miner'}`} percentage={`${item.profit * 100}`} duration={item.duration} img={`${item.type === 'quick_miner' && quick || item.type === 'swift_lane' && swift || item.type === 'rapid_lane' && rapid}`} size={`${item.type === 'quick_miner' && '180' || item.type === 'swift_lane' && '150' || item.type === 'rapid_lane' && '140'}`} earnings={item.earnings} timeleft={item.remainingtime} purchase={new Date(item.purchasedate).toLocaleString()} max={item.buyprice} buyprice={item.buyprice}/>
 
             ))}
 
