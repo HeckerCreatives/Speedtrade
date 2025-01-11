@@ -82,6 +82,7 @@ export default function MyRigCard(prop: Props) {
 
   const maturedDate = addDays(prop.purchase, prop.duration);
 
+
   useEffect(() => {
     const interval = setInterval(() => {
       setRemainingTime((prevTime) => {
@@ -96,6 +97,7 @@ export default function MyRigCard(prop: Props) {
 
     return () => clearInterval(interval); 
   }, []);
+
 
   
   useEffect(() => {
