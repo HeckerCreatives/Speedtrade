@@ -10,7 +10,6 @@ import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:5001');
 
 
 type Inventory ={

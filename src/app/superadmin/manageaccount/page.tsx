@@ -4,6 +4,7 @@ import Cards from './Cards'
 import UserTable from './Table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import AdminTable from './Admintable'
+import CommissionTable from './Commision'
 
 
 export default function page() {
@@ -15,6 +16,7 @@ export default function page() {
             <TabsList className=' bg-slate-900'>
               <TabsTrigger value="admin">Admins</TabsTrigger>
               <TabsTrigger value="user">Users</TabsTrigger>
+              <TabsTrigger value="commissions">Comissions</TabsTrigger>
 
             </TabsList>
             <TabsContent value="user" className=' mt-12'>
@@ -27,6 +29,10 @@ export default function page() {
               <>
               <AdminTable/>
               </>
+            </TabsContent>
+
+            <TabsContent value="commissions">
+              <CommissionTable/>
             </TabsContent>
           </Tabs>
 

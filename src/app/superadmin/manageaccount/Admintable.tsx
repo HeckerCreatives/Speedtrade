@@ -75,12 +75,9 @@ export default function AdminTable() {
 
   const handleSelectRow = (id: string) => {
   setSelectedRows((prevSelectedRows) => {
-    // Check if the id is already selected
     if (prevSelectedRows.includes(id)) {
-      // Remove the id from the array (deselect)
       return prevSelectedRows.filter((rowId) => rowId !== id);
     } else {
-      // Add the id to the array (select)
       return [...prevSelectedRows, id];
     }
   });
