@@ -37,7 +37,7 @@ interface Distibution {
   updatedAt: string
 }
 
-const options = ['quick_miner', 'swift_lane', 'rapid_lane'];
+const options = ['quick_miner', 'swift_lane', 'rapid_lane', 'flash-miner'];
 
 export default function Prizepool() {
     const [loading, setLoading] = useState(false)
@@ -272,8 +272,11 @@ const getName = (miner: any) => {
     } else if (miner === 'swift_lane') {
         return 'Swift Miner'
 
-    }else {
-        return 'Rapid Miner'
+    }else if (miner === 'rapid_lane') {
+      return 'Rapid Miner'
+
+  }else {
+        return 'Flash Miner'
 
     }
 }
