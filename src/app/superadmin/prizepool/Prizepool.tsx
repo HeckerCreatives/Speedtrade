@@ -14,6 +14,7 @@ import axios, { AxiosError } from 'axios'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import { min } from 'moment'
+import Pagination from '@/components/common/Pagination'
 
 interface pricepool {
     _id: string
@@ -48,6 +49,13 @@ export default function Prizepool() {
     const [selectedValues, setSelectedValues] = useState<string[]>([]);
     const [distribution, setDistribution] = useState<Distibution[]>([])
     const [benificiary, setBenificiary] = useState('')
+    const [totalpage, setTotalpage] = useState(0)
+    const [currentpage, setCurrentpage] = useState(0)
+
+    const handlePageChange = (page: number) => {
+      setCurrentpage(page)
+    }
+    
     
 
     // Function to handle checkbox change
@@ -286,12 +294,12 @@ useEffect(() => {
   setLoading(true)
   const handler = setTimeout( async () => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/pricepoolhistory/getdistributionhistory?page=0&limit=10`,{
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/pricepoolhistory/getdistributionhistory?page=${currentpage}&limit=10`,{
         withCredentials:true
         })
 
-        console.log(response.data)
         setDistribution(response.data.data)
+        setTotalpage(response.data.totalPages)
     
 
 
@@ -310,7 +318,7 @@ useEffect(() => {
   return () => {
     clearTimeout(handler)
   }
-},[])
+},[currentpage])
     
   return (
     <div className=' w-full flex flex-col'>
@@ -401,11 +409,11 @@ useEffect(() => {
             </Table>
 
             <div className=' w-full flex items-center justify-center'>
-            {/* {list.length !== 0 && (
+             {distribution.length !== 0 && (
             <div className=' mt-12'>
             <Pagination onPageChange={handlePageChange} total={totalpage} currentPage={currentpage}/>
             </div>
-            )} */}
+            )}
             </div>
         </div>
 

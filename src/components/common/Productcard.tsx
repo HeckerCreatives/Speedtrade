@@ -30,7 +30,7 @@ type Props = {
 export default function Productcard( prop: Props) {
     const [slider, setSlider] = useState(0)
     const [val, setVal] = useState([prop.min]);
-    const type = prop.name === 'Quick Miner' && 'quick_miner' || prop.name === 'Swift Miner' && 'swift_lane' || prop.name === 'Rapid Miner' && 'rapid_lane'
+    const type = prop.name === 'Quick Miner' && 'quick_miner' || prop.name === 'Swift Miner' && 'swift_lane' || prop.name === 'Rapid Miner' && 'rapid_lane' || prop.name === 'Flash Miner' && 'flash_miner'
     const [loading, setLoading] = useState(false)
     const router = useRouter()
     const [dialog, setDialog] = useState(false)

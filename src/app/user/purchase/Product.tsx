@@ -30,9 +30,10 @@ export default function Product() {
 
   return (
     <div className=' w-full max-w-[1440px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-        <Productcard name={'Quick Miner'} percentage={'20'} duration={`${list[1]?.duration}`} min={500} max={2000} img={'/assets/quick-miner.png'} size={'160'}/>
-        <Productcard name={'Swift Miner'} percentage={'60'} duration={`${list[0]?.duration}`} min={2000} max={20000} img={'/assets/Swift-miner.png'} size={'150'}/>
-        <Productcard name={'Rapid Miner'} percentage={'150'} duration={`${list[2]?.duration}`} min={20000} max={2000000} img={'/assets/Rapid-miner.png'} size={'130'}/>
+        <Productcard name={'Quick Miner'} percentage={`${list[0]?.profit * 100}`} duration={`${list[0]?.duration}`} min={list[0]?.min || 0} max={list[1]?.max || 0} img={'/assets/quick-miner.png'} size={'160'}/>
+        <Productcard name={'Swift Miner'} percentage={`${list[1]?.profit * 100}`} duration={`${list[1]?.duration}`} min={list[1]?.min || 0} max={list[1]?.max || 0} img={'/assets/Swift-miner.png'} size={'150'}/>
+        <Productcard name={'Rapid Miner'} percentage={`${list[2]?.profit * 100}`} duration={`${list[2]?.duration}`} min={list[2]?.min || 0} max={list[2]?.max || 0} img={'/assets/Rapid-miner.png'} size={'130'}/>
+        <Productcard name={'Flash Miner'} percentage={`${list[3]?.profit * 100}`} duration={`${list[3]?.duration}`} min={list[3]?.min || 0} max={list[3]?.max || 0} img={'/assets/flash-miner.png'} size={'180'}/>
     </div>
   )
 }
