@@ -15,6 +15,8 @@ import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import { min } from 'moment'
 import Pagination from '@/components/common/Pagination'
+import io from 'socket.io-client';
+
 
 interface pricepool {
     _id: string
@@ -51,6 +53,33 @@ export default function Prizepool() {
     const [benificiary, setBenificiary] = useState('')
     const [totalpage, setTotalpage] = useState(0)
     const [currentpage, setCurrentpage] = useState(0)
+  const [socket, setSocket] = useState<any>(null);
+  const user = 'Superadmin'
+
+
+       // Initialize Socket.IO connection
+       useEffect(() => {
+        const newSocket = io(`${process.env.NEXT_PUBLIC_URL}`);
+        setSocket(newSocket);
+    
+        return () => {
+          newSocket.disconnect(); // Clean up socket connection
+          console.log('disconnected')
+        };
+      }, []);
+
+      useEffect(() => {
+        if (!socket) return;
+    
+        // Join the conversation room
+        socket.emit('login', user);
+
+        
+  
+    
+      }, [socket]);
+
+    
 
     const handlePageChange = (page: number) => {
       setCurrentpage(page)
@@ -75,6 +104,9 @@ export default function Prizepool() {
 
   const updatePricepool = async () => {
     setLoading2(true)
+
+    socket.emit('setpricepool', currentvalue);
+
     try {
         const response = await axios.post(`${process.env.NEXT_PUBLIC_URL}/pricepool/updatepricepool`,{
             id: pool?._id,
