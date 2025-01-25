@@ -147,7 +147,7 @@ export default function page() {
 
     <UserLayout>
         <div className=" bg-slate-900 w-full h-full flex flex-col items-center p-8">
-          {qualify === true && (
+          {/* {qualify === true && (
             <div className="relative w-full max-w-md mx-auto mt-10 text-center flex flex-col items-center justify-center">
               <p className=" text-xs text-zinc-400 mb-2">Current value:</p>
             <motion.div className="text-5xl font-bold mb-4 text-green-500" animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 0.3 }}>
@@ -169,12 +169,9 @@ export default function page() {
               )}
             </AnimatePresence>
           </div>
-          )}
-
-          {/* {getCurrvalue === true && (
-          <PricePool initialAmount={currValue} />
-
           )} */}
+
+        
 
 
           <Rigs/>
