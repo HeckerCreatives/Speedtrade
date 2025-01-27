@@ -35,6 +35,7 @@ export default function Productcard( prop: Props) {
     const router = useRouter()
     const [dialog, setDialog] = useState(false)
     const [isOpen, setIsopen] = useState('')
+    const [skip, setSkip] = useState(false)
 
 
     const buyRigminer = async () => {
@@ -109,6 +110,15 @@ export default function Productcard( prop: Props) {
         getState()
      },[])
 
+      
+     const getState = async () => {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/miner/getuserminer?type=${type}`,{
+            withCredentials: true
+        })
+        setSkip(response.data.data)
+    }
+
+
 
   return (
 
@@ -145,7 +155,7 @@ export default function Productcard( prop: Props) {
 
                     <Dialog open={dialog} onOpenChange={setDialog}>
                     <DialogTrigger>
-                        <button  disabled={loading} className=' px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-green-700 to-green-500 rounded-sm flex items-center gap-2'>
+                        <button onClick={getState}  disabled={loading} className=' px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-green-700 to-green-500 rounded-sm flex items-center gap-2'>
                         {loading === true && (
                         <Spinner/>
                         )}
@@ -158,16 +168,37 @@ export default function Productcard( prop: Props) {
                             
                         </DialogDescription>
                         </DialogHeader>
-                        <div className=' w-full flex flex-col'>
-                            <p className=' text-sm text-green-500'>{prop.percentage}% Profit</p>
-                            <p className=' text-sm text-green-500'>{prop.duration} days duration</p>
-                            <p className=' text-sm text-white'>Selected Price: <span className=' text-green-500'>P {val[0].toLocaleString()}</span></p>
+                        {skip === false && (
+                            <>
+                            <p className=' text-xs text-red-500'>Note, skipping the previous miner could lose 50% potential profit</p>
 
-                            <div className=' w-full flex items-end justify-end gap-4'>
-                                <button onClick={buyRigminer} className=' btn-gradient'>Continue</button>
+                            <div className=' w-full flex flex-col'>
+                                <p className=' text-sm text-green-500  '><span className=' line-through'>{prop.percentage}% Profit</span>  {(prop.percentage as any) / 2}% Profit</p>
+                                <p className=' text-sm text-green-500'>{prop.duration} days duration</p>
+                                <p className=' text-sm text-white'>Selected Price: <span className=' text-green-500'>P {val[0].toLocaleString()}</span></p>
 
+                                <div className=' w-full flex items-end justify-end gap-4'>
+                                    <button onClick={buyRigminer} className=' btn-gradient'>Continue</button>
+
+                                </div>
                             </div>
-                        </div>
+                            
+                            </>
+                        )}
+
+                        {skip === true && (
+                            <div className=' w-full flex flex-col'>
+                                <p className=' text-sm text-green-500'>{prop.percentage}% Profit</p>
+                                <p className=' text-sm text-green-500'>{prop.duration} days duration</p>
+                                <p className=' text-sm text-white'>Selected Price: <span className=' text-green-500'>P {val[0].toLocaleString()}</span></p>
+
+                                <div className=' w-full flex items-end justify-end gap-4'>
+                                    <button onClick={buyRigminer} className=' btn-gradient'>Continue</button>
+
+                                </div>
+                            </div>
+                        )}
+                        
                     </DialogContent>
                     </Dialog>
 

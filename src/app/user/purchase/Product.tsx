@@ -28,6 +28,8 @@ export default function Product() {
     getState()
  },[])
 
+
+
   return (
     <div className=' w-full max-w-[1440px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
         <Productcard name={'Quick Miner'} percentage={`${list[0]?.profit * 100}`} duration={`${list[0]?.duration}`} min={list[0]?.min || 0} max={list[1]?.max || 0} img={'/assets/quick-miner.png'} size={'160'}/>

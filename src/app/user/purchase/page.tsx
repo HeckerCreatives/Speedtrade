@@ -10,6 +10,7 @@ export default function page() {
 
     <UserLayout>
         <div className=" bg-slate-900 w-full h-full flex flex-col items-center p-8">
+          
           <Product/>
           <PurchaseHistoryTable/>
         </div>
