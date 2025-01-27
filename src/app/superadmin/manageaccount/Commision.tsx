@@ -87,13 +87,20 @@ export default function CommissionTable() {
        <div className=' flex flex-col gap-1 items-start w-full'>
         <p className=' text-xs text-slate-500'>Filter by date:</p>
 
-        <div className=' w-full flex items-center justify-between'>
-          <div className=' flex items-center gap-1'>
+        <div className=' w-full flex gap-2 items-center flex-wrap lg:justify-between'>
+          <div className=' flex items-center gap-4 flex-wrap'>
+            <div className=' flex items-center gap-1'>
             <label htmlFor="" className=' text-xs text-slate-500'>Start date:</label>
-              <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className='bg-slate-800 text-white p-1 etxt-xs rounded-sm' />
-            <label htmlFor="" className=' text-xs text-slate-500 ml-4'>End date:</label>
+            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className='bg-slate-800 text-white p-1 txt-xs rounded-sm' />
+            </div>
 
-              <input type="date" value={end} onChange={(e) => setEnd(e.target.value)} className='bg-slate-800 text-white p-1 etxt-xs rounded-sm' />
+            <div className=' flex items-center gap-1'>
+              <label htmlFor="" className=' text-xs text-slate-500'>End date:</label>
+
+              <input type="date" value={end} onChange={(e) => setEnd(e.target.value)} className='bg-slate-800 text-white p-1 txt-xs rounded-sm' />
+            </div>
+            
+            
               <button onClick={() => {setDate(''),setCurrentpage(0), setEnd('')}} className=' bg-green-600 p-2 rounded-sm aspect-square'><RefreshCcw size={18}/></button>
           </div>
 
