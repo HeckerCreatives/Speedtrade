@@ -9,38 +9,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { ArrowLeft, ArrowRight, EllipsisVertical, Eye, EyeOff, OctagonAlert, RectangleEllipsis, RefreshCcw, Search } from 'lucide-react'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { useForm } from 'react-hook-form'
-import { createAdmin, CreateAdmin } from '@/app/validation/schema'
-import { zodResolver } from '@hookform/resolvers/zod'
+import {  RefreshCcw, Search } from 'lucide-react'
 import axios, { AxiosError } from 'axios'
 import toast from 'react-hot-toast'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Spinner from '@/components/common/Spinner'
 import Pagination from '@/components/common/Pagination'
-import { setPriority } from 'os'
-import ChangePasswordAdminForm from './ChangePasswordAdminForm'
 
 interface  Commissions {
     _id: string
@@ -63,6 +37,8 @@ export default function CommissionTable() {
   const params = useSearchParams()
   const state = params.get('state')
   const [date, setDate] = useState('')
+  const [end, setEnd] = useState('')
+  const [search, setSeacrh] = useState('')
 
 
 
@@ -72,13 +48,13 @@ export default function CommissionTable() {
     setLoading(true)
     const handler = setTimeout( async () => {
         try {
-          const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/analytics/getcommissionlist?date=${date}&page=${currentpage}&limit=10`,{
+          const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/analytics/getcommissionlist?startdate=${date}&enddate=${end}&page=${currentpage}&limit=10&search=${search}`,{
           withCredentials:true
           })
          console.log(response.data)
          setList(response.data.data.data)
          setTotalpage(response.data.data.totalpages)
-    setLoading(false)
+        setLoading(false)
 
 
         
@@ -96,7 +72,7 @@ export default function CommissionTable() {
     return () => {
       clearTimeout(handler)
     }
-  },[currentpage, date])
+  },[currentpage, date, end, search])
 
 
 
@@ -110,10 +86,22 @@ export default function CommissionTable() {
     <div className=' relative w-full flex flex-col items-center max-w-[1440px] min-h-[500px] h-auto mt-12 bg-slate-900 p-6'>
        <div className=' flex flex-col gap-1 items-start w-full'>
         <p className=' text-xs text-slate-500'>Filter by date:</p>
-        <div className=' flex gap-1'>
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className='bg-slate-800 text-white p-1 etxt-xs rounded-sm' />
-            <button onClick={() => {setDate(''),setCurrentpage(0)}} className=' bg-green-600 p-2 rounded-sm aspect-square'><RefreshCcw size={20}/></button>
+
+        <div className=' w-full flex items-center justify-between'>
+          <div className=' flex items-center gap-1'>
+            <label htmlFor="" className=' text-xs text-slate-500'>Start date:</label>
+              <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className='bg-slate-800 text-white p-1 etxt-xs rounded-sm' />
+            <label htmlFor="" className=' text-xs text-slate-500 ml-4'>End date:</label>
+
+              <input type="date" value={end} onChange={(e) => setEnd(e.target.value)} className='bg-slate-800 text-white p-1 etxt-xs rounded-sm' />
+              <button onClick={() => {setDate(''),setCurrentpage(0), setEnd('')}} className=' bg-green-600 p-2 rounded-sm aspect-square'><RefreshCcw size={18}/></button>
+          </div>
+
+          <div>
+            <input type="text" value={search} onChange={(e) => setSeacrh(e.target.value)} placeholder='Search e.g user 123'  className='bg-slate-800 text-white p-2 etxt-xs rounded-sm' />
+          </div>
         </div>
+        
         
        </div>
 
