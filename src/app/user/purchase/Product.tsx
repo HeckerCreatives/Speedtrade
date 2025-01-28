@@ -28,14 +28,19 @@ export default function Product() {
     getState()
  },[])
 
+ const quick = list.find((item) => item.name === 'Quick Miner')
+ const swift = list.find((item) => item.name === 'Switf Lane')
+ const rapid = list.find((item) => item.name === 'Rapid Lane')
+ const flash = list.find((item) => item.name === 'Flash Miner')
+
 
 
   return (
     <div className=' w-full max-w-[1440px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-        <Productcard name={'Quick Miner'} percentage={`${list[0]?.profit * 100}`} duration={`${list[0]?.duration}`} min={list[0]?.min || 0} max={list[1]?.max || 0} img={'/assets/quick-miner.png'} size={'160'}/>
-        <Productcard name={'Swift Miner'} percentage={`${list[1]?.profit * 100}`} duration={`${list[1]?.duration}`} min={list[1]?.min || 0} max={list[1]?.max || 0} img={'/assets/Swift-miner.png'} size={'150'}/>
-        <Productcard name={'Rapid Miner'} percentage={`${list[2]?.profit * 100}`} duration={`${list[2]?.duration}`} min={list[2]?.min || 0} max={list[2]?.max || 0} img={'/assets/Rapid-miner.png'} size={'130'}/>
-        <Productcard name={'Flash Miner'} percentage={`${list[3]?.profit * 100}`} duration={`${list[3]?.duration}`} min={list[3]?.min || 0} max={list[3]?.max || 0} img={'/assets/flash-miner.png'} size={'180'}/>
+        <Productcard name={'Quick Miner'} percentage={`${(quick?.profit || 0 ) * 100}`} duration={`${quick?.duration}`} min={quick?.min || 0} max={quick?.max || 0} img={'/assets/quick-miner.png'} size={'160'}/>
+        <Productcard name={'Swift Miner'} percentage={`${(swift?.profit || 0 ) * 100}`} duration={`${swift?.duration}`} min={swift?.min || 0} max={swift?.max || 0} img={'/assets/Swift-miner.png'} size={'150'}/>
+        <Productcard name={'Rapid Miner'} percentage={`${(rapid?.profit || 0 ) * 100}`} duration={`${rapid?.duration}`} min={rapid?.min || 0} max={rapid?.max || 0} img={'/assets/Rapid-miner.png'} size={'130'}/>
+        <Productcard name={'Flash Miner'} percentage={`${(flash?.profit || 0 ) * 100}`} duration={`${flash?.duration}`} min={flash?.min || 0} max={flash?.max || 0} img={'/assets/flash-miner.png'} size={'180'}/>
     </div>
   )
 }
