@@ -62,7 +62,6 @@ export default function Pricepool() {
   
       return () => {
         newSocket.disconnect(); // Clean up socket connection
-        console.log('disconnected')
       };
     }, []);
 
@@ -74,7 +73,6 @@ export default function Pricepool() {
 
       socket.on('update-pricepool', (data: any) => {
       
-        console.log('Received update-pricepool data:', data);
   
       
        setCurrValue(data)

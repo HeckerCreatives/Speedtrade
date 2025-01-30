@@ -64,7 +64,6 @@ export default function Prizepool() {
     
         return () => {
           newSocket.disconnect(); // Clean up socket connection
-          console.log('disconnected')
         };
       }, []);
 
@@ -126,7 +125,6 @@ export default function Prizepool() {
             refresh()
           }
 
-        console.log(response.data)
 
     } catch (error) {
     setLoading2(false)
@@ -225,7 +223,6 @@ export default function Prizepool() {
               withCredentials:true
               })
 
-              console.log(response.data)
               setpool(response.data.data)
               setCurrentValue(response.data.data.currentvalue)
               setPricepool(response.data.data.pricepool)
@@ -256,7 +253,6 @@ export default function Prizepool() {
             withCredentials:true
             })
 
-            console.log(response.data)
             setpool(response.data.data)
             setCurrentValue(response.data.data.currentvalue)
             setPricepool(response.data.data.pricepool)
@@ -281,7 +277,6 @@ export default function Prizepool() {
           withCredentials:true
           })
   
-          console.log(response.data)
           setDistribution(response.data.data)
       
   

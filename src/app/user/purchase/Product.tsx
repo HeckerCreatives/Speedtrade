@@ -23,7 +23,6 @@ export default function Product() {
          withCredentials: true
      })
      setList(response.data.data)
-     console.log(response.data)
     }
     getState()
  },[])

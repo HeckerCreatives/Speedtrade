@@ -59,26 +59,7 @@ export default function SuperAdminLayout({
       router.push('/')
     }
   }
-  // useEffect(() => {
-  //   const getUserData = async () => {
-  //     try {
-  //       const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/user/getuserdata`,{
-  //       withCredentials:true
-  //       })
-  //       console.log(response.data)
-      
-  //     } catch (error) {
-  //       if (axios.isAxiosError(error)) {
-  //         const axiosError = error as AxiosError<{ message: string, data: string }>;
-  //         if (axiosError.response && axiosError.response.status === 401) {
-  //           toast.error(`${axiosError.response.data.data}`)
-  //           router.push('/')  
-  //           }    
-  //         } 
-  //     }
-  //   }
-  //   getUserData()
-  // },[])
+
 
   
   return (

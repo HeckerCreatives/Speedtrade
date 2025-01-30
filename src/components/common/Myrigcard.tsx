@@ -58,6 +58,8 @@ export default function MyRigCard(prop: Props) {
 
       if (response.data.message === 'success') {
         window.location.reload();
+      setLoading(false);
+
       }
     } catch (error) {
       setLoading(false);
@@ -171,7 +173,7 @@ export default function MyRigCard(prop: Props) {
                   <p className=' text-sm text-white'>Earnings: <span className=' text-green-500'>P {realTimeEarnings.toLocaleString()}</span></p>
 
                   <div className=' w-full flex items-end justify-end gap-4'>
-                    <button onClick={claimEarnings} className=' btn-gradient'>Continue</button>
+                    <button disabled={loading}  onClick={claimEarnings} className=' btn-gradient'>Continue</button>
                   </div>
                 </div>
               </DialogContent>

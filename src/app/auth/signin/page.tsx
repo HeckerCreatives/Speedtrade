@@ -93,7 +93,6 @@ export default function Login() {
           const data = await response.json();
           setIp(data.ip);
         } catch (error) {
-        //   console.error('Error fetching IP address:', error);
         }
       };
 

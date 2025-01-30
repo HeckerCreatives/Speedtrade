@@ -71,37 +71,6 @@ export default function UserTable() {
   const state = params.get('state')
   const [id, setId] = useState('')
 
-
-  // useEffect(() => {
-  //   setLoading(true)
-  //   const handler = setTimeout( async () => {
-  //       try {
-  //         const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/user/getuserlist?usersearch&status=${search}&status=${status === 'all' ? '' : status}&page=${currentpage}&limit=10`,{
-  //         withCredentials:true
-  //         })
-  //         console.log(response.data)
-  //         setList(response.data.data.userlist)
-  //         setTotalpage(response.data.data.totalPages)
-  //         setLoading(false)
-  //         router.push('?state=false')
-
-        
-  //       } catch (error) {
-  //         if (axios.isAxiosError(error)) {
-  //           const axiosError = error as AxiosError<{ message: string, data: string }>;
-  //           if (axiosError.response && axiosError.response.status === 401) {
-  //             toast.error(`${axiosError.response.data.data}`)
-  //             router.push('/')  
-  //             }    
-  //           } 
-  //       }
-  //   }, 500)
-
-  //   return () => {
-  //     clearTimeout(handler)
-  //   }
-  // },[currentpage, status])
-
   useEffect(() => {
     setLoading(true)
     const handler = setTimeout( async () => {

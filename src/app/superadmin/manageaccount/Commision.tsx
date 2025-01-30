@@ -51,7 +51,6 @@ export default function CommissionTable() {
           const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/analytics/getcommissionlist?startdate=${date}&enddate=${end}&page=${currentpage}&limit=10&search=${search}`,{
           withCredentials:true
           })
-         console.log(response.data)
          setList(response.data.data.data)
          setTotalpage(response.data.data.totalpages)
         setLoading(false)

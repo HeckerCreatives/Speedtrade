@@ -102,11 +102,6 @@ export default function page() {
     }
   },[])
 
-  // useEffect(() => {
-  //   if(pool){
-  //   setCurrValue(pool?.pricepool)
-  //   }
-  // },[pool])
 
     // Initialize Socket.IO connection
     useEffect(() => {
@@ -115,25 +110,19 @@ export default function page() {
   
       return () => {
         newSocket.disconnect(); // Clean up socket connection
-        console.log('disconnected')
       };
     }, []);
 
     useEffect(() => {
       if (!socket) return;
   
-      // Join the conversation room
       socket.emit('login', 'User');
 
       socket.on('update-pricepool', (data: any) => {
-        // Log the received data to the console
-        console.log('Received update-pricepool data:', data);
   
-        // Assuming `data` is a number (e.g., the price pool value)
        setCurrValue(data)
       });
   
-      // Clean up the socket listener when the component unmounts
       return () => {
         socket.off('update-pricepool');
       };
@@ -141,7 +130,6 @@ export default function page() {
   
     }, [socket]);
 
-    console.log(currValue)
 
   return (
 

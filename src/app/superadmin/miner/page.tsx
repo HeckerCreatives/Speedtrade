@@ -41,7 +41,6 @@ export default function page() {
 
         setIsChecked(response.data.data.value === "0" ? false : true)
 
-        console.log(response.data)
        }
        getState()
     },[refresh])
@@ -112,7 +111,6 @@ export default function page() {
          withCredentials: true
      })
      setList(response.data.data)
-     console.log(response.data)
     }
     getState()
  },[])
