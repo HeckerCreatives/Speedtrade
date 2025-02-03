@@ -17,14 +17,9 @@ import Spinner from '@/components/common/Spinner'
 import Pagination from '@/components/common/Pagination'
 
 interface  Commissions {
-    _id: string
-    amount: number,
-    count: number,
-    createdAt: string
-    username: string
-    referrer: {
-        username: string,
-    }
+  totalAmount: number
+  owner: string,
+  username: string
 }
 
 
@@ -90,21 +85,21 @@ export default function CommissionTable() {
           <div className=' flex items-center gap-4 flex-wrap'>
             <div className=' flex items-center gap-1'>
             <label htmlFor="" className=' text-xs text-slate-500'>Start date:</label>
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className='bg-slate-800 text-white p-1 txt-xs rounded-sm' />
+            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className='bg-slate-800 text-white p-1 text-xs rounded-sm' />
             </div>
 
             <div className=' flex items-center gap-1'>
               <label htmlFor="" className=' text-xs text-slate-500'>End date:</label>
 
-              <input type="date" value={end} onChange={(e) => setEnd(e.target.value)} className='bg-slate-800 text-white p-1 txt-xs rounded-sm' />
+              <input type="date" value={end} onChange={(e) => setEnd(e.target.value)} className='bg-slate-800 text-white p-1 text-xs rounded-sm' />
             </div>
             
             
-              <button onClick={() => {setDate(''),setCurrentpage(0), setEnd('')}} className=' bg-green-600 p-2 rounded-sm aspect-square'><RefreshCcw size={18}/></button>
+              <button onClick={() => {setDate(''),setCurrentpage(0), setEnd('')}} className=' bg-green-600 p-1 rounded-sm aspect-square'><RefreshCcw size={15}/></button>
           </div>
 
           <div>
-            <input type="text" value={search} onChange={(e) => setSeacrh(e.target.value)} placeholder='Search e.g user 123'  className='bg-slate-800 text-white p-2 etxt-xs rounded-sm' />
+            <input type="text" value={search} onChange={(e) => setSeacrh(e.target.value)} placeholder='Search e.g user 123'  className='bg-slate-800 text-white p-2 text-xs rounded-sm' />
           </div>
         </div>
         
@@ -124,7 +119,8 @@ export default function CommissionTable() {
           )}
         <TableHeader className=' border-slate-700'>
             <TableRow>
-            <TableHead className=' text-center' >Created At</TableHead>
+            {/* <TableHead className=' text-center' >Created At</TableHead> */}
+            {/* <TableHead className=' text-center'></TableHead> */}
             <TableHead className=' text-center'>Username</TableHead>
             <TableHead className=' text-center'>Commissions</TableHead>
             </TableRow>
@@ -135,9 +131,10 @@ export default function CommissionTable() {
             <TableRow key={index}>
              
 
-              <TableCell className="font-medium text-center">{new Date(item.createdAt).toDateString()}</TableCell>
-              <TableCell className="font-medium text-center">{item.referrer.username}</TableCell>
-              <TableCell className={`font-medium text-center`}>₱{item.amount.toLocaleString()}</TableCell>
+              {/* <TableCell className="font-medium text-center">{new Date(item.createdAt).toDateString()}</TableCell> */}
+              {/* <TableCell className="font-medium text-center">{index + 1}</TableCell> */}
+              <TableCell className="font-medium text-center">{item.username}</TableCell>
+              <TableCell className={`font-medium text-center`}>₱{item.totalAmount.toLocaleString()}</TableCell>
              
             
             </TableRow>

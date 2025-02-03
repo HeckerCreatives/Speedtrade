@@ -24,6 +24,7 @@ type Props = {
     max: number
     img: string
     size: string
+    b1t1: string
 
 }
 
@@ -122,7 +123,7 @@ export default function Productcard( prop: Props) {
 
   return (
 
-    <div className=' w-full flex items-end justify-end h-[420px] max-w-[470px] mt-10'>
+    <div className=' w-full flex items-end justify-end h-[430px] max-w-[470px] mt-10'>
         <div className=' relative w-full flex flex-col bg-slate-800 rounded-sm p-6 h-auto'>
             <div className=' relative w-full grid grid-cols-2 h-auto gap-4'>
                 <div className=' w-full relative'>
@@ -205,9 +206,12 @@ export default function Productcard( prop: Props) {
 
                 </div>
 
-                {isOpen === '1' && (
-                <p className=' text-[.6rem] bg-red-600 px-3 py-1 w-fit rounded-full'>Dual Miner</p>
+                <div className=' h-[25px] mt-2'>
+                {prop.b1t1 === '1' && (
+                <p className=' text-[.6rem] bg-red-600 px-3 py-1 w-fit rounded-full'>Buy one take one</p>
                 )}
+                </div>
+               
 
             </div>
 

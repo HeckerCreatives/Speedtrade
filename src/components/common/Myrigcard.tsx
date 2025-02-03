@@ -25,6 +25,7 @@ type Props = {
   timeleft: number; // seconds
   purchase: any;
   buyprice: any;
+  b1t1: string
 }
 
 export default function MyRigCard(prop: Props) {
@@ -48,7 +49,6 @@ export default function MyRigCard(prop: Props) {
       }, {
         withCredentials: true
       });
-      setDialog(false);
 
       const response = await toast.promise(request, {
         loading: 'Claiming....',
@@ -57,8 +57,8 @@ export default function MyRigCard(prop: Props) {
       });
 
       if (response.data.message === 'success') {
-        window.location.reload();
-      setLoading(false);
+         window.location.reload();
+         setLoading(false);
 
       }
     } catch (error) {

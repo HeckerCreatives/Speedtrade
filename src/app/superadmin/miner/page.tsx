@@ -104,16 +104,22 @@ export default function page() {
 
     const [list, setList] = useState<Miner[]>([])
 
-  useEffect(() => {
+    useEffect(() => {
 
-    const getState = async () => {
-     const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/miner/getminer`,{
-         withCredentials: true
-     })
-     setList(response.data.data)
-    }
-    getState()
- },[])
+        const getState = async () => {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/miner/getminer`,{
+            withCredentials: true
+        })
+        setList(response.data.data)
+        }
+        getState()
+    },[])
+
+    const quick = list.find((item) => item.name === 'Quick Miner')
+    const swift = list.find((item) => item.name === 'Switf Lane')
+    const rapid = list.find((item) => item.name === 'Rapid Lane')
+    const flash = list.find((item) => item.name === 'Flash Miner')
+
    
 
     
@@ -121,25 +127,13 @@ export default function page() {
   return (
     <SuperAdminLayout>
         <div className=" bg-slate-900 w-full h-full flex flex-col gap-12 p-8">
-           <div className=' bg-slate-800 w-full max-w-[300px] h-auto p-4 flex flex-col gap-4'
-        
-           >
-            {/* <div className=' relative w-full h-[150px] overflow-hidden flex items-center justify-center'>
-                <img src="/assets/quick-miner.png" alt="" width={100} height={100} className=' absolute translate-x-12'/>
-                <img src="/assets/rapid-miner.png" alt="" width={100} height={100} className=' absolute z-20'/>
-                <img src="/assets/swift-miner.png" alt="" width={100} height={100} className=' absolute -translate-x-12'/>
-            </div> */}
-
-            <div className=' w-full h-full flex flex-col gap-4'>
-                <h2 className=' text-xl font-bold'>Buy one take one <span className=' text-green-500 text-sm'>({isChecked === true ? 'on' : 'off'})</span></h2>
-                <Switch disabled={loading} checked={isChecked} onCheckedChange={handleSwitchChange}/>
-            </div>
-           </div>
+           
 
            <div className=' w-full flex items-center flex-wrap gap-4'>
-            <MinerCard id={list[1]?.id} name={'Quick Miner'} percentage={'20'} duration={list[1]?.duration} img={'/assets/quick-miner.png'} size={'150'} max={0}/>
-            <MinerCard id={list[0]?.id} name={'Swift Miner'} percentage={'60'} duration={list[0]?.duration} img={'/assets/Swift-miner.png'} size={'120'} max={0}/>
-            <MinerCard id={list[2]?.id} name={'Rapid Miner'} percentage={'150'} duration={list[2]?.duration} img={'/assets/Rapid-miner.png'} size={'110'} max={0}/>
+            <MinerCard id={quick?.id || ''} name={'Quick Miner'} profit={(quick?.profit || 0) * 100} duration={quick?.duration || 0} img={'/assets/quick-miner.png'} size={'140'} max={quick?.max || 0} min={quick?.min || 0} isBuyonetakeone={quick?.isBuyonetakeone || ''}/>
+            <MinerCard id={swift?.id || ''} name={'Swift Miner'} profit={(swift?.profit || 0) * 100} duration={swift?.duration || 0} img={'/assets/Swift-miner.png'} size={'120'} max={swift?.max || 0} min={swift?.min || 0} isBuyonetakeone={swift?.isBuyonetakeone || ''}/>
+            <MinerCard id={rapid?.id || ''} name={'Rapid Miner'} profit={(rapid?.profit || 0) * 100} duration={rapid?.duration || 0} img={'/assets/Rapid-miner.png'} size={'110'} max={rapid?.max || 0} min={rapid?.min || 0} isBuyonetakeone={rapid?.isBuyonetakeone || ''}/>
+            <MinerCard id={flash?.id || ''} name={'Flash Miner'} profit={(flash?.profit || 0) * 100} duration={flash?.duration || 0} img={'/assets/flash-miner.png'} size={'140'} max={flash?.max || 0} min={flash?.min || 0} isBuyonetakeone={flash?.isBuyonetakeone || ''}/>
            </div>
         </div>
     </SuperAdminLayout>

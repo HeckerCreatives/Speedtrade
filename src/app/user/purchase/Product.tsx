@@ -36,10 +36,10 @@ export default function Product() {
 
   return (
     <div className=' w-full max-w-[1440px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-        <Productcard name={'Quick Miner'} percentage={`${(quick?.profit || 0 ) * 100}`} duration={`${quick?.duration}`} min={quick?.min || 0} max={quick?.max || 0} img={'/assets/quick-miner.png'} size={'160'}/>
-        <Productcard name={'Swift Miner'} percentage={`${(swift?.profit || 0 ) * 100}`} duration={`${swift?.duration}`} min={swift?.min || 0} max={swift?.max || 0} img={'/assets/Swift-miner.png'} size={'150'}/>
-        <Productcard name={'Rapid Miner'} percentage={`${(rapid?.profit || 0 ) * 100}`} duration={`${rapid?.duration}`} min={rapid?.min || 0} max={rapid?.max || 0} img={'/assets/Rapid-miner.png'} size={'130'}/>
-        <Productcard name={'Flash Miner'} percentage={`${(flash?.profit || 0 ) * 100}`} duration={`${flash?.duration}`} min={flash?.min || 0} max={flash?.max || 0} img={'/assets/flash-miner.png'} size={'180'}/>
+        <Productcard name={'Quick Miner'} percentage={`${(quick?.profit || 0) * 100}`} duration={`${quick?.duration}`} min={quick?.min || 0} max={quick?.max || 0} img={'/assets/quick-miner.png'} size={'160'} b1t1={quick?.isBuyonetakeone || ''}/>
+        <Productcard name={'Swift Miner'} percentage={`${(swift?.profit || 0) * 100}`} duration={`${swift?.duration}`} min={swift?.min || 0} max={swift?.max || 0} img={'/assets/Swift-miner.png'} size={'150'} b1t1={swift?.isBuyonetakeone || ''}/>
+        <Productcard name={'Rapid Miner'} percentage={`${(rapid?.profit || 0) * 100}`} duration={`${rapid?.duration}`} min={rapid?.min || 0} max={rapid?.max || 0} img={'/assets/Rapid-miner.png'} size={'130'} b1t1={rapid?.isBuyonetakeone || ''}/>
+        <Productcard name={'Flash Miner'} percentage={`${(flash?.profit || 0) * 100}`} duration={`${flash?.duration}`} min={flash?.min || 0} max={flash?.max || 0} img={'/assets/flash-miner.png'} size={'180'} b1t1={flash?.isBuyonetakeone || ''}/>
     </div>
   )
 }
