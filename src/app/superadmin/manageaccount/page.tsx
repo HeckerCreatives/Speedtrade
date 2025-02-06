@@ -5,6 +5,7 @@ import UserTable from './Table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import AdminTable from './Admintable'
 import CommissionTable from './Commision'
+import UnilevelCommissionTable from './Unilevel'
 
 
 export default function page() {
@@ -13,10 +14,11 @@ export default function page() {
         <div className=" bg-slate-900 w-full h-full flex flex-col items-center p-8">
 
           <Tabs defaultValue="admin" className=" w-full bg-slate-800 p-2 md:p-6 max-w-[1440px] rounded-sm">
-            <TabsList className=' bg-slate-900'>
+            <TabsList className=' bg-slate-900 flex flex-wrap w-fit h-auto'>
               <TabsTrigger value="admin">Admins</TabsTrigger>
               <TabsTrigger value="user">Users</TabsTrigger>
-              <TabsTrigger value="commissions">Comissions</TabsTrigger>
+              <TabsTrigger value="commissions">Direct Comissions</TabsTrigger>
+              <TabsTrigger value="unilevelcommissions">Unilevel Comissions</TabsTrigger>
 
             </TabsList>
             <TabsContent value="user" className=' mt-12'>
@@ -33,6 +35,10 @@ export default function page() {
 
             <TabsContent value="commissions">
               <CommissionTable/>
+            </TabsContent>
+
+            <TabsContent value="unilevelcommissions">
+              <UnilevelCommissionTable/>
             </TabsContent>
           </Tabs>
 

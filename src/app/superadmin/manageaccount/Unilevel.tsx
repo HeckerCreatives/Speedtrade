@@ -23,7 +23,7 @@ interface  Commissions {
 }
 
 
-export default function CommissionTable() {
+export default function UnilevelCommissionTable() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const [list, setList] = useState<Commissions[]>([])
@@ -43,7 +43,7 @@ export default function CommissionTable() {
     setLoading(true)
     const handler = setTimeout( async () => {
         try {
-          const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/analytics/getcommissionlist?startdate=${date}&enddate=${end}&page=${currentpage}&limit=10&search=${search}&type=directcommissionwallet`,{
+          const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/analytics/getcommissionlist?startdate=${date}&enddate=${end}&page=${currentpage}&limit=10&search=${search}&type=commissionwallet`,{
           withCredentials:true
           })
          setList(response.data.data.data)

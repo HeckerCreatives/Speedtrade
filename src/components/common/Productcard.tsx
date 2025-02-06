@@ -46,7 +46,8 @@ export default function Productcard( prop: Props) {
         try {
             const request = axios.post(`${process.env.NEXT_PUBLIC_URL}/inventory/buyminer`,{
                 type: type, // quick_miner, switf_lane, rapid_lane
-                priceminer: val[0]
+                priceminer: val[0],
+                skip: skip
             },{
                 withCredentials: true,
                 headers:{
