@@ -17,8 +17,8 @@ export default function page() {
             <TabsList className=' bg-slate-900 flex flex-wrap w-fit h-auto'>
               <TabsTrigger value="admin">Admins</TabsTrigger>
               <TabsTrigger value="user">Users</TabsTrigger>
-              <TabsTrigger value="commissions">Direct Comissions</TabsTrigger>
-              <TabsTrigger value="unilevelcommissions">Unilevel Comissions</TabsTrigger>
+              <TabsTrigger value="commissions">DRB</TabsTrigger>
+              <TabsTrigger value="unilevelcommissions">Unilevel</TabsTrigger>
 
             </TabsList>
             <TabsContent value="user" className=' mt-12'>
