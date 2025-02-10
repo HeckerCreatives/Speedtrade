@@ -26,6 +26,7 @@ type Props = {
   purchase: any;
   buyprice: any;
   b1t1: string
+  maturedate: string
 }
 
 export default function MyRigCard(prop: Props) {
@@ -150,7 +151,7 @@ export default function MyRigCard(prop: Props) {
           <div className=' w-full flex items-center justify-between mt-2'>
             <div className=' flex flex-col gap-1'>
               <p className=' text-sm text-white font-medium'>Purchased Date: <span className=' text-orange-300'>{prop.purchase}</span></p>
-              <p className=' text-sm text-white font-medium'>Matured Date: <span className=' text-orange-300'>{`${maturedDate.toLocaleString()}`}</span></p>
+              <p className=' text-sm text-white font-medium'>Matured Date: <span className=' text-orange-300'>{`${new Date(prop.maturedate).toLocaleString()}`}</span></p>
             </div>
 
             <Dialog open={dialog} onOpenChange={setDialog}>
