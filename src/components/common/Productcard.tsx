@@ -36,7 +36,7 @@ export default function Productcard( prop: Props) {
     const router = useRouter()
     const [dialog, setDialog] = useState(false)
     const [isOpen, setIsopen] = useState('')
-    const [skip, setSkip] = useState(false)
+    const [skip, setSkip] = useState(true)
 
 
     const buyRigminer = async () => {
