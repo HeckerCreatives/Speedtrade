@@ -124,7 +124,7 @@ export default function Productcard( prop: Props) {
 
   return (
 
-    <div className=' w-full flex items-end justify-end h-[430px] max-w-[470px] mt-10'>
+    <div className=' w-full flex items-end justify-end h-auto max-w-[470px] mt-10'>
         <div className=' relative w-full flex flex-col bg-slate-800 rounded-sm p-6 h-auto'>
             <div className=' relative w-full grid grid-cols-2 h-auto gap-4'>
                 <div className=' w-full relative'>
@@ -207,11 +207,31 @@ export default function Productcard( prop: Props) {
 
                 </div>
 
-                <div className=' h-[25px] mt-2'>
+                <div className=' h-auto flex flex-col mt-2 gap-2'>
                 {prop.b1t1 === '1' && (
                 <p className=' text-[.6rem] bg-red-600 px-3 py-1 w-fit rounded-full'>Buy one take one</p>
                 )}
+
+                {prop.name === 'Flash Miner' && (() => {
+                    const today = new Date();
+                    const month = today.getMonth() + 1; // getMonth() returns 0-indexed month
+                    const day = today.getDate();
+
+                    console.log(today, month, day)
+
+                    if (month === 2 && day >= 16 && day <= 18) {
+                        return (
+                            <p className='text-xs'>
+                                This opportunity offers a 300% return over a 30-day period, with the specific timeframe for participation running from February 16 to 18.
+                            </p>
+                        );
+                    }
+                    return null;
+                })()}
+
                 </div>
+
+                
                
 
             </div>
