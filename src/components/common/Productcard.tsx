@@ -221,9 +221,10 @@ export default function Productcard( prop: Props) {
 
                     if (month === 2 && day >= 16 && day <= 18) {
                         return (
-                            <p className='text-xs'>
-                                This opportunity offers a 300% return over a 30-day period, with the specific timeframe for participation running from February 16 to 18.
-                            </p>
+                            // <p className='text-xs'>
+                            //     This opportunity offers a 300% return over a 30-day period, with the specific timeframe for participation running from February 16 to 18.
+                            // </p>
+                            <p></p>
                         );
                     }
                     return null;
