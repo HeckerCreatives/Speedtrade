@@ -143,7 +143,7 @@ export default function Productcard( prop: Props) {
             <div className=' w-full flex flex-col gap-2 mt-16'>
                 <p className=' text-sm text-green-500'>Price</p>
                 <Slider onValueChange={(i) => setVal(i)} value={val} defaultValue={val} min={prop.min} max={prop.max} step={1} />
-                <label htmlFor="" className=' text-xs text-zinc-400 mt-4'>Or input ammount here</label>
+                <label htmlFor="" className=' text-xs text-zinc-400 mt-4'>Or input amount here</label>
                 <input type="text" min={prop.min} max={prop.max} value={val[0]} onChange={(e) => setVal([Number(e.target.value)])}  placeholder='Input ammount here' className=' text-sm p-2 rounded-md bg-slate-700'/>
                 <div className=' w-full flex items-center justify-between text-xs mt-2'>
                     <p className=' text-xs text-zinc-400'>min:₱ {(prop.min).toLocaleString()}</p>
