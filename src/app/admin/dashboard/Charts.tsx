@@ -35,7 +35,7 @@ export function Chart() {
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="payin">Payin</SelectItem>
-          <SelectItem value="comission">Comission</SelectItem>
+          <SelectItem value="comission">Commission</SelectItem>
           <SelectItem value="minerpurchased">Rig Miner Purchased</SelectItem>
           <SelectItem value="minerpayout">Rig Miner Payout</SelectItem>
           <SelectItem value="unilevelpayout">Unilevel Payout</SelectItem>

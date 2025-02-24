@@ -68,7 +68,7 @@ export default function PayoutTable() {
         <div className=' h-[55px] flex items-center justify-between absolute top-0 w-[98%] bg-gradient-to-r from-green-700 to-green-500 p-2 rounded-sm -translate-y-4'>
          
 
-            <p className=' text-sm text-white font-semibold'>Comission Payout History</p>
+            <p className=' text-sm text-white font-semibold'>Commission Payout History</p>
 
 
         </div>

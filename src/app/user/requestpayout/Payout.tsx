@@ -219,7 +219,7 @@ export default function Payout() {
                 <SelectValue placeholder="Select" />
             </SelectTrigger>
             <SelectContent>
-                <SelectItem value='commissionwallet'>Payout Comission</SelectItem>
+                <SelectItem value='commissionwallet'>Payout Commission</SelectItem>
                 <SelectItem value='minecoinwallet'>Payout Rig Miner</SelectItem>
             </SelectContent>
             </Select>
