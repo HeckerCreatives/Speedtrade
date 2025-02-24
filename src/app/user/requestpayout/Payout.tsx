@@ -232,7 +232,7 @@ export default function Payout() {
             <div className=' max-w-[400px] w-full h-[150px] bg-slate-700 mt-8 rounded-sm flex flex-col gap-2 items-center justify-center'>
                 {type === 'commissionwallet' ? (
                     <>
-                    <p className=' text-sm'>Comission Wallet Balance</p>
+                    <p className=' text-sm'>Commission Wallet Balance</p>
                     <p className=' text-2xl font-semibold text-green-500'>₱ {wallet?.commissionwallet.toLocaleString()}</p>
                     </>
 

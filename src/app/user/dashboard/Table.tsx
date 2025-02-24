@@ -142,7 +142,7 @@ export default function DashboardTable() {
             </SelectTrigger>
             <SelectContent>
                 <SelectItem value="commissionwallet">Commission Wallet History</SelectItem>
-                <SelectItem value="directcommissionwallet">Direct Comission Wallet History</SelectItem>
+                <SelectItem value="directcommissionwallet">Direct Commission Wallet History</SelectItem>
                 <SelectItem value="minecoinwallet">Miner Wallet History</SelectItem>
                 <SelectItem value="creditwallet">Credit Wallet History</SelectItem>
             </SelectContent>
