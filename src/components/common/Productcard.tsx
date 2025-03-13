@@ -209,7 +209,7 @@ export default function Productcard( prop: Props) {
 
                 <div className=' h-auto flex flex-col mt-2 gap-2'>
                 {prop.b1t1 === '1' && (
-                <p className=' text-[.6rem] bg-red-600 px-3 py-1 w-fit rounded-full'>Buy one take one</p>
+                <p className=' text-[.6rem] bg-red-600 px-3 py-1 w-fit rounded-full'>Double Up</p>
                 )}
 
                 {prop.name === 'Flash Miner' && (() => {
