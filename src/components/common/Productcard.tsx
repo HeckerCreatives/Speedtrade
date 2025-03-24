@@ -214,7 +214,7 @@ export default function Productcard( prop: Props) {
 
                 {prop.name === 'Flash Miner' && (() => {
                     const today = new Date();
-                    const month = today.getMonth() + 1; // getMonth() returns 0-indexed month
+                    const month = today.getMonth() + 1;
                     const day = today.getDate();
 
                     console.log(today, month, day)

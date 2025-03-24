@@ -261,6 +261,13 @@ export default function Payout() {
                             <SelectContent>
                                 <SelectItem value='Gcash'>Gcash</SelectItem>
                                 <SelectItem value='GoTyme'>GoTyme</SelectItem>
+                                <SelectItem value='BDO'>BDO</SelectItem>
+                                <SelectItem value='BPI'>BPI</SelectItem>
+                                <SelectItem value='RCBC'>RCBC</SelectItem>
+                                <SelectItem value='EASTWEST'>EASTWEST</SelectItem>
+                                <SelectItem value='CHINABANK'>CHINABANK</SelectItem>
+                                <SelectItem value='UNION BANK'>UNION BANK</SelectItem>
+                                <SelectItem value='SECURITY BANK'>SECURITY BANK</SelectItem>
                             </SelectContent>
                             </Select>
                             <p className=' text-[.6rem] md:text-xs text-orange-300'>*Select payment method</p>
