@@ -251,6 +251,11 @@ export default function Riglist() {
                 <SelectItem value='CHINABANK'>CHINABANK</SelectItem>
                 <SelectItem value='UNION BANK'>UNION BANK</SelectItem>
                 <SelectItem value='SECURITY BANK'>SECURITY BANK</SelectItem>
+                 <SelectItem value='METRO BANK'>METRO BANK</SelectItem>
+                 <SelectItem value='PNB'>PNB</SelectItem>
+                 <SelectItem value='MAYA'>MAYA</SelectItem>
+                 <SelectItem value='CIMB BANK'>CIMB BANK</SelectItem>
+                
           
                 </SelectContent>
               </Select>
